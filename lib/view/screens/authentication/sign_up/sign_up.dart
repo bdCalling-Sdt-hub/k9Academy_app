@@ -10,14 +10,9 @@ import 'package:k9academy/view/widgets/custom_loader/custom_loader.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+   SignUpScreen({super.key});
 
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
   final formKey = GlobalKey<FormState>();
 
   final AuthenticationController authenticationController =
