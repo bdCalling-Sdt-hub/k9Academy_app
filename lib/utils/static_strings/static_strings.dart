@@ -43,10 +43,13 @@ class AppStaticStrings {
   static const String enterAValidName = "Enter a valid name";
   static const String passMustContainBoth =
       "'Password must contain both alphabets and numerics'";
+  // static const String passwordLengthAndContain =
+  //     "Password must be 8 characters long & must include one capital letter";
   static const String passwordLengthAndContain =
-      "Password must be 8 characters long & must include one capital letter";
-
-  static const all = "All";
+      "Password must be at least 8 characters long";
+  static const String passWordMustBeAtLeast =
+      "PasPassword must contain at least one uppercase letter, one lowercase letter, one number, and one special character";
+static const all = "All";
 
   static const category = "Category";
 

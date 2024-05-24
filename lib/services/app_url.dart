@@ -1,7 +1,7 @@
 class AppUrl {
   ///=================================This is baseUrl==============================================>
-  static const baseUrl = "http://157.245.97.245:5001";
+  static const baseUrl = "http://192.168.10.116:5000";
 
-  static const forgetAuth = "/api/v1/otps/forgot-passwordOtp";
+  static const signupAuth = "/auth/register";
 
 }
