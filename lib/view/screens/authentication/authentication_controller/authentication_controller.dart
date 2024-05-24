@@ -46,28 +46,7 @@ class AuthenticationController extends GetxController {
 
   ///======================================SignUp Verify============================
   var headers = {'Content-Type': 'application/json'};
-  var otp = "";
-  RxBool isOtpLoading = false.obs;
 
-  verifyOTP() async {
-    isOtpLoading.value = true;
-    update();
-    Map<dynamic, String> body = {"activation_code": otp};
-
-    var response = await ApiClient.postData(
-        AppUrl.otpVerificationEndPoint, jsonEncode(body),
-        headers: headers);
-    isOtpLoading.value = false;
-    update();
-    if (response.statusCode == 200) {
-      toastMessage(message: response.body["message"]);
-      // Get.toNamed(AppRoutes.otpVerifiedScreen);
-      isOtpLoading.value = false;
-      update();
-    } else {
-      ApiChecker.checkApi(response);
-    }
-  }
 
   ///==================================================LogIn ================================
   RxBool isSignInLoading = false.obs;
@@ -91,6 +70,25 @@ class AuthenticationController extends GetxController {
     }
   }
 
+  ///==================================================Forget Password==========================
 
+  RxBool isForgetLoading = false.obs;
+  forgetPassword() async {
+    isForgetLoading.value = true;
+    refresh();
+    Map<String, String> body = {
+      "email": emailController.text
+    };
 
+    var response = await ApiClient.postData(AppUrl.forgetOtp, jsonEncode(body),
+        headers: headers);
+    if (response.statusCode == 200) {
+      isForgetLoading.value = false;
+      refresh();
+      toastMessage(message: response.body["message"]);
+      Get.toNamed(AppRoute.otpVerify);
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }
 }

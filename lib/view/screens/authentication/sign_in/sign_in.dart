@@ -125,7 +125,7 @@ class SignInScreen extends StatelessWidget {
                   SizedBox(
                     height: 45.h,
                   ),
-                 authenticationController.isOtpLoading.value?
+                 authenticationController.isSignUpLoading.value?
                      const CustomLoader():
                   CustomButton(
                     fillColor: AppColors.redNormal,
