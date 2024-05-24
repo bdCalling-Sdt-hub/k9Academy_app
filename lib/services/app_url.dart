@@ -6,5 +6,6 @@ class AppUrl {
   static const otpVerificationEndPoint = "/auth/activate-user";
   static const logIn = "/auth/login";
   static const forgetOtp = "/auth/forgot-password";
+  static const changePassword = "/auth/change-password";
 
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
+import 'package:k9academy/view/screens/authentication/authentication_controller/authentication_controller.dart';
 import 'package:k9academy/view/widgets/custom_button/custom_button.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart';
@@ -9,7 +12,7 @@ import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart'
 class ResetPass extends StatelessWidget {
   ResetPass({super.key});
   final formKey = GlobalKey<FormState>();
-
+  final AuthenticationController authenticationController= Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +58,7 @@ class ResetPass extends StatelessWidget {
                   ),
 
                   CustomTextField(
+                    textEditingController: authenticationController.passwordController,
                     validator: (value) {
                       if (value.isEmpty) {
                         return AppStaticStrings.fieldCantBeEmpty;
@@ -80,6 +84,7 @@ class ResetPass extends StatelessWidget {
                   ),
 
                   CustomTextField(
+                    textEditingController: authenticationController.confirmPasswordController,
                     validator: (value) {
                       if (value.isEmpty) {
                         return AppStaticStrings.fieldCantBeEmpty;
@@ -112,9 +117,9 @@ class ResetPass extends StatelessWidget {
             CustomButton(
               fillColor: AppColors.redNormal,
               onTap: () {
-                // if (formKey.currentState!.validate()) {
-                //   Get.toNamed(AppRoute.signUpSuccess);
-                // }
+                if (formKey.currentState!.validate()) {
+                 authenticationController.changePassword();
+                }
               },
               title: AppStaticStrings.updatePassword,
             ),

@@ -86,9 +86,32 @@ class AuthenticationController extends GetxController {
       isForgetLoading.value = false;
       refresh();
       toastMessage(message: response.body["message"]);
-      Get.toNamed(AppRoute.otpVerify);
+      Get.toNamed(AppRoute.resetPass);
     } else {
       ApiChecker.checkApi(response);
+    }
+  }
+
+  ///========================================================Change Password=========================
+  RxBool isChangeLoading = false.obs;
+  changePassword() async {
+    isChangeLoading.value=true;
+    refresh();
+    Map<String, String> body = {
+      "oldPassword": passwordController.text,
+      "newPassword": confirmPasswordController.text
+    };
+
+    var response = await ApiClient.patchData(
+        AppUrl.changePassword, jsonEncode(body),
+        headers: headers);
+    if (response.statusCode == 200) {
+
+      toastMessage(message: response.body["message"]);
+      Get.toNamed(AppRoute.signIn);
+    } else {
+      ApiChecker.checkApi(response);
+      isChangeLoading.value=false;
     }
   }
 }
