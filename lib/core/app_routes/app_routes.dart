@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:k9academy/view/screens/about_us/about_us.dart';
+import 'package:k9academy/view/screens/authentication/forget_otp_verify/forget_otp_verify.dart';
 import 'package:k9academy/view/screens/authentication/forgot_pass/forgot_pass.dart';
 import 'package:k9academy/view/screens/authentication/otp_verify/otp_verify.dart';
 import 'package:k9academy/view/screens/authentication/reset_pass/reset_pass.dart';
@@ -85,6 +86,7 @@ class AppRoute {
   static const String noInternetScreen = "/noInternetScreen";
   static const String tabBarPostScreen = "/tabBarPostScreen";
   static const String postScreen = "/PostScreen";
+  static const String forgetOtpVerify = "/ForgetOtpVerify";
 
 //
 //
@@ -101,7 +103,7 @@ class AppRoute {
     ///==================== Authentication ====================
     GetPage(name: signIn, page: () => SignInScreen()),
     GetPage(name: forgotPass, page: () => ForgotPassWord()),
-    GetPage(name: otpVerify, page: () => const OtpVerify()),
+    GetPage(name: otpVerify, page: () =>  OtpVerify()),
     GetPage(name: resetPass, page: () => ResetPass()),
     GetPage(name: signUp, page: () => SignUpScreen()),
 
@@ -153,6 +155,7 @@ class AppRoute {
     GetPage(name: myPostDetails, page: () => const MyPostDetails()),
     GetPage(name: tabBarPostScreen, page: () =>  TabBarPostScreen()),
     GetPage(name: postScreen, page: () =>  PostScreen()),
+    GetPage(name: forgetOtpVerify, page: () =>  ForgetOtpVerify()),
     GetPage(
         name: noInternetScreen,
         page: () => NoInternetScreen(

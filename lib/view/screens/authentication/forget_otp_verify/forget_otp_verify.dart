@@ -8,11 +8,9 @@ import 'package:k9academy/view/widgets/custom_button/custom_button.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class OtpVerify extends StatelessWidget {
-  OtpVerify({super.key});
-
-  final AuthenticationController authenticationController =
-      Get.find<AuthenticationController>();
+class ForgetOtpVerify extends StatelessWidget {
+  ForgetOtpVerify({super.key});
+  final AuthenticationController authenticationController = Get.find<AuthenticationController>();
 
   final formKey = GlobalKey<FormState>();
 
@@ -27,11 +25,11 @@ class OtpVerify extends StatelessWidget {
             ///<=================================Title Text=====================================>
             const Center(
                 child: CustomText(
-              color: AppColors.blueNormal,
-              text: AppStaticStrings.checkYourEmail,
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            )),
+                  color: AppColors.blueNormal,
+                  text: AppStaticStrings.checkYourEmail,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                )),
             const CustomText(
               text: AppStaticStrings.wehaveSendAnOTP,
               fontWeight: FontWeight.w400,
@@ -52,9 +50,9 @@ class OtpVerify extends StatelessWidget {
               autoDisposeControllers: false,
               cursorColor: AppColors.blackyDarkActive,
               appContext: (context),
-              controller: authenticationController.pinController,
+              controller: authenticationController.forgetOtpPinController,
               onCompleted: (value) {
-                authenticationController.activationCode = value;
+                authenticationController.code=value;
               },
               validator: (value) {
                 if (value!.length == 6) {
@@ -97,7 +95,7 @@ class OtpVerify extends StatelessWidget {
                   child: TextButton(
                       onPressed: () {},
                       child:
-                          const CustomText(text: AppStaticStrings.resendOTP))),
+                      const CustomText(text: AppStaticStrings.resendOTP))),
             ),
 
             SizedBox(
@@ -109,9 +107,10 @@ class OtpVerify extends StatelessWidget {
             CustomButton(
               fillColor: AppColors.redNormal,
               onTap: () {
-                if (formKey.currentState!.validate()) {
-                  authenticationController.signupVerifyOTP();
-                }
+                authenticationController.forgetVerifyOTP();
+                // if (formKey.currentState!.validate()) {
+                //
+                // }
               },
               title: AppStaticStrings.verifyCode,
             ),

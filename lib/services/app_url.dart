@@ -7,5 +7,7 @@ class AppUrl {
   static const logIn = "/auth/login";
   static const forgetOtp = "/auth/forgot-password";
   static const changePassword = "/auth/change-password";
+  static const forgetOtpVerify = "/auth/verify-otp";
+  static const resetPassword = "/auth/reset-password";
 
 }

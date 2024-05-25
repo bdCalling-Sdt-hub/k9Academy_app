@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/authentication/authentication_controller/authentication_controller.dart';
@@ -48,7 +47,7 @@ class ResetPass extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ///<==============================Password section====================================>
+                  ///<============================== New Password section====================================>
                   CustomText(
                     text: AppStaticStrings.password,
                     fontSize: 16,
@@ -58,7 +57,7 @@ class ResetPass extends StatelessWidget {
                   ),
 
                   CustomTextField(
-                    textEditingController: authenticationController.passwordController,
+                    textEditingController: authenticationController.newPasswordController,
                     validator: (value) {
                       if (value.isEmpty) {
                         return AppStaticStrings.fieldCantBeEmpty;
@@ -118,7 +117,7 @@ class ResetPass extends StatelessWidget {
               fillColor: AppColors.redNormal,
               onTap: () {
                 if (formKey.currentState!.validate()) {
-                 authenticationController.changePassword();
+                 authenticationController.resetPassword();
                 }
               },
               title: AppStaticStrings.updatePassword,

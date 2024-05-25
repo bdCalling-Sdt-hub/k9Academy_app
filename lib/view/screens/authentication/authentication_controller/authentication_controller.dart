@@ -7,6 +7,7 @@ import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/toast_message/toast_message.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthenticationController extends GetxController {
   TextEditingController fullNameController = TextEditingController();
@@ -14,6 +15,7 @@ class AuthenticationController extends GetxController {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
 
   ///=================================SignUp Controller========================
   RxBool isSignUpLoading = false.obs;
@@ -46,7 +48,32 @@ class AuthenticationController extends GetxController {
 
   ///======================================SignUp Verify============================
   var headers = {'Content-Type': 'application/json'};
+  var activationCode = "";
+  RxBool isOtpLoading = false.obs;
+  TextEditingController pinController = TextEditingController();
+  signupVerifyOTP() async {
+    isOtpLoading.value = true;
+    refresh();
+    Map<dynamic, String> body = {
+      "userEmail": emailController.text,
+      "activation_code": activationCode
+    };
 
+
+    var response = await ApiClient.postData(
+        AppUrl.otpVerificationEndPoint, jsonEncode(body));
+    isOtpLoading.value = false;
+    refresh();
+    if (response.statusCode == 200) {
+      toastMessage(message: response.body["message"]);
+
+      isOtpLoading.value = false;
+      refresh();
+      Get.toNamed(AppRoute.subscription);
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }
 
   ///==================================================LogIn ================================
   RxBool isSignInLoading = false.obs;
@@ -86,9 +113,58 @@ class AuthenticationController extends GetxController {
       isForgetLoading.value = false;
       refresh();
       toastMessage(message: response.body["message"]);
-      Get.toNamed(AppRoute.resetPass);
+      Get.toNamed(AppRoute.forgetOtpVerify);
     } else {
       ApiChecker.checkApi(response);
+    }
+  }
+  ///====================================Forget verify Otp=======================
+  var code = "";
+  RxBool isForgetOtpLoading = false.obs;
+  TextEditingController forgetOtpPinController = TextEditingController();
+  forgetVerifyOTP() async {
+    isForgetOtpLoading.value = true;
+    refresh();
+    Map<dynamic, String> body = {
+      "code":code,
+      "email": emailController.text
+    };
+
+
+    var response = await ApiClient.postData(
+        AppUrl.forgetOtpVerify, jsonEncode(body));
+    isForgetOtpLoading.value = false;
+    refresh();
+    if (response.statusCode == 200) {
+      toastMessage(message: response.body["message"]);
+      Get.toNamed(AppRoute.resetPass);
+      isForgetOtpLoading.value = false;
+      refresh();
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }
+  ///========================================================reset Password========================
+  RxBool isResetLoading = false.obs;
+  resetPassword() async {
+    isResetLoading.value=true;
+    refresh();
+    Map<String, String> body = {
+      "email": emailController.text,
+      "newPassword":newPasswordController.text ,
+      "confirmPassword": confirmPasswordController.text
+    };
+
+    var response = await ApiClient.postData(
+        AppUrl.resetPassword, jsonEncode(body),
+        headers: headers);
+    if (response.statusCode == 200) {
+
+      toastMessage(message: response.body["message"]);
+      Get.toNamed(AppRoute.signIn);
+    } else {
+      ApiChecker.checkApi(response);
+      isResetLoading.value=false;
     }
   }
 
