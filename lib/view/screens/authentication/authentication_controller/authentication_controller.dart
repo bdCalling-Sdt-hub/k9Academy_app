@@ -166,11 +166,14 @@ class AuthenticationController extends GetxController {
     };
 
     var response = await ApiClient.postData(
-        AppUrl.resetPassword, jsonEncode(body),
-        headers: headers);
+        AppUrl.resetPassword, jsonEncode(body));
     if (response.statusCode == 200) {
-      toastMessage(message: response.body["message"]);
+      emailController.clear();
+      newPasswordController.clear();
+      confirmPasswordController.clear();
+      forgetOtpPinController.clear();
       Get.toNamed(AppRoute.signIn);
+      toastMessage(message: response.body["message"]);
     } else {
       ApiChecker.checkApi(response);
 
