@@ -6,6 +6,7 @@ import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
+import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/toast_message/toast_message.dart';
 
 class AuthenticationController extends GetxController {
@@ -80,6 +81,34 @@ class AuthenticationController extends GetxController {
     isOtpLoading.value = false;
     refresh();
   }
+  ///=======================================Reset code in signup otp screen=====================
+  final rxRequestStatus = Status.loading.obs;
+
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+
+  resentUser() async {
+    setRxRequestStatus(Status.loading);
+    update();
+    Map<String, String> body = {
+      "email": signupEmailController.text
+    };
+
+    var response = await ApiClient.postData(
+        AppUrl.resetOtpSignUp, jsonEncode(body),
+        headers: headers);
+    if (response.statusCode == 200) {
+      setRxRequestStatus(Status.completed);
+      toastMessage(message: response.body["message"]);
+      update();
+      return true;
+    } else {
+      // SharePrefsHelper.setBool(AppConstants.rememberMe, false);
+      ApiChecker.checkApi(response);
+      update();
+      return false;
+    }
+  }
+
 
   ///==================================================LogIn ================================
   RxBool isSignInLoading = false.obs;
