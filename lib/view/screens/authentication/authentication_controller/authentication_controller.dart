@@ -64,14 +64,20 @@ class AuthenticationController extends GetxController {
         AppUrl.otpVerificationEndPoint, jsonEncode(body));
     isOtpLoading.value = false;
     refresh();
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       toastMessage(message: response.body["message"]);
-
-      isOtpLoading.value = false;
-      refresh();
+      emailController.clear();
+      fullNameController.clear();
+      phoneNumberController.clear();
+      passwordController.clear();
+      confirmPasswordController.clear();
+      pinController.clear();
       Get.toNamed(AppRoute.subscription);
     } else {
       ApiChecker.checkApi(response);
+
+      isOtpLoading.value = false;
+      refresh();
     }
   }
 
