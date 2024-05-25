@@ -8,7 +8,7 @@ class MyPostDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
         backgroundColor: AppColors.blackyDarkHover,
         body: CustomCommunityPostDetails());
   }

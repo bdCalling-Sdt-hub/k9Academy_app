@@ -43,7 +43,7 @@ class ScheduleScreen extends StatelessWidget {
                 color: AppColors.lightNormal,
                 bottom: 14,
               ),
-               CustomText(
+              CustomText(
                 text: "Link",
                 fontWeight: FontWeight.w500,
                 fontSize: 14.sp,
@@ -53,7 +53,7 @@ class ScheduleScreen extends StatelessWidget {
               const CustomTextField(
                 hintText: "https://marketplace.zoom ... link",
               ),
-               CustomText(
+              CustomText(
                 top: 16,
                 text: "Password",
                 fontWeight: FontWeight.w500,
@@ -63,7 +63,6 @@ class ScheduleScreen extends StatelessWidget {
               ),
               const CustomTextField(
                 hintText: "123456",
-
               ),
             ],
           ),

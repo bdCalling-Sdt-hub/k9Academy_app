@@ -10,7 +10,8 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class ForgetOtpVerify extends StatelessWidget {
   ForgetOtpVerify({super.key});
-  final AuthenticationController authenticationController = Get.find<AuthenticationController>();
+  final AuthenticationController authenticationController =
+      Get.find<AuthenticationController>();
 
   final formKey = GlobalKey<FormState>();
 
@@ -25,11 +26,11 @@ class ForgetOtpVerify extends StatelessWidget {
             ///<=================================Title Text=====================================>
             const Center(
                 child: CustomText(
-                  color: AppColors.blueNormal,
-                  text: AppStaticStrings.checkYourEmail,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                )),
+              color: AppColors.blueNormal,
+              text: AppStaticStrings.checkYourEmail,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            )),
             const CustomText(
               text: AppStaticStrings.wehaveSendAnOTP,
               fontWeight: FontWeight.w400,
@@ -52,7 +53,7 @@ class ForgetOtpVerify extends StatelessWidget {
               appContext: (context),
               controller: authenticationController.forgetOtpPinController,
               onCompleted: (value) {
-                authenticationController.code=value;
+                authenticationController.code = value;
               },
               validator: (value) {
                 if (value!.length == 6) {
@@ -95,7 +96,7 @@ class ForgetOtpVerify extends StatelessWidget {
                   child: TextButton(
                       onPressed: () {},
                       child:
-                      const CustomText(text: AppStaticStrings.resendOTP))),
+                          const CustomText(text: AppStaticStrings.resendOTP))),
             ),
 
             SizedBox(

@@ -13,7 +13,7 @@ import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart';
 
 class Subscription extends StatelessWidget {
-   Subscription({super.key});
+  Subscription({super.key});
 
   final SubscriptionController subscriptionController =
       Get.find<SubscriptionController>();
@@ -74,7 +74,8 @@ class Subscription extends StatelessWidget {
             ),
             CustomButton(
               onTap: () {
-                subscriptionController.isPromoCode.value =!subscriptionController.isPromoCode.value;
+                subscriptionController.isPromoCode.value =
+                    !subscriptionController.isPromoCode.value;
 
                 subscriptionController.isPromoCode.refresh();
                 navigator!.pop();
@@ -88,8 +89,6 @@ class Subscription extends StatelessWidget {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,29 +99,26 @@ class Subscription extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
-      body: Obx(
-        () {
-          return Stack(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(AppImages.packageBG),
-                  ),
+      body: Obx(() {
+        return Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage(AppImages.packageBG),
                 ),
               ),
-
-          if(  !subscriptionController.isPromoCode.value)  SingleChildScrollView(
+            ),
+            if (!subscriptionController.isPromoCode.value)
+              SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child:
-
-                Row(
+                child: Row(
                   children: List.generate(
                       subscriptionController.subscriptionList.length, (index) {
                     return Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 25),
                       child: Container(
                         padding: const EdgeInsets.all(25),
                         width: MediaQuery.of(context).size.width / 1.3,
@@ -138,16 +134,16 @@ class Subscription extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             CustomText(
-                              text: subscriptionController.subscriptionList[index]
-                                  ["category"],
+                              text: subscriptionController
+                                  .subscriptionList[index]["category"],
                               fontSize: 24.sp,
                               fontWeight: FontWeight.w500,
                               bottom: 16,
                               top: 20,
                             ),
                             CustomText(
-                              text: subscriptionController.subscriptionList[index]
-                                  ["amount"],
+                              text: subscriptionController
+                                  .subscriptionList[index]["amount"],
                               fontSize: 24.sp,
                               fontWeight: FontWeight.w500,
                               bottom: 16,
@@ -167,8 +163,8 @@ class Subscription extends StatelessWidget {
                                       ),
                                       CustomText(
                                         text: subscriptionController
-                                                .subscriptionList[index]["features"]
-                                            [featureIndex],
+                                                .subscriptionList[index]
+                                            ["features"][featureIndex],
                                         left: 10,
                                         fontWeight: FontWeight.w400,
                                         fontSize: 14.sp,
@@ -200,57 +196,57 @@ class Subscription extends StatelessWidget {
                   }),
                 ),
               ),
+            Positioned(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CustomText(
+                      text: AppStaticStrings.haveYourPromoCode,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.light,
+                      bottom: 20,
+                    ),
 
-              Positioned(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CustomText(
-                        text: AppStaticStrings.haveYourPromoCode,
+                    ///===================================Use Promo  Code button==============
+
+                    CustomButton(
+                      fillColor: AppColors.blueNormal,
+                      width: MediaQuery.of(context).size.width / 2,
+                      onTap: () {
+                        subscriptionController.isPromoCode.value =
+                            !subscriptionController.isPromoCode.value;
+
+                        subscriptionController.isPromoCode.refresh();
+                        showDialogBox(
+                            context, 0); // Pass the correct index here
+                      },
+                      title: AppStaticStrings.usePromoCode,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppRoute.homeScreen);
+                      },
+                      child: CustomText(
+                        text: "Skip",
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                         color: AppColors.light,
                         bottom: 20,
+                        top: 15,
+                        decoration: TextDecoration.underline,
                       ),
-                      ///===================================Use Promo  Code button==============
-
-                      CustomButton(
-                        fillColor: AppColors.blueNormal,
-                        width: MediaQuery.of(context).size.width / 2,
-                        onTap: () {
-                          subscriptionController.isPromoCode.value =!subscriptionController.isPromoCode.value;
-
-                          subscriptionController.isPromoCode.refresh();
-                          showDialogBox(context, 0); // Pass the correct index here
-                        },
-                        title: AppStaticStrings.usePromoCode,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRoute.homeScreen);
-                        },
-                        child: CustomText(
-                          text: "Skip",
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.light,
-                          bottom: 20,
-                          top: 15,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          );
-        }
-      ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }
-

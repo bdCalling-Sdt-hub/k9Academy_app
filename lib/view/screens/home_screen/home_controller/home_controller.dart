@@ -49,5 +49,5 @@ class HomeController extends GetxController {
   void toggleTab() {
     isTab.value = !isTab.value;
   }
-   // RxBool isTab= false.obs;
+  // RxBool isTab= false.obs;
 }

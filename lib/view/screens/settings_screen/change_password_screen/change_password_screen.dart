@@ -7,11 +7,10 @@ import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
-   ChangePasswordScreen({super.key});
- final formKey = GlobalKey<FormState>() ;
+  ChangePasswordScreen({super.key});
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: AppColors.blackyDarkHover,
 

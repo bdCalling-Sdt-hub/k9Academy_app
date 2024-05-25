@@ -143,8 +143,8 @@ class ApiClient extends GetxService {
       //   }
       // }
 
-      var request = http.MultipartRequest(
-          requestType, Uri.parse(AppUrl.baseUrl + uri));
+      var request =
+          http.MultipartRequest(requestType, Uri.parse(AppUrl.baseUrl + uri));
       request.fields.addAll(body);
 
       if (multipartBody!.isNotEmpty) {
@@ -333,7 +333,6 @@ class ApiClient extends GetxService {
           statusCode: response0.statusCode,
           body: response0.body,
           statusText: errorResponse.message);
-
     } else if (response0.statusCode != 200 && response0.body == null) {
       response0 = const Response(statusCode: 0, statusText: noInternetMessage);
     }

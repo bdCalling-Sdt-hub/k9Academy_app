@@ -103,7 +103,7 @@ class AppRoute {
     ///==================== Authentication ====================
     GetPage(name: signIn, page: () => SignInScreen()),
     GetPage(name: forgotPass, page: () => ForgotPassWord()),
-    GetPage(name: otpVerify, page: () =>  OtpVerify()),
+    GetPage(name: otpVerify, page: () => OtpVerify()),
     GetPage(name: resetPass, page: () => ResetPass()),
     GetPage(name: signUp, page: () => SignUpScreen()),
 
@@ -132,8 +132,7 @@ class AppRoute {
     GetPage(name: termsCondition, page: () => const TermsCondition()),
 
     ///==================== changePasswordScreen ====================
-    GetPage(
-        name: changePasswordScreen, page: () =>  ChangePasswordScreen()),
+    GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),
 
     ///==================== notificationScreen ====================
     GetPage(name: notificationScreen, page: () => NotificationScreen()),
@@ -153,9 +152,9 @@ class AppRoute {
     GetPage(name: searchScreen, page: () => SearchScreen()),
     GetPage(name: otherProfile, page: () => OtherProfile()),
     GetPage(name: myPostDetails, page: () => const MyPostDetails()),
-    GetPage(name: tabBarPostScreen, page: () =>  TabBarPostScreen()),
-    GetPage(name: postScreen, page: () =>  PostScreen()),
-    GetPage(name: forgetOtpVerify, page: () =>  ForgetOtpVerify()),
+    GetPage(name: tabBarPostScreen, page: () => TabBarPostScreen()),
+    GetPage(name: postScreen, page: () => PostScreen()),
+    GetPage(name: forgetOtpVerify, page: () => ForgetOtpVerify()),
     GetPage(
         name: noInternetScreen,
         page: () => NoInternetScreen(

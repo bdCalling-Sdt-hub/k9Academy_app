@@ -27,14 +27,13 @@ class PostScreen extends StatelessWidget {
           IconButton(
               onPressed: () {
                 Get.toNamed(AppRoute.myProfileScreen);
-
               },
               icon: Container(
                 decoration: BoxDecoration(
                     color: AppColors.blueNormal,
                     borderRadius: BorderRadius.circular(8.r)),
                 padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
-                child:  const CustomText(
+                child: const CustomText(
                   text: AppStaticStrings.post,
                   fontWeight: FontWeight.w500,
                 ),
@@ -55,30 +54,28 @@ class PostScreen extends StatelessWidget {
 
             ///=========================== Image Picker =============================
 
-            Obx(
-               () {
-                return GestureDetector(
-                    onTap: () {
-                      postController.selectImage();
-                    },
-                    child: postController.image.isNotEmpty
-                        ? ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
+            Obx(() {
+              return GestureDetector(
+                  onTap: () {
+                    postController.selectImage();
+                  },
+                  child: postController.image.isNotEmpty
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
                           child: Image.file(
                             File(postController.image.value),
                             fit: BoxFit.cover,
                           ),
                         )
-                        : ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
                           child: CustomNetworkImage(
                             imageUrl: AppConstants.onlineImage,
-                            height: MediaQuery.of(context).size.height/2.5,
-                            width: MediaQuery.of(context).size.width/1,
+                            height: MediaQuery.of(context).size.height / 2.5,
+                            width: MediaQuery.of(context).size.width / 1,
                           ),
                         ));
-              }
-            ),
+            }),
           ],
         ),
       ),

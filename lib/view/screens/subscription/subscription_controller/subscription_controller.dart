@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 
 class SubscriptionController extends GetxController {
-
-RxBool isPromoCode= false.obs;
+  RxBool isPromoCode = false.obs;
   List<Map<String, dynamic>> subscriptionList = [
     {
       'category': "Silver monthly",

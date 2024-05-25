@@ -9,5 +9,4 @@ class AppUrl {
   static const changePassword = "/auth/change-password";
   static const forgetOtpVerify = "/auth/verify-otp";
   static const resetPassword = "/auth/reset-password";
-
 }

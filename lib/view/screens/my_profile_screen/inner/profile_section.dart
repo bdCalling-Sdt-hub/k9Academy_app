@@ -71,7 +71,8 @@ class ProfileSection extends StatelessWidget {
                             customWidgets.customTitleAndTextField(
                                 text: AppStaticStrings.contactNo,
                                 hintText: "01722",
-                                controller: profileController.contactController),
+                                controller:
+                                    profileController.contactController),
 
                             ///=========================================Date of field=====================
                             CustomText(
@@ -89,8 +90,8 @@ class ProfileSection extends StatelessWidget {
                                   profileController.newSelectedDate.value),
                               suffixIcon: IconButton(
                                 onPressed: () {
-                                  profileController.calenderShow(
-                                      context, profileController.newSelectedDate);
+                                  profileController.calenderShow(context,
+                                      profileController.newSelectedDate);
                                 },
                                 icon: const Icon(
                                   Icons.date_range,

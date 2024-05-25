@@ -19,7 +19,7 @@ class CommunityPostDetails extends StatelessWidget {
           comment: GestureDetector(
             onTap: () {
               showModalBottomSheet(
-                backgroundColor: AppColors.lightDarkActive,
+                  backgroundColor: AppColors.lightDarkActive,
                   context: context,
                   builder: (context) {
                     return const MessageInputField();

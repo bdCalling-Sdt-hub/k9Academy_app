@@ -48,8 +48,8 @@ class TabBarPostScreen extends StatelessWidget {
                   print('Selected: $value');
                 },
                 itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                   PopupMenuItem<String>(
-                    onTap: (){
+                  PopupMenuItem<String>(
+                    onTap: () {
                       Get.toNamed(AppRoute.postScreen);
                     },
                     value: 'edit',

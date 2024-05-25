@@ -21,7 +21,5 @@ class MessageController extends GetxController {
     {"sender": "1", "message": "Bye", "messageType": "text"},
   ];
 
-
-
   RxList selectedMembers = [].obs;
 }

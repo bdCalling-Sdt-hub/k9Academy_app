@@ -10,7 +10,7 @@ import 'package:k9academy/view/screens/home_screen/home_controller/home_controll
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 
 class CustomCommunityPostDetails extends StatelessWidget {
-   CustomCommunityPostDetails({
+  CustomCommunityPostDetails({
     super.key,
     this.comment,
   });
@@ -19,8 +19,6 @@ class CustomCommunityPostDetails extends StatelessWidget {
   final HomeController homeController = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
-
-
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -80,8 +78,9 @@ class CustomCommunityPostDetails extends StatelessWidget {
                   maxLines: 7,
                   bottom: 10,
                   text:
-                  "ultrices libero, hendrerit non ex ex. amet, vehicula, amet, Nam ultrices tortor. consectetur sapien ullamcorper lacus, dui enim. ex facilisis in Ut nec id vel ",
+                      "ultrices libero, hendrerit non ex ex. amet, vehicula, amet, Nam ultrices tortor. consectetur sapien ullamcorper lacus, dui enim. ex facilisis in Ut nec id vel ",
                 ),
+
                 ///============================See more================================
                 GestureDetector(
                   onTap: () {
@@ -89,23 +88,25 @@ class CustomCommunityPostDetails extends StatelessWidget {
                   },
                   child: Obx(() {
                     return homeController.isTab.value
-                        ?
-                         CustomText(
-                      textAlign: TextAlign.start,
-                      text: "ultrices libero, hendrerit non ex ex. amet, vehicula, amet, Nam ultrices tortor. consectetur sapien ullamcorper",
-                      bottom: 15,
-                      fontSize: 12.sp,
-                      color: Colors.white,
-                      maxLines: 10,
-                    ):CustomText(
-                      text: 'See more',
-                      bottom: 7,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.red,
-                    );
+                        ? CustomText(
+                            textAlign: TextAlign.start,
+                            text:
+                                "ultrices libero, hendrerit non ex ex. amet, vehicula, amet, Nam ultrices tortor. consectetur sapien ullamcorper",
+                            bottom: 15,
+                            fontSize: 12.sp,
+                            color: Colors.white,
+                            maxLines: 10,
+                          )
+                        : CustomText(
+                            text: 'See more',
+                            bottom: 7,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.red,
+                          );
                   }),
                 ),
+
                 ///=====================================Cover Image=====================
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16),
@@ -115,12 +116,14 @@ class CustomCommunityPostDetails extends StatelessWidget {
                     height: 171,
                   ),
                 ),
+
                 ///=============================Comment =====================
                 if (comment != null) comment!,
                 SizedBox(
                   height: 15.w,
                 ),
                 const Divider(),
+
                 ///==============================All Comments ==================================
                 CustomText(
                   top: 12,
@@ -133,7 +136,7 @@ class CustomCommunityPostDetails extends StatelessWidget {
                 Column(
                   children: List.generate(
                     6,
-                        (index) => Row(
+                    (index) => Row(
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(30),

@@ -26,85 +26,84 @@ class ForgotPassWord extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
-      body: Obx(
-         () {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 44.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ///<========================================Title text=========================================================>
+      body: Obx(() {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 44.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ///<========================================Title text=========================================================>
 
-                  const Center(
-                    child: CustomText(
-                      color: AppColors.blueNormal,
-                      text: AppStaticStrings.emailConfirmation,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
+                const Center(
+                  child: CustomText(
+                    color: AppColors.blueNormal,
+                    text: AppStaticStrings.emailConfirmation,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
                   ),
+                ),
 
-                  SizedBox(
-                    height: 77.h,
-                  ),
-                  Form(
-                      key: formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ///<========================================Email Section=========================================================>
-                          CustomText(
-                            text: AppStaticStrings.email,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            bottom: 8.h,
-                            top: 8.h,
-                          ),
-                          CustomTextField(
-                            textEditingController:
-                                authenticationController.emailController,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return AppStaticStrings.enterValidEmail;
-                              } else if (!AppStaticStrings.emailRegexp.hasMatch(
-                                  authenticationController.emailController.text)) {
-                                return AppStaticStrings.enterValidEmail;
-                              } else {
-                                return null;
+                SizedBox(
+                  height: 77.h,
+                ),
+                Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ///<========================================Email Section=========================================================>
+                        CustomText(
+                          text: AppStaticStrings.email,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          bottom: 8.h,
+                          top: 8.h,
+                        ),
+                        CustomTextField(
+                          textEditingController:
+                              authenticationController.emailController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return AppStaticStrings.enterValidEmail;
+                            } else if (!AppStaticStrings.emailRegexp.hasMatch(
+                                authenticationController
+                                    .emailController.text)) {
+                              return AppStaticStrings.enterValidEmail;
+                            } else {
+                              return null;
+                            }
+                          },
+                          hintText: AppStaticStrings.email,
+                        ),
+                      ],
+                    )),
+
+                Column(
+                  children: [
+                    SizedBox(height: 76.h),
+                    authenticationController.isForgetLoading.value
+                        ? const CustomLoader()
+                        :
+
+                        ///<==============================================Send Otp button===============================================>
+                        CustomButton(
+                            fillColor: AppColors.redNormal,
+                            onTap: () {
+                              if (formKey.currentState!.validate()) {
+                                authenticationController.forgetPassword();
                               }
                             },
-                            hintText: AppStaticStrings.email,
+                            title: AppStaticStrings.sendACode,
                           ),
-                        ],
-                      )),
-
-                  Column(
-                    children: [
-                      SizedBox(height: 76.h),
-
-                     authenticationController.isForgetLoading.value?
-                         const CustomLoader():
-                      ///<==============================================Send Otp button===============================================>
-                      CustomButton(
-                        fillColor: AppColors.redNormal,
-                        onTap: () {
-                          if (formKey.currentState!.validate()) {
-                            authenticationController.forgetPassword();
-                          }
-
-                        },
-                        title: AppStaticStrings.sendACode,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
-          );
-        }
-      ),
+          ),
+        );
+      }),
     );
   }
 }

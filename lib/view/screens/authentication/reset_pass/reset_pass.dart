@@ -11,7 +11,7 @@ import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart'
 class ResetPass extends StatelessWidget {
   ResetPass({super.key});
   final formKey = GlobalKey<FormState>();
-  final AuthenticationController authenticationController= Get.find();
+  final AuthenticationController authenticationController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +57,8 @@ class ResetPass extends StatelessWidget {
                   ),
 
                   CustomTextField(
-                    textEditingController: authenticationController.newPasswordController,
+                    textEditingController:
+                        authenticationController.newPasswordController,
                     validator: (value) {
                       if (value.isEmpty) {
                         return AppStaticStrings.fieldCantBeEmpty;
@@ -83,7 +84,8 @@ class ResetPass extends StatelessWidget {
                   ),
 
                   CustomTextField(
-                    textEditingController: authenticationController.confirmPasswordController,
+                    textEditingController:
+                        authenticationController.confirmPasswordController,
                     validator: (value) {
                       if (value.isEmpty) {
                         return AppStaticStrings.fieldCantBeEmpty;
@@ -117,7 +119,7 @@ class ResetPass extends StatelessWidget {
               fillColor: AppColors.redNormal,
               onTap: () {
                 if (formKey.currentState!.validate()) {
-                 authenticationController.resetPassword();
+                  authenticationController.resetPassword();
                 }
               },
               title: AppStaticStrings.updatePassword,

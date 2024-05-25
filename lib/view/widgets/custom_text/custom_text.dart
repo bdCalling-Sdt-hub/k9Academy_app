@@ -49,8 +49,7 @@ class CustomText extends StatelessWidget {
           color: color,
           decoration: decoration,
           decorationColor: Colors.white,
-          decorationThickness:2,
-
+          decorationThickness: 2,
         ),
       ),
     );
