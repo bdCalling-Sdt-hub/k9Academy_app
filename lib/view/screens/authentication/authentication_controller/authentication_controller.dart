@@ -38,8 +38,8 @@ class AuthenticationController extends GetxController {
     if (response.statusCode == 200) {
       isSignUpLoading.value = false;
       refresh();
-      toastMessage(message: response.body["message"]);
       Get.toNamed(AppRoute.otpVerify);
+      toastMessage(message: response.body["message"]);
     } else {
       ApiChecker.checkApi(response);
     }
@@ -57,7 +57,7 @@ class AuthenticationController extends GetxController {
     isOtpLoading.value = true;
     refresh();
     Map<dynamic, String> body = {
-      "userEmail": emailController.text,
+      "userEmail": signupEmailController.text,
       "activation_code": activationCode
     };
 
@@ -67,10 +67,10 @@ class AuthenticationController extends GetxController {
     refresh();
     if (response.statusCode == 201) {
       toastMessage(message: response.body["message"]);
-      emailController.clear();
+      signupEmailController.clear();
       fullNameController.clear();
       phoneNumberController.clear();
-      passwordController.clear();
+      signupPasswordController.clear();
       confirmPasswordController.clear();
       pinController.clear();
       Get.toNamed(AppRoute.subscription);
@@ -95,8 +95,10 @@ class AuthenticationController extends GetxController {
     var response = await ApiClient.postData(AppUrl.logIn, jsonEncode(body),
         headers: headers);
     if (response.statusCode == 200) {
-      toastMessage(message: response.body["message"]);
+      emailController.clear();
+      passwordController.clear();
       Get.toNamed(AppRoute.homeScreen);
+      toastMessage(message: response.body["message"]);
     } else {
       ApiChecker.checkApi(response);
     }
@@ -116,9 +118,9 @@ class AuthenticationController extends GetxController {
     var response = await ApiClient.postData(AppUrl.forgetOtp, jsonEncode(body),
         headers: headers);
     if (response.statusCode == 200) {
-
-      toastMessage(message: response.body["message"]);
       Get.toNamed(AppRoute.forgetOtpVerify);
+      toastMessage(message: response.body["message"]);
+
     } else {
       ApiChecker.checkApi(response);
     }
@@ -141,9 +143,9 @@ class AuthenticationController extends GetxController {
     isForgetOtpLoading.value = false;
     refresh();
     if (response.statusCode == 200) {
-      toastMessage(message: response.body["message"]);
-      Get.toNamed(AppRoute.resetPass);
 
+      Get.toNamed(AppRoute.resetPass);
+      toastMessage(message: response.body["message"]);
     } else {
       ApiChecker.checkApi(response);
     }

@@ -103,7 +103,6 @@ class SignInScreen extends StatelessWidget {
                               return null;
                             }
                           },
-                          //textEditingController: controller.passWordSignIn,
                           textInputAction: TextInputAction.done,
                           isPassword: true,
                           hintText: AppStaticStrings.enterYourPassword,

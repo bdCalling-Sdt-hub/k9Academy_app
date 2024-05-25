@@ -92,7 +92,7 @@ class SignUpScreen extends StatelessWidget {
                         if (value!.isEmpty) {
                           return AppStaticStrings.enterValidEmail;
                         } else if (!AppStaticStrings.emailRegexp.hasMatch(
-                            authenticationController.emailController.text)) {
+                            authenticationController.signupEmailController.text)) {
                           return AppStaticStrings.enterValidEmail;
                         } else {
                           return null;
@@ -174,7 +174,7 @@ class SignUpScreen extends StatelessWidget {
                         if (value.isEmpty) {
                           return AppStaticStrings.fieldCantBeEmpty;
                         } else if (value !=
-                            authenticationController.passwordController.text) {
+                            authenticationController.signupPasswordController.text) {
                           return "Password should match";
                         }
                         return null;
