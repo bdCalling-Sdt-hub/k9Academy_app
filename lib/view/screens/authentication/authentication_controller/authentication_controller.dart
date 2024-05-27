@@ -265,7 +265,7 @@ class AuthenticationController extends GetxController {
     } else {
       ApiChecker.checkApi(response);
     }
-    isChangeLoading.value = false;
+    isDeleteLoading.value = false;
     refresh();
   }
 }
