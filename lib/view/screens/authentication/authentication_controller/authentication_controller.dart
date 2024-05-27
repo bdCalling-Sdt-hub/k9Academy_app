@@ -24,6 +24,8 @@ class AuthenticationController extends GetxController {
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
 
+  TextEditingController oldPasswordController = TextEditingController();
+
   RxBool isRemember = false.obs;
   toggleRemember() {
     isRemember.value = !isRemember.value;
@@ -243,5 +245,27 @@ class AuthenticationController extends GetxController {
       ApiChecker.checkApi(response);
     }
     isChangeLoading.value = false;
+  }
+
+  ///=============================================account delete==========================
+  RxBool isDeleteLoading = false.obs;
+  deleteAccount() async {
+    isDeleteLoading.value = true;
+    refresh();
+    Map<dynamic, String> body = {
+      "email": emailController.text,
+      "password": passwordController.text
+    };
+    var response = await ApiClient.deleteData(AppUrl.deleteAccount, body: body);
+    isDeleteLoading.value = false;
+    refresh();
+    if (response.statusCode == 200) {
+      // Get.toNamed(AppRoute.resetPass);
+      toastMessage(message: response.body["message"]);
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    isChangeLoading.value = false;
+    refresh();
   }
 }
