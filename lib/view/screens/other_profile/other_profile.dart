@@ -111,6 +111,8 @@ class OtherProfile extends StatelessWidget {
 
                           ///=======================================CustomCommunity PostDesign====================
                           child: CustomCommunityPost(
+                              profileImage: AppImages.dog3,
+
                               coverImage:
                                   homeController.communityPostItems[index],
                               text: "Jon Week",
