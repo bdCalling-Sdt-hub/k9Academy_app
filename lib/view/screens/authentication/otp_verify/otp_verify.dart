@@ -23,7 +23,7 @@ class _OtpVerifyState extends State<OtpVerify> {
       Get.find<AuthenticationController>();
 
   final formKey = GlobalKey<FormState>();
-  int _secondsRemaining = 60;
+  int _secondsRemaining = 180;
   late Timer _timer;
 
   void startTimer() {
@@ -141,7 +141,7 @@ class _OtpVerifyState extends State<OtpVerify> {
                       child: GestureDetector(
                         onTap: () {
                           if (_secondsRemaining == 0) {
-                            _secondsRemaining = 60;
+                            _secondsRemaining = 180;
                             startTimer();
                             authenticationController.resentUser().then((value) {
                               if (value == false) {
