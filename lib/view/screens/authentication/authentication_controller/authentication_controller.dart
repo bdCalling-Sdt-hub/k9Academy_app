@@ -127,11 +127,12 @@ class AuthenticationController extends GetxController {
     if (response.statusCode == 200) {
       emailController.clear();
       passwordController.clear();
-      Get.toNamed(AppRoute.homeScreen);
-      toastMessage(message: response.body["message"]);
       SharePrefsHelper.setString(
           AppConstants.bearerToken, response.body["data"]["accessToken"]);
       // print("==================> ${response.body["data"]["accessToken"]}") ;
+      Get.toNamed(AppRoute.homeScreen);
+      toastMessage(message: response.body["message"]);
+
     } else {
       ApiChecker.checkApi(response);
     }
