@@ -19,6 +19,7 @@ class AuthenticationController extends GetxController {
   TextEditingController signupPasswordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
+  TextEditingController oldPasswordController = TextEditingController();
 
   ///=================================SignUp Controller========================
   RxBool isSignUpLoading = false.obs;
@@ -216,26 +217,52 @@ class AuthenticationController extends GetxController {
   }
 
   ///========================================================Change Password=========================
-  RxBool isChangeLoading = false.obs;
 
+  RxBool isChangeLoading = false.obs;
   changePassword() async {
     isChangeLoading.value = true;
     refresh();
-    Map<String, String> body = {
-      "oldPassword": passwordController.text,
-      "newPassword": confirmPasswordController.text
+    Map<dynamic, String> body = {
+      "oldPassword": oldPasswordController.text,
+      "newPassword": newPasswordController.text,
+      "confirmPassword": confirmPasswordController.text
     };
-
-    var response = await ApiClient.patchData(
-        AppUrl.changePassword, jsonEncode(body),
-        headers: headers);
+    var response =
+    await ApiClient.patchData(AppUrl.changePassword, jsonEncode(body),);
+    isChangeLoading.value = false;
+    refresh();
     if (response.statusCode == 200) {
+      Get.back();
       toastMessage(message: response.body["message"]);
-      Get.toNamed(AppRoute.signIn);
+
     } else {
       ApiChecker.checkApi(response);
-
     }
     isChangeLoading.value = false;
+    refresh();
+  }
+
+
+  ///=============================================account delete==========================
+  RxBool isDeleteLoading = false.obs;
+  deleteAccount() async {
+    isDeleteLoading.value = true;
+    refresh();
+    Map<dynamic, String> body = {
+      "email": emailController.text,
+      "password": passwordController.text
+    };
+    var response =
+    await ApiClient.deleteData(AppUrl.deleteAccount, body: body);
+    isDeleteLoading.value = false;
+    refresh();
+    if (response.statusCode == 200) {
+      // Get.toNamed(AppRoute.resetPass);
+      toastMessage(message: response.body["message"]);
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    isChangeLoading.value = false;
+    refresh();
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
-import 'package:k9academy/view/screens/settings_screen/settingController/setting_controller.dart';
+import 'package:k9academy/view/screens/authentication/authentication_controller/authentication_controller.dart';
 import 'package:k9academy/view/widgets/custom_button/custom_button.dart';
 import 'package:k9academy/view/widgets/custom_loader/custom_loader.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
@@ -14,7 +14,7 @@ class ChangePasswordScreen extends StatelessWidget {
 
   final formKey = GlobalKey<FormState>();
 
-  final SettingController settingController = Get.find<SettingController>();
+  final AuthenticationController authenticationController = Get.find<AuthenticationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   CustomTextField(
                     hintText: AppStaticStrings.password,
                     textEditingController:
-                        settingController.oldPasswordController,
+                    authenticationController.oldPasswordController,
                     keyboardType: TextInputType.name,
                     isPassword: true,
                     validator: (value) {
@@ -78,7 +78,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   CustomTextField(
                     isPassword: true,
                     textEditingController:
-                        settingController.newPasswordController,
+                    authenticationController.newPasswordController,
                     keyboardType: TextInputType.name,
                     hintText: AppStaticStrings.password,
                     validator: (value) {
@@ -104,7 +104,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   ///<<<<========================================Confirm Password Field======================================
                   CustomTextField(
                     textEditingController:
-                        settingController.confirmPasswordController,
+                    authenticationController.confirmPasswordController,
                     keyboardType: TextInputType.name,
                     hintText: AppStaticStrings.password,
                     isPassword: true,
@@ -112,7 +112,7 @@ class ChangePasswordScreen extends StatelessWidget {
                       if (value.isEmpty) {
                         return AppStaticStrings.fieldCantBeEmpty;
                       } else if (value !=
-                          settingController.newPasswordController.text) {
+                          authenticationController.newPasswordController.text) {
                         return " Password should match";
                       }
                       return null;
@@ -123,7 +123,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   ),
 
                   ///<<<<========================================Save And Update Button======================================
-                 settingController.isChangeLoading.value?
+                  authenticationController.isChangeLoading.value?
                      const CustomLoader():
                   Center(
                     child: CustomButton(
@@ -131,7 +131,7 @@ class ChangePasswordScreen extends StatelessWidget {
                       width: 194,
                       onTap: () {
                         if (formKey.currentState!.validate()) {
-                          settingController.changePassword();
+                          authenticationController.changePassword();
                         }
                       },
                       title: AppStaticStrings.changePassword,
