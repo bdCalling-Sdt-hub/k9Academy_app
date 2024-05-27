@@ -5,13 +5,11 @@ import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/helper/network_img/network_img.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
-import 'package:k9academy/utils/app_icons/app_icons.dart';
 import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/home_screen/home_controller/home_controller.dart';
 import 'package:k9academy/view/screens/my_profile_screen/profile_controller/profile_controller.dart';
 import 'package:k9academy/view/widgets/custom_community_post/custom_community_post.dart';
-import 'package:k9academy/view/widgets/custom_image/custom_image.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 
 class OtherProfile extends StatelessWidget {

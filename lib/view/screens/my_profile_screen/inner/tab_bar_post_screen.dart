@@ -44,17 +44,14 @@ class TabBarPostScreen extends StatelessWidget {
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10)),
                 ),
-                onSelected: (value) {
-                  // Handle the menu selection
-                  print('Selected: $value');
-                },
+                onSelected: (value) {},
                 itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                   PopupMenuItem<String>(
                     onTap: () {
                       Get.toNamed(AppRoute.postScreen);
                     },
                     value: 'edit',
-                    child: Text('Edit'),
+                    child: const Text('Edit'),
                   ),
                   const PopupMenuItem<String>(
                     value: 'delete',

@@ -103,7 +103,7 @@ class AppRoute {
     ///==================== Authentication ====================
     GetPage(name: signIn, page: () => SignInScreen()),
     GetPage(name: forgotPass, page: () => ForgotPassWord()),
-    GetPage(name: otpVerify, page: () => OtpVerify()),
+    GetPage(name: otpVerify, page: () => const OtpVerify()),
     GetPage(name: resetPass, page: () => ResetPass()),
     GetPage(name: signUp, page: () => SignUpScreen()),
 

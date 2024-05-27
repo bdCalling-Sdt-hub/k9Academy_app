@@ -13,9 +13,9 @@ import 'package:k9academy/utils/toast_message/toast_message.dart';
 
 class AuthenticationController extends GetxController {
   TextEditingController emailController =
-      TextEditingController(text: kDebugMode ? "foyirab650@neixos.com" : "");
+      TextEditingController(text: kDebugMode ? "perehe1070@huleos.com" : "");
   TextEditingController passwordController =
-      TextEditingController(text: kDebugMode ? "Aa1@aaaa" : "");
+      TextEditingController(text: kDebugMode ? "1234567Rr@" : "");
 
   TextEditingController fullNameController = TextEditingController();
   TextEditingController signupEmailController = TextEditingController();
@@ -23,6 +23,15 @@ class AuthenticationController extends GetxController {
   TextEditingController signupPasswordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
+
+  RxBool isRemember = false.obs;
+  toggleRemember() {
+    isRemember.value = !isRemember.value;
+    debugPrint("Remember me==============>>>>>>>>>$isRemember");
+    refresh();
+
+    SharePrefsHelper.setBool(AppConstants.isRememberMe, isRemember.value);
+  }
 
   ///=================================SignUp Controller========================
   RxBool isSignUpLoading = false.obs;

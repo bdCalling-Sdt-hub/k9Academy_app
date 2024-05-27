@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
+import 'package:k9academy/helper/shared_prefe/shared_prefe.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
+import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/widgets/custom_button/custom_button.dart';
@@ -22,8 +24,13 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     " simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
     " simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard"
   ];
-
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    SharePrefsHelper.setBool(AppConstants.onBoard, true);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

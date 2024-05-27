@@ -111,15 +111,33 @@ class SignInScreen extends StatelessWidget {
                     )),
 
                 ///=============================== Forgot Password ==============================
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                      onPressed: () {
-                        Get.toNamed(AppRoute.forgotPass);
-                      },
-                      child: const CustomText(
-                          color: AppColors.blueNormal,
-                          text: AppStaticStrings.forgotPassWord)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Checkbox(
+                            value: authenticationController.isRemember.value,
+                            checkColor: AppColors.lightDarkActive,
+                            activeColor: AppColors.redLightActive,
+                            focusColor: Colors.red,
+                            onChanged: (value) {
+                              authenticationController.toggleRemember();
+                            }),
+                        const CustomText(
+                          text: AppStaticStrings.rememberMe,
+                          color: AppColors.light,
+                        ),
+                      ],
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Get.toNamed(AppRoute.forgotPass);
+                        },
+                        child: const CustomText(
+                            color: AppColors.blueNormal,
+                            text: AppStaticStrings.forgotPassWord)),
+                  ],
                 ),
 
                 ///<============================== Login Button ====================================>
