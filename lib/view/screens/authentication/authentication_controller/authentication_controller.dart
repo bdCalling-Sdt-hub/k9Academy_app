@@ -51,7 +51,7 @@ class AuthenticationController extends GetxController {
       "date_of_birth": ""
     };
     var response =
-        await ApiClient.postData(AppUrl.signupAuth, jsonEncode(body));
+        await ApiClient.postData(ApiUrl.signupAuth, jsonEncode(body));
     if (response.statusCode == 200) {
       isSignUpLoading.value = false;
       refresh();
@@ -79,7 +79,7 @@ class AuthenticationController extends GetxController {
     };
 
     var response = await ApiClient.postData(
-        AppUrl.otpVerificationEndPoint, jsonEncode(body));
+        ApiUrl.otpVerificationEndPoint, jsonEncode(body));
     isOtpLoading.value = false;
     refresh();
     if (response.statusCode == 201) {
@@ -109,7 +109,7 @@ class AuthenticationController extends GetxController {
     Map<String, String> body = {"email": signupEmailController.text};
 
     var response = await ApiClient.postData(
-        AppUrl.resetOtpSignUp, jsonEncode(body),
+        ApiUrl.resetOtpSignUp, jsonEncode(body),
         headers: headers);
     if (response.statusCode == 200) {
       setRxRequestStatus(Status.completed);
@@ -135,7 +135,7 @@ class AuthenticationController extends GetxController {
       "password": passwordController.text
     };
 
-    var response = await ApiClient.postData(AppUrl.logIn, jsonEncode(body),
+    var response = await ApiClient.postData(ApiUrl.logIn, jsonEncode(body),
         headers: headers);
     if (response.statusCode == 200) {
       emailController.clear();
@@ -161,7 +161,7 @@ class AuthenticationController extends GetxController {
     refresh();
     Map<String, String> body = {"email": emailController.text};
 
-    var response = await ApiClient.postData(AppUrl.forgetOtp, jsonEncode(body),
+    var response = await ApiClient.postData(ApiUrl.forgetOtp, jsonEncode(body),
         headers: headers);
     if (response.statusCode == 200) {
       Get.toNamed(AppRoute.forgetOtpVerify);
@@ -184,7 +184,7 @@ class AuthenticationController extends GetxController {
     Map<dynamic, String> body = {"code": code, "email": emailController.text};
 
     var response =
-        await ApiClient.postData(AppUrl.forgetOtpVerify, jsonEncode(body));
+        await ApiClient.postData(ApiUrl.forgetOtpVerify, jsonEncode(body));
     isForgetOtpLoading.value = false;
     refresh();
     if (response.statusCode == 200) {
@@ -210,7 +210,7 @@ class AuthenticationController extends GetxController {
     };
 
     var response =
-        await ApiClient.postData(AppUrl.resetPassword, jsonEncode(body));
+        await ApiClient.postData(ApiUrl.resetPassword, jsonEncode(body));
     if (response.statusCode == 200) {
       emailController.clear();
       newPasswordController.clear();
@@ -236,7 +236,7 @@ class AuthenticationController extends GetxController {
     };
 
     var response = await ApiClient.patchData(
-        AppUrl.changePassword, jsonEncode(body),
+        ApiUrl.changePassword, jsonEncode(body),
         headers: headers);
     if (response.statusCode == 200) {
       toastMessage(message: response.body["message"]);
@@ -256,7 +256,7 @@ class AuthenticationController extends GetxController {
       "email": emailController.text,
       "password": passwordController.text
     };
-    var response = await ApiClient.deleteData(AppUrl.deleteAccount, body: body);
+    var response = await ApiClient.deleteData(ApiUrl.deleteAccount, body: body);
     isDeleteLoading.value = false;
     refresh();
     if (response.statusCode == 200) {

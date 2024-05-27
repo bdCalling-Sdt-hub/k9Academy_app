@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
+import 'package:k9academy/helper/shared_prefe/shared_prefe.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
+import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_icons/app_icons.dart';
 import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/view/widgets/custom_image/custom_image.dart';
@@ -111,6 +113,11 @@ class SideDrawer extends StatelessWidget {
                     customWidget.customRow(
                         image: AppIcons.logOut,
                         onTap: () {
+                          SharePrefsHelper.setBool(
+                              AppConstants.isRememberMe, false);
+
+                          SharePrefsHelper.remove(AppConstants.bearerToken);
+
                           Get.offAllNamed(AppRoute.signIn);
                         },
                         title: AppStaticStrings.logOut),
