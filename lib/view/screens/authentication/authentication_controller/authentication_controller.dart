@@ -84,10 +84,10 @@ class AuthenticationController extends GetxController {
     refresh();
     if (response.statusCode == 201) {
       toastMessage(message: response.body["message"]);
-      signupEmailController.clear();
+
       fullNameController.clear();
       phoneNumberController.clear();
-      signupPasswordController.clear();
+
       confirmPasswordController.clear();
       pinController.clear();
       Get.toNamed(AppRoute.subscription);
@@ -253,10 +253,10 @@ class AuthenticationController extends GetxController {
     isDeleteLoading.value = true;
     refresh();
     Map<dynamic, String> body = {
-      "email": emailController.text,
-      "password": passwordController.text
+      "email": signupEmailController.text,
+      "password": signupPasswordController.text
     };
-    var response = await ApiClient.deleteData(AppUrl.deleteAccount, body: body);
+    var response = await ApiClient.deleteData(AppUrl.deleteAccount, body: jsonEncode(body));
     isDeleteLoading.value = false;
     refresh();
     if (response.statusCode == 200) {
