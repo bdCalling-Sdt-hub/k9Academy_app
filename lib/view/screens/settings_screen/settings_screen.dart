@@ -5,13 +5,15 @@ import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_icons/app_icons.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
+import 'package:k9academy/view/screens/authentication/authentication_controller/authentication_controller.dart';
 import 'package:k9academy/view/widgets/custom_image/custom_image.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart';
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+   SettingsScreen({super.key});
 
+ final AuthenticationController authenticationController = Get.find<AuthenticationController>();
   ///====================================Delete Account=============================
   void showDialogBox(BuildContext context) {
     Get.dialog(
@@ -59,7 +61,8 @@ class SettingsScreen extends StatelessWidget {
               ),
 
               ///======================================Password Field==================
-              const CustomTextField(
+               CustomTextField(
+                textEditingController: authenticationController.passwordController,
                 hintText: "password",
                 isPassword: true,
               ),
@@ -75,7 +78,9 @@ class SettingsScreen extends StatelessWidget {
                         backgroundColor: MaterialStateProperty.all<Color>(
                             AppColors.redNormal),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        authenticationController.deleteAccount();
+                      },
                       child: CustomText(
                         text: AppStaticStrings.delete,
                         color: Colors.white,
