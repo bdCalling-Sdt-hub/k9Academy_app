@@ -113,7 +113,7 @@ class AppStaticStrings {
   static const communityPost = "Community Post";
   static const seeMore = "See more";
 
-  static const comments = "Comments";
+  static const comments = "Comment";
   static const message = "Message";
   static const subscriptionPlan = "Subscription plan";
   static const searchHere = "Search here";

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
-import 'package:k9academy/view/screens/community_post/community_post.dart';
+import 'package:k9academy/view/screens/home_screen/home_controller/home_controller.dart';
+import 'package:k9academy/view/widgets/custom_community_post/custom_community_post.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/nav_bar/nav_bar.dart';
 import 'inner/home_appbar.dart';
@@ -10,7 +13,7 @@ import '../training_programms/training_programs.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-
+ final HomeController homeController = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -46,7 +49,27 @@ class HomeScreen extends StatelessWidget {
                 top: 10,
               ),
             ),
-            CommunityPost()
+        Column(
+          children: List.generate(
+              homeController.communityPostItems.length,
+                  (index) => Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                child: GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRoute.communityPostDetails);
+                  },
+
+                  ///=======================================CustomCommunity PostDesign====================
+                  child: CustomCommunityPost(
+                    popUpIcon: false,
+                    coverImage: homeController.communityPostItems[index],
+                    text: "Jon Week",
+                    dateTime: '3 may, 2024',
+                  ),
+                ),
+              )),
+        )
           ],
         ),
       ),

@@ -54,7 +54,7 @@ class HomeAppBar extends StatelessWidget {
                     children: [
                       CustomText(
                         text: AppStaticStrings.welcome,
-                        color: AppColors.blueNormal,
+                        color: AppColors.brownNormal,
                         fontSize: 14,
                       ),
                       CustomText(
@@ -109,50 +109,50 @@ class HomeAppBar extends StatelessWidget {
               borderRadius: 25),
 
           ///====================== Banner =======================
-          Obx(() => Column(
-                children: [
-                  CarouselSlider(
-                    options: CarouselOptions(
-                      height: 160.0.h,
-                      autoPlay: true,
-                      autoPlayCurve: Curves.ease,
-                      pageSnapping: false,
-                      onPageChanged: (int index, reason) {
-                        homeController.bannerIndex.value = index;
-                        homeController.pageController.value = PageController(
-                            initialPage: homeController.bannerIndex.value);
-                      },
-                    ),
-                    items: homeController.bannerImg.map((imagePath) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return Container(
-                            width: 300.w,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(imagePath))),
-                          );
-                        },
-                      );
-                    }).toList(),
-                  ),
-                  SmoothPageIndicator(
-                    controller: homeController.pageController.value,
-                    count: homeController.bannerImg.length,
-                    axisDirection: Axis.horizontal,
-                    effect: const ExpandingDotsEffect(
-                      expansionFactor: 3,
-                      spacing: 8.0,
-                      dotWidth: 28.0,
-                      dotHeight: 6.0,
-                      paintStyle: PaintingStyle.fill,
-                      strokeWidth: 1.5,
-                      dotColor: AppColors.redLight,
-                      activeDotColor: AppColors.redNormal,
-                    ),
-                  ),
-                ],
-              )),
+          // Obx(() => Column(
+          //       children: [
+          //         CarouselSlider(
+          //           options: CarouselOptions(
+          //             height: 160.0.h,
+          //             autoPlay: true,
+          //             autoPlayCurve: Curves.ease,
+          //             pageSnapping: false,
+          //             onPageChanged: (int index, reason) {
+          //               homeController.bannerIndex.value = index;
+          //               homeController.pageController.value = PageController(
+          //                   initialPage: homeController.bannerIndex.value);
+          //             },
+          //           ),
+          //           items: homeController.bannerImg.map((imagePath) {
+          //             return Builder(
+          //               builder: (BuildContext context) {
+          //                 return Container(
+          //                   width: 300.w,
+          //                   decoration: BoxDecoration(
+          //                       image: DecorationImage(
+          //                           image: AssetImage(imagePath))),
+          //                 );
+          //               },
+          //             );
+          //           }).toList(),
+          //         ),
+          //         SmoothPageIndicator(
+          //           controller: homeController.pageController.value,
+          //           count: homeController.bannerImg.length,
+          //           axisDirection: Axis.horizontal,
+          //           effect: const ExpandingDotsEffect(
+          //             expansionFactor: 3,
+          //             spacing: 8.0,
+          //             dotWidth: 28.0,
+          //             dotHeight: 6.0,
+          //             paintStyle: PaintingStyle.fill,
+          //             strokeWidth: 1.5,
+          //             dotColor: AppColors.redLight,
+          //             activeDotColor: AppColors.redNormal,
+          //           ),
+          //         ),
+          //       ],
+          //     )),
         ],
       ),
     );

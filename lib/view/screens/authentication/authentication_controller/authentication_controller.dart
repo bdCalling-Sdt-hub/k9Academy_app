@@ -253,10 +253,11 @@ class AuthenticationController extends GetxController {
     isDeleteLoading.value = true;
     refresh();
     Map<dynamic, String> body = {
-      "email": emailController.text,
-      "password": passwordController.text
+      "email": signupEmailController.text,
+      "password": signupPasswordController.text
     };
     var response = await ApiClient.deleteData(ApiUrl.deleteAccount, body: body);
+
     isDeleteLoading.value = false;
     refresh();
     if (response.statusCode == 200) {
@@ -265,7 +266,7 @@ class AuthenticationController extends GetxController {
     } else {
       ApiChecker.checkApi(response);
     }
-    isChangeLoading.value = false;
+    isDeleteLoading.value = false;
     refresh();
   }
 }

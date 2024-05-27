@@ -114,14 +114,7 @@ class OtherProfile extends StatelessWidget {
                               coverImage:
                                   homeController.communityPostItems[index],
                               text: "Jon Week",
-                              profileImage: ClipRRect(
-                                borderRadius: BorderRadius.circular(30),
-                                child: CustomNetworkImage(
-                                  imageUrl: AppImages.dog3,
-                                  height: 30,
-                                  width: 30,
-                                ),
-                              ),
+
                               dateTime: '3 may, 2024',
                               comment: false),
                         ),
