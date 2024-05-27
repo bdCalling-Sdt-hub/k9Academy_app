@@ -15,16 +15,17 @@ class CustomCommunityPost extends StatelessWidget {
     super.key,
     required this.coverImage,
     required this.text,
-     this.profileImage = true,
+
     required this.dateTime,
     this.comment = true,
     this.popUpIcon = true,
-    this.onTap,
+    this.onTap, required this.profileImage ,
   });
 
   final String coverImage;
+  final String profileImage;
   final String text;
-  final bool profileImage;
+
   final String dateTime;
   final bool comment;
   final bool popUpIcon;
@@ -65,14 +66,14 @@ class CustomCommunityPost extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        // User Image
-                       if(profileImage == true)
+                        //================== User Image ================
+
                        GestureDetector(
                            onTap: (){},
                            child: ClipRRect(
                              borderRadius: BorderRadius.circular(30),
                              child: CustomNetworkImage(
-                               imageUrl: AppImages.dog3,
+                               imageUrl: profileImage,
                                height: 30,
                                width: 30,
                              ),
