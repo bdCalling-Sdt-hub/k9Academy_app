@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
-import 'package:k9academy/helper/network_img/network_img.dart';
-import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/view/screens/home_screen/home_controller/home_controller.dart';
 import 'package:k9academy/view/widgets/custom_community_post/custom_community_post.dart';
 
@@ -28,38 +26,9 @@ class TabBarPostScreen extends StatelessWidget {
               },
               coverImage: homeController.communityPostItems[index],
               text: 'masum',
-              profileImage: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: CustomNetworkImage(
-                  imageUrl: AppImages.dog3,
-                  height: 30,
-                  width: 30,
-                ),
-              ),
+
               dateTime: '10',
-              popUpIcon: PopupMenuButton<String>(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10)),
-                ),
-                onSelected: (value) {},
-                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                  PopupMenuItem<String>(
-                    onTap: () {
-                      Get.toNamed(AppRoute.postScreen);
-                    },
-                    value: 'edit',
-                    child: const Text('Edit'),
-                  ),
-                  const PopupMenuItem<String>(
-                    value: 'delete',
-                    child: Text('Delete'),
-                  ),
-                ],
-                icon: const Icon(Icons.more_vert, color: Colors.white),
-              ),
+
             ),
           ),
         )),
