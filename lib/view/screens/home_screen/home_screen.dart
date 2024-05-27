@@ -14,7 +14,7 @@ import '../training_programms/training_programs.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
- final HomeController homeController = Get.find();
+  final HomeController homeController = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -26,6 +26,7 @@ class HomeScreen extends StatelessWidget {
       drawer: SideDrawer(),
       bottomNavigationBar: const NavBar(currentIndex: 0),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,28 +51,29 @@ class HomeScreen extends StatelessWidget {
                 top: 10,
               ),
             ),
-        Column(
-          children: List.generate(
-              homeController.communityPostItems.length,
+            Column(
+              children: List.generate(
+                  homeController.communityPostItems.length,
                   (index) => Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                child: GestureDetector(
-                  onTap: () {
-                    Get.toNamed(AppRoute.communityPostDetails);
-                  },
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 16),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.toNamed(AppRoute.communityPostDetails);
+                          },
 
-                  ///=======================================CustomCommunity PostDesign====================
-                  child: CustomCommunityPost(
-                    profileImage: AppImages.dog3,
-                    popUpIcon: false,
-                    coverImage: homeController.communityPostItems[index],
-                    text: "Jon Week",
-                    dateTime: '3 may, 2024',
-                  ),
-                ),
-              )),
-        )
+                          ///=======================================CustomCommunity PostDesign====================
+                          child: CustomCommunityPost(
+                            profileImage: AppImages.dog3,
+                            popUpIcon: false,
+                            coverImage:
+                                homeController.communityPostItems[index],
+                            text: "Jon Week",
+                            dateTime: '3 may, 2024',
+                          ),
+                        ),
+                      )),
+            )
           ],
         ),
       ),

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_img/app_img.dart';
+import 'package:k9academy/view/screens/home_screen/model/training_details.dart';
+import 'package:k9academy/view/screens/home_screen/model/training_programs.dart';
 
 class HomeController extends GetxController {
   final rxRequestStatus = Status.loading.obs;
@@ -52,36 +55,76 @@ class HomeController extends GetxController {
   RxInt selectedFqw = 100000.obs;
   var isTab = false.obs;
 
-  ///========================== Banner ===========================
-  // Future<bool> getBanner() async {
-  //   setRxRequestStatus(Status.loading);
-  //   refresh();
-  //   var response = await ApiClient.getData(ApiUrl.baseUrl);
+  ///========================== Training Programms ===========================
+  RxList<TrainingDatum> trainingList = <TrainingDatum>[].obs;
 
-  //   if (response.statusCode == 200) {
-  //     formData.value =
-  //         List<Datum>.from(response.body["data"].map((x) => Datum.fromJson(x)));
+  Future<bool> getTrainingProgramm() async {
+    setRxRequestStatus(Status.loading);
+    refresh();
+    var response = await ApiClient.getData(ApiUrl.trainingPrograms);
 
-  //     originalFormLength.value = formData.length;
+    if (response.statusCode == 200) {
+      trainingList.value = List<TrainingDatum>.from(
+          response.body["data"].map((x) => TrainingDatum.fromJson(x)));
 
-  //     formList.add({AppStrings.key: formData});
+      return true;
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(response);
 
-  //     debugPrint("Value data=>>>== ${formList[0][AppStrings.key]!.length}");
+      return false;
+    }
+  }
 
-  //     debugPrint("Original Length ============>>>>>>>>>>> $originalFormLength");
+  ///========================== Training Programms Details ===========================
 
-  //     setRxRequestStatus(Status.completed);
-  //   } else {
-  //     if (response.statusText == ApiClient.noInternetMessage) {
-  //       setRxRequestStatus(Status.internetError);
-  //     } else {
-  //       setRxRequestStatus(Status.error);
-  //     }
-  //     ApiChecker.checkApi(response);
-  //   }
-  // }
+  RxList<TrainingDetailsDatum> trainingDetails = <TrainingDetailsDatum>[].obs;
+
+  getTrainingDetails({required String id}) async {
+    setRxRequestStatus(Status.loading);
+    refresh();
+    var response = await ApiClient.getData(ApiUrl.trainingDetails(id: id));
+
+    if (response.statusCode == 200) {
+      trainingDetails.value = List<TrainingDetailsDatum>.from(
+          response.body["data"].map((x) => TrainingDetailsDatum.fromJson(x)));
+      setRxRequestStatus(Status.completed);
+
+      refresh();
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(response);
+
+      refresh();
+    }
+  }
+
+//// ========================== All API Here ==============================
+
+  homeScreenAPIs() async {
+    bool training = await getTrainingProgramm();
+
+    if (training) {
+      setRxRequestStatus(Status.completed);
+      refresh();
+    }
+  }
 
   void toggleTab() {
     isTab.value = !isTab.value;
+  }
+
+  @override
+  void onInit() {
+    homeScreenAPIs();
+    super.onInit();
   }
 }
