@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
+import 'package:k9academy/helper/shared_prefe/shared_prefe.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
@@ -81,6 +82,7 @@ class AuthenticationController extends GetxController {
     isOtpLoading.value = false;
     refresh();
   }
+
   ///=======================================Reset code in signup otp screen=====================
   final rxRequestStatus = Status.loading.obs;
 
@@ -89,9 +91,7 @@ class AuthenticationController extends GetxController {
   resentUser() async {
     setRxRequestStatus(Status.loading);
     update();
-    Map<String, String> body = {
-      "email": signupEmailController.text
-    };
+    Map<String, String> body = {"email": signupEmailController.text};
 
     var response = await ApiClient.postData(
         AppUrl.resetOtpSignUp, jsonEncode(body),
@@ -109,7 +109,6 @@ class AuthenticationController extends GetxController {
     }
   }
 
-
   ///==================================================LogIn ================================
   RxBool isSignInLoading = false.obs;
 
@@ -126,6 +125,9 @@ class AuthenticationController extends GetxController {
     if (response.statusCode == 200) {
       emailController.clear();
       passwordController.clear();
+
+      SharePrefsHelper.setString(
+          AppConstants.bearerToken, response.body["data"]["accessToken"]);
       Get.toNamed(AppRoute.homeScreen);
       toastMessage(message: response.body["message"]);
     } else {
@@ -149,7 +151,6 @@ class AuthenticationController extends GetxController {
     if (response.statusCode == 200) {
       Get.toNamed(AppRoute.forgetOtpVerify);
       toastMessage(message: response.body["message"]);
-
     } else {
       ApiChecker.checkApi(response);
     }
@@ -172,7 +173,6 @@ class AuthenticationController extends GetxController {
     isForgetOtpLoading.value = false;
     refresh();
     if (response.statusCode == 200) {
-
       Get.toNamed(AppRoute.resetPass);
       toastMessage(message: response.body["message"]);
     } else {
@@ -194,8 +194,8 @@ class AuthenticationController extends GetxController {
       "confirmPassword": confirmPasswordController.text
     };
 
-    var response = await ApiClient.postData(
-        AppUrl.resetPassword, jsonEncode(body));
+    var response =
+        await ApiClient.postData(AppUrl.resetPassword, jsonEncode(body));
     if (response.statusCode == 200) {
       emailController.clear();
       newPasswordController.clear();
@@ -205,7 +205,6 @@ class AuthenticationController extends GetxController {
       toastMessage(message: response.body["message"]);
     } else {
       ApiChecker.checkApi(response);
-
     }
     isResetLoading.value = false;
   }
@@ -229,7 +228,6 @@ class AuthenticationController extends GetxController {
       Get.toNamed(AppRoute.signIn);
     } else {
       ApiChecker.checkApi(response);
-
     }
     isChangeLoading.value = false;
   }
