@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
+import 'package:k9academy/view/screens/settings_screen/settingController/setting_controller.dart';
 import 'package:k9academy/view/widgets/custom_button/custom_button.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart';
@@ -9,6 +11,8 @@ import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart'
 class ChangePasswordScreen extends StatelessWidget {
   ChangePasswordScreen({super.key});
   final formKey = GlobalKey<FormState>();
+ final SettingController settingController = Get.find<SettingController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +46,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 ///<<<<========================================Current Password Field======================================
                 const CustomTextField(
                   hintText: AppStaticStrings.password,
-                  // textEditingController:profileController.currentPasswordController ,
+                  // textEditingController:settingController,
                   keyboardType: TextInputType.name,
                   isPassword: true,
                   // validator: (value) {
