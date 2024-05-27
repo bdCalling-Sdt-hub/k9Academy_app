@@ -1,8 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:k9academy/services/api_check.dart';
+import 'package:k9academy/services/api_client.dart';
+import 'package:k9academy/services/app_url.dart';
+import 'package:k9academy/utils/app_const/app_const.dart';
+import 'package:k9academy/view/screens/my_profile_screen/get_profile_model/get_profile_model.dart';
 
 class ProfileController extends GetxController {
   var selectedIndex = 0.obs;
@@ -24,6 +30,7 @@ class ProfileController extends GetxController {
   Rx<DateTime> selectedDate = DateTime.now().obs;
   Rx<DateTime> newSelectedDate = DateTime.now().obs;
   DateTime lastDate = DateTime.now();
+
   Future<void> calenderShow(BuildContext context, Rx<DateTime> value) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -43,6 +50,7 @@ class ProfileController extends GetxController {
   RxString image = "".obs;
 
   Rx<File> imageFile = File("").obs;
+
   selectImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? getImages =
@@ -58,6 +66,7 @@ class ProfileController extends GetxController {
   RxString coverImage = "".obs;
 
   Rx<File> coverImageFile = File("").obs;
+
   selectCoverImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? getImages =
@@ -66,5 +75,50 @@ class ProfileController extends GetxController {
       coverImageFile.value = File(getImages.path);
       coverImage.value = getImages.path;
     }
+  }
+
+  ///===============================GetProfile Method=========================
+
+  final rxRequestStatus = Status.loading.obs;
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+
+
+  Rx<ProfileModel> profileModel = ProfileModel().obs;
+
+
+  getProfile() async {
+    setRxRequestStatus(Status.loading);
+ //  refresh();
+    var response = await ApiClient.getData(ApiUrl.getProfile);
+    setRxRequestStatus(Status.completed);
+
+    if (response.statusCode == 200) {
+      // final data = await json.decode(response.body);
+       profileModel.value =  ProfileModel.fromJson(response.body);
+
+       print(profileModel.value.data!.userInfo!.name);
+     // userInfo.value = profileModel.data!.userInfo!;
+       profileModel.refresh();
+      refresh();
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(response);
+    }
+    refresh();
+
+
+  }
+
+
+
+
+  @override
+  void onInit() {
+    getProfile();
+    super.onInit();
   }
 }
