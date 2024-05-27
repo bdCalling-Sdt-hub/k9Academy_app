@@ -22,6 +22,7 @@ class TabBarPostScreen extends StatelessWidget {
           (index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 15),
             child: CustomCommunityPost(
+              comment: false,
               onTap: () {
                 Get.toNamed(AppRoute.myPostDetails);
               },

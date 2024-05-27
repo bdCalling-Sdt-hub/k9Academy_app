@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
-import 'package:k9academy/view/screens/home_screen/inner/community_post/community_post.dart';
+import 'package:k9academy/view/screens/community_post/community_post.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/nav_bar/nav_bar.dart';
 import 'inner/home_appbar.dart';
 import 'inner/side_drawer.dart';
-import 'inner/training_programms/training_programs.dart';
+import '../training_programms/training_programs.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});

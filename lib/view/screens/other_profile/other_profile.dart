@@ -125,26 +125,7 @@ class OtherProfile extends StatelessWidget {
                                 ),
                               ),
                               dateTime: '3 may, 2024',
-                              comment: Container(
-                                padding: const EdgeInsets.all(7),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    color: AppColors.lightDarkActive),
-                                child: Row(
-                                  children: [
-                                    CustomImage(
-                                      imageSrc: AppIcons.comment,
-                                      imageType: ImageType.svg,
-                                      size: 20.sp,
-                                    ),
-                                    CustomText(
-                                      text: AppStaticStrings.comments,
-                                      left: 10,
-                                      fontSize: 14.sp,
-                                    )
-                                  ],
-                                ),
-                              )),
+                              comment: false),
                         ),
                       )),
             )

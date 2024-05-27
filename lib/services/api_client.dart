@@ -208,7 +208,7 @@ class ApiClient extends GetxService {
     }
   }
 
-  static Future<Response> PatchMultipartData(
+  static Future<Response> patchMultipartData(
       String uri, Map<String, String> body,
       {List<MultipartBody>? multipartBody,
       List<MultipartListBody>? multipartListBody,

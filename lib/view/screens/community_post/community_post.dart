@@ -32,42 +32,23 @@ class CommunityPost extends StatelessWidget {
 
                   ///=======================================CustomCommunity PostDesign====================
                   child: CustomCommunityPost(
-                      coverImage: homeController.communityPostItems[index],
-                      text: "Jon Week",
-                      profileImage: GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRoute.otherProfile);
-                        },
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(30),
-                          child: CustomNetworkImage(
-                            imageUrl: AppImages.dog3,
-                            height: 30,
-                            width: 30,
-                          ),
+                    coverImage: homeController.communityPostItems[index],
+                    text: "Jon Week",
+                    profileImage: GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppRoute.otherProfile);
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: CustomNetworkImage(
+                          imageUrl: AppImages.dog3,
+                          height: 30,
+                          width: 30,
                         ),
                       ),
-                      dateTime: '3 may, 2024',
-                      comment: Container(
-                        padding: const EdgeInsets.all(7),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: AppColors.lightDarkActive),
-                        child: Row(
-                          children: [
-                            CustomImage(
-                              imageSrc: AppIcons.comment,
-                              imageType: ImageType.svg,
-                              size: 20.sp,
-                            ),
-                            CustomText(
-                              text: AppStaticStrings.comments,
-                              left: 10,
-                              fontSize: 14.sp,
-                            )
-                          ],
-                        ),
-                      )),
+                    ),
+                    dateTime: '3 may, 2024',
+                  ),
                 ),
               )),
     );

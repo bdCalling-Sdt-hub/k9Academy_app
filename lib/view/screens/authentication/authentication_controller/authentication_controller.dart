@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/helper/shared_prefe/shared_prefe.dart';
@@ -11,11 +12,14 @@ import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/toast_message/toast_message.dart';
 
 class AuthenticationController extends GetxController {
+  TextEditingController emailController =
+      TextEditingController(text: kDebugMode ? "foyirab650@neixos.com" : "");
+  TextEditingController passwordController =
+      TextEditingController(text: kDebugMode ? "Aa1@aaaa" : "");
+
   TextEditingController fullNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
   TextEditingController signupEmailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   TextEditingController signupPasswordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();

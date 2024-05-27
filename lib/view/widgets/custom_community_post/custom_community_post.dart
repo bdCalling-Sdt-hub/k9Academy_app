@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:k9academy/helper/network_img/network_img.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
+import 'package:k9academy/utils/app_icons/app_icons.dart';
+import 'package:k9academy/utils/static_strings/static_strings.dart';
+import 'package:k9academy/view/widgets/custom_image/custom_image.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 
 class CustomCommunityPost extends StatelessWidget {
@@ -11,7 +14,7 @@ class CustomCommunityPost extends StatelessWidget {
     required this.text,
     required this.profileImage,
     required this.dateTime,
-    this.comment,
+    this.comment = true,
     this.popUpIcon,
     this.onTap,
   });
@@ -20,7 +23,7 @@ class CustomCommunityPost extends StatelessWidget {
   final String text;
   final Widget profileImage;
   final String dateTime;
-  final Widget? comment;
+  final bool comment;
   final Widget? popUpIcon;
   final VoidCallback? onTap;
 
@@ -83,7 +86,30 @@ class CustomCommunityPost extends StatelessWidget {
                         ),
                       ],
                     ),
-                    if (comment != null) comment!,
+
+                    //============== Comment =============
+
+                    if (comment == true)
+                      Container(
+                        padding: const EdgeInsets.all(7),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: AppColors.lightDarkActive),
+                        child: Row(
+                          children: [
+                            CustomImage(
+                              imageSrc: AppIcons.comment,
+                              imageType: ImageType.svg,
+                              size: 20.sp,
+                            ),
+                            CustomText(
+                              text: AppStaticStrings.comments,
+                              left: 10,
+                              fontSize: 14.sp,
+                            )
+                          ],
+                        ),
+                      )
                   ],
                 ),
               ),

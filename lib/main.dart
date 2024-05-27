@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
@@ -8,6 +9,8 @@ import 'package:k9academy/global/theme/dark.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   DependancyInjection di = DependancyInjection();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   di.dependencies();
   runApp(const MyApp());
 }
