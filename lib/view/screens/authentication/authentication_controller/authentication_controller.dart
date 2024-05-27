@@ -129,6 +129,9 @@ class AuthenticationController extends GetxController {
       passwordController.clear();
       Get.toNamed(AppRoute.homeScreen);
       toastMessage(message: response.body["message"]);
+      SharePrefsHelper.setString(
+          AppConstants.bearerToken, response.body["data"]["accessToken"]);
+      // print("==================> ${response.body["data"]["accessToken"]}") ;
     } else {
       ApiChecker.checkApi(response);
     }
