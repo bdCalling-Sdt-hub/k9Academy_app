@@ -66,6 +66,7 @@ class HomeScreen extends StatelessWidget {
                     coverImage: homeController.communityPostItems[index],
                     text: "Jon Week",
                     dateTime: '3 may, 2024',
+
                   ),
                 ),
               )),
