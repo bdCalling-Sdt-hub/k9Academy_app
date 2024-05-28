@@ -179,6 +179,7 @@ class AppStaticStrings {
   static const usePromoCode = "Use promo code";
   static const haveYourPromoCode = "Have You promo code ?";
   static const confirm = "Confirm";
+  static const noInternet = "No internet connections found. Check your connections, Please try again";
   static const yourSubscriptionPackageIsExpired =
       "Your Subscription package is Expired. ";
 
