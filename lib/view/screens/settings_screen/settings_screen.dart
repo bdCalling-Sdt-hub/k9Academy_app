@@ -7,6 +7,7 @@ import 'package:k9academy/utils/app_icons/app_icons.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/authentication/authentication_controller/authentication_controller.dart';
 import 'package:k9academy/view/widgets/custom_image/custom_image.dart';
+import 'package:k9academy/view/widgets/custom_loader/custom_loader.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart';
 
@@ -17,106 +18,112 @@ class SettingsScreen extends StatelessWidget {
   ///====================================Delete Account=============================
   void showDialogBox(BuildContext context) {
     Get.dialog(
-      AlertDialog(
-        backgroundColor: AppColors.blackyDarkHover,
-        content: SizedBox(
-          height: 300.h,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
+      Obx(
+         () {
+          return AlertDialog(
+            backgroundColor: AppColors.blackyDarkHover,
+            content: SizedBox(
+              height: 300.h,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(),
-                  const Spacer(),
-                  GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: const CustomImage(
-                        imageSrc: AppIcons.x,
-                        imageType: ImageType.svg,
-                      ))
-                ],
-              ),
-              const CustomText(
-                text: AppStaticStrings.wantToDeleteAccount,
-                fontWeight: FontWeight.w400,
-                color: AppColors.blueNormal,
-                bottom: 10,
-              ),
-              const CustomText(
-                textAlign: TextAlign.start,
-                text: AppStaticStrings.pleaseConfirmYourPassword,
-                fontWeight: FontWeight.w400,
-                color: AppColors.lightNormalHover,
-                bottom: 16,
-                maxLines: 2,
-              ),
-              const CustomText(
-                top: 16,
-                text: "Password",
-                fontWeight: FontWeight.w500,
-                color: AppColors.lightNormalHover,
-                bottom: 16,
-              ),
+                  Row(
+                    children: [
+                      const SizedBox(),
+                      const Spacer(),
+                      GestureDetector(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: const CustomImage(
+                            imageSrc: AppIcons.x,
+                            imageType: ImageType.svg,
+                          ))
+                    ],
+                  ),
+                  const CustomText(
+                    text: AppStaticStrings.wantToDeleteAccount,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.blueNormal,
+                    bottom: 10,
+                  ),
+                  const CustomText(
+                    textAlign: TextAlign.start,
+                    text: AppStaticStrings.pleaseConfirmYourPassword,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.lightNormalHover,
+                    bottom: 16,
+                    maxLines: 2,
+                  ),
+                  const CustomText(
+                    top: 16,
+                    text: "Password",
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.lightNormalHover,
+                    bottom: 16,
+                  ),
 
-              ///======================================Password Field==================
-               CustomTextField(
-                textEditingController: authenticationController.passwordController,
-                hintText: "password",
-                isPassword: true,
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 5,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            AppColors.redNormal),
-                      ),
-                      onPressed: () {
-                        authenticationController.deleteAccount();
-                      },
-                      child: CustomText(
-                        text: AppStaticStrings.delete,
-                        color: Colors.white,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight
-                            .w600, // Make sure the text color contrasts with the button color
-                      ),
-                    ),
+                  ///======================================Password Field==================
+                   CustomTextField(
+                    textEditingController: authenticationController.signupPasswordController,
+                    hintText: "password",
+                    isPassword: true,
                   ),
                   SizedBox(
-                    width: 8.w,
+                    height: 20.h,
                   ),
-                  Expanded(
-                    flex: 5,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            AppColors.blueNormal),
+                  Row(
+                    children: [
+                      authenticationController.isDeleteLoading.value?
+                          const CustomLoader():
+                      Expanded(
+                        flex: 5,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                AppColors.redNormal),
+                          ),
+                          onPressed: () {
+                            authenticationController.deleteAccount();
+                          },
+                          child: CustomText(
+                            text: AppStaticStrings.delete,
+                            color: Colors.white,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight
+                                .w600, // Make sure the text color contrasts with the button color
+                          ),
+                        ),
                       ),
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: CustomText(
-                        text: AppStaticStrings.cancel,
-                        color: AppColors.lightNormal,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight
-                            .w600, // Make sure the text color contrasts with the button color
+                      SizedBox(
+                        width: 8.w,
                       ),
-                    ),
-                  ),
+                      Expanded(
+                        flex: 5,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                AppColors.blueNormal),
+                          ),
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: CustomText(
+                            text: AppStaticStrings.cancel,
+                            color: AppColors.lightNormal,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight
+                                .w600, // Make sure the text color contrasts with the button color
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
-              )
-            ],
-          ),
-        ),
+              ),
+            ),
+          );
+        }
       ),
     );
   }

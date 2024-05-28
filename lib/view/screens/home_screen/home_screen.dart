@@ -15,7 +15,7 @@ import '../training_programms/training_programs.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-  final HomeController homeController = Get.find();
+ final HomeController homeController = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

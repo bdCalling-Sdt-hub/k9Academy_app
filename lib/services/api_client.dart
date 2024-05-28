@@ -131,17 +131,6 @@ class ApiClient extends GetxService {
       debugPrint('====> API Call: $uri\nHeader: ${headers ?? mainHeaders}');
       debugPrint('====> API Body: $body with ${multipartBody?.length} picture');
 
-      //http.MultipartRequest _request = http.MultipartRequest('POST', Uri.parse("https://b936-114-130-157-130.ngrok-free.app/api/v1/user/profile/store/degree"));
-      //_request.headers.addAll(headers ?? mainHeaders);
-      // for(MultipartBody multipart in multipartBody!) {
-      //   if(multipart.file != null) {
-      //     Uint8List _list = await multipart.file.readAsBytes();
-      //     _request.files.add(http.MultipartFile(
-      //       multipart.key, multipart.file.readAsBytes().asStream(), _list.length,
-      //       filename: '${DateTime.now().toString()}.png',
-      //     ));
-      //   }
-      // }
 
       var request =
           http.MultipartRequest(requestType, Uri.parse(ApiUrl.baseUrl + uri));

@@ -131,6 +131,7 @@ class CustomWidgets {
     required String hintText,
     required TextEditingController controller,
   }) =>
+
       Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: Column(
@@ -146,6 +147,7 @@ class CustomWidgets {
             CustomTextField(
               textEditingController: controller,
               hintText: hintText,
+
             ),
           ],
         ),

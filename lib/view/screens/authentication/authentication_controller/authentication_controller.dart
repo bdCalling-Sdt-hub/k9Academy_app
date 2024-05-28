@@ -14,9 +14,9 @@ import 'package:k9academy/utils/toast_message/toast_message.dart';
 //
 class AuthenticationController extends GetxController {
   TextEditingController emailController =
-      TextEditingController(text: kDebugMode ? "perehe1070@huleos.com" : "");
+      TextEditingController(text: kDebugMode ? "promotionbd321@gmail.com" : "");
   TextEditingController passwordController =
-      TextEditingController(text: kDebugMode ? "1234567Rr@" : "");
+      TextEditingController(text: kDebugMode ? "Aa1@aaaa" : "");
 
   TextEditingController fullNameController = TextEditingController();
   TextEditingController signupEmailController = TextEditingController();
@@ -139,8 +139,8 @@ class AuthenticationController extends GetxController {
     var response = await ApiClient.postData(ApiUrl.logIn, jsonEncode(body),
         headers: headers);
     if (response.statusCode == 200) {
-      emailController.clear();
-      passwordController.clear();
+      // emailController.clear();
+      // passwordController.clear();
 
       SharePrefsHelper.setString(
           AppConstants.bearerToken, response.body["data"]["accessToken"]);
@@ -254,7 +254,7 @@ class AuthenticationController extends GetxController {
     isDeleteLoading.value = true;
     refresh();
     Map<dynamic, String> body = {
-      "email": signupEmailController.text,
+      "email": emailController.text,
       "password": signupPasswordController.text
     };
     var response = await ApiClient.deleteData(ApiUrl.deleteAccount, body: body);
@@ -262,7 +262,7 @@ class AuthenticationController extends GetxController {
     isDeleteLoading.value = false;
     refresh();
     if (response.statusCode == 200) {
-      // Get.toNamed(AppRoute.resetPass);
+      Get.toNamed(AppRoute.signIn);
       toastMessage(message: response.body["message"]);
     } else {
       ApiChecker.checkApi(response);

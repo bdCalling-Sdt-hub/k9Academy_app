@@ -26,7 +26,8 @@ class PostScreen extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                Get.toNamed(AppRoute.myProfileScreen);
+                postController.multipartRequest();
+                // Get.toNamed(AppRoute.myProfileScreen);
               },
               icon: Container(
                 decoration: BoxDecoration(
@@ -44,8 +45,9 @@ class PostScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
         child: Column(
           children: [
-            const CustomTextField(
+             CustomTextField(
               maxLines: 10,
+              textEditingController: postController.descriptionController,
             ),
 
             const SizedBox(
