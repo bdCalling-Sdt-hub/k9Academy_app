@@ -24,4 +24,8 @@ class ApiUrl {
   static const trainingPrograms = "/training/all";
   static trainingDetails({required String id}) =>
       "/program-article/program-articles/$id";
+
+  static const communityPost = "/post/community-posts";
+
+  static singleCommunityPost({required String id}) => "/post/single-post/$id";
 }

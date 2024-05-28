@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
@@ -63,42 +65,48 @@ class CustomCommunityPost extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        //================== User Image ================
+                    Expanded(
+                      child: Row(
+                        children: [
+                          //================== User Image ================
 
-                        GestureDetector(
-                          onTap: () {},
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(30),
-                            child: CustomNetworkImage(
-                              imageUrl: profileImage,
-                              height: 30,
-                              width: 30,
+                          GestureDetector(
+                            onTap: () {},
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(30),
+                              child: CustomNetworkImage(
+                                imageUrl: profileImage,
+                                height: 30,
+                                width: 30,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 12.w,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // User Name
-                            CustomText(
-                              text: text,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
+                          SizedBox(
+                            width: 12.w,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // User Name
+                                CustomText(
+                                  maxLines: 2,
+                                  textAlign: TextAlign.left,
+                                  text: text,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                // Date
+                                CustomText(
+                                  text: dateTime,
+                                  fontSize: 12.sp,
+                                  color: Colors.grey,
+                                ),
+                              ],
                             ),
-                            // Date
-                            CustomText(
-                              text: dateTime,
-                              fontSize: 12.sp,
-                              color: Colors.grey,
-                            ),
-                          ],
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
 
                     //============== Comment =============
@@ -127,6 +135,7 @@ class CustomCommunityPost extends StatelessWidget {
                   ],
                 ),
               ),
+
               SizedBox(height: 10.h),
             ],
           ),

@@ -142,8 +142,7 @@ class AppRoute {
         name: trainingProgramsDetails, page: () => TrainingProgramsDetails()),
 
     ///==================== communityPostDetails ====================
-    GetPage(
-        name: communityPostDetails, page: () => const CommunityPostDetails()),
+    GetPage(name: communityPostDetails, page: () => CommunityPostDetails()),
 
     ///==================== videoShowScreen ====================
     GetPage(name: videoShowScreen, page: () => const VideoShowScreen()),

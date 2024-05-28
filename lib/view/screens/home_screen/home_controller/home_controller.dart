@@ -5,6 +5,7 @@ import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_img/app_img.dart';
+import 'package:k9academy/view/screens/home_screen/model/community_post_model.dart';
 import 'package:k9academy/view/screens/home_screen/model/training_details.dart';
 import 'package:k9academy/view/screens/home_screen/model/training_programs.dart';
 
@@ -53,7 +54,6 @@ class HomeController extends GetxController {
   RxInt bannerIndex = 0.obs;
   Rx<PageController> pageController = PageController().obs;
   RxInt selectedFqw = 100000.obs;
-  var isTab = false.obs;
 
   ///========================== Training Programms ===========================
   RxList<TrainingDatum> trainingList = <TrainingDatum>[].obs;
@@ -77,6 +77,62 @@ class HomeController extends GetxController {
       ApiChecker.checkApi(response);
 
       return false;
+    }
+  }
+
+  ///========================== Community Post ===========================
+
+  RxList<CommunityDatum> communityPost = <CommunityDatum>[].obs;
+
+  Rx<CommunityDatum> singleCommunityPost = CommunityDatum().obs;
+
+  Future<bool> getCommunityPost() async {
+    setRxRequestStatus(Status.loading);
+    refresh();
+    var response = await ApiClient.getData(ApiUrl.communityPost);
+
+    if (response.statusCode == 200) {
+      communityPost.value = List<CommunityDatum>.from(
+          response.body["data"].map((x) => CommunityDatum.fromJson(x)));
+      setRxRequestStatus(Status.completed);
+
+      refresh();
+      return true;
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(response);
+
+      refresh();
+
+      return false;
+    }
+  }
+
+  ///========================== Single Community Post ===========================
+  getSingleCommunityPost({required String id}) async {
+    setRxRequestStatus(Status.loading);
+    refresh();
+    var response = await ApiClient.getData(ApiUrl.singleCommunityPost(id: id));
+
+    if (response.statusCode == 200) {
+      singleCommunityPost.value =
+          CommunityDatum.fromJson(response.body["data"]);
+      setRxRequestStatus(Status.completed);
+
+      refresh();
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(response);
+
+      refresh();
     }
   }
 
@@ -112,14 +168,12 @@ class HomeController extends GetxController {
   homeScreenAPIs() async {
     bool training = await getTrainingProgramm();
 
-    if (training) {
+    bool communityPost = await getCommunityPost();
+
+    if (training && communityPost) {
       setRxRequestStatus(Status.completed);
       refresh();
     }
-  }
-
-  void toggleTab() {
-    isTab.value = !isTab.value;
   }
 
   @override
