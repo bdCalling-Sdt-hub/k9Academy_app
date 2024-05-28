@@ -180,4 +180,8 @@ class AppStaticStrings {
   static const confirm = "Confirm";
   static const yourSubscriptionPackageIsExpired =
       "Your Subscription package is Expired. ";
+
+  ///==================================All HintText=======================
+  static const yourName= "Your Name :";
+
 }

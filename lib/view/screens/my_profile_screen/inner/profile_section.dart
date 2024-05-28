@@ -327,7 +327,7 @@ class ProfileSection extends StatelessWidget {
                       ///==================================Name Field=============================
                       customWidgets.customTitleAndTextField(
                           text: AppStaticStrings.name,
-                          hintText: AppStaticStrings.mrDogLover,
+                          hintText: AppStaticStrings.enterYourName,
                           controller: profileController.nameController),
 
                       ///=====================================Email field ========================
@@ -339,10 +339,16 @@ class ProfileSection extends StatelessWidget {
                         fontSize: 16.sp,
                         color: AppColors.lightActive,
                       ),
+                      CustomTextField(
+                        readOnly: true,
+                        textEditingController:
+                        profileController.emailController,
+                        hintText: AppStaticStrings.enterYourEmail,
+                      ),
                       ///=====================================number field =======================
                       customWidgets.customTitleAndTextField(
                           text: AppStaticStrings.contactNo,
-                          hintText: "01722",
+                          hintText: AppStaticStrings.enterYourContaNo,
                           controller: profileController.contactController),
 
                       ///=========================================Date of field=====================
@@ -378,13 +384,13 @@ class ProfileSection extends StatelessWidget {
                       ///==================================Age field=============================
                       customWidgets.customTitleAndTextField(
                           text: AppStaticStrings.age,
-                          hintText: "22",
+                          hintText: AppStaticStrings.enterYourAge,
                           controller: profileController.ageController),
 
                       ///==================================Gender field============================
                       customWidgets.customTitleAndTextField(
                           text: AppStaticStrings.gender,
-                          hintText: "male",
+                          hintText: AppStaticStrings.enterYourGender,
                           controller: profileController.genderController),
                       SizedBox(
                         height: 10.h,
