@@ -127,20 +127,29 @@ class ProfileController extends GetxController {
           Uri.parse(
               "${ApiUrl.baseUrl}${ApiUrl.editProfile}"));
 
-          var data = {
-            "name": nameController.text,
-            "phone_number": contactController.text,
-            "date_of_birth": dateController.text,
-            "age": nameController.text,
-            "gender": genderController.text,
-          };
 
-      request.fields["data"] = jsonEncode(data);
+
+      //     var data = {
+      //       "name": nameController.text,
+      //     };
+      //
+      request.fields["name"] = nameController.text;
+      request.fields["name"] = nameController.text;
+      request.fields["name"] = nameController.text;
+      request.fields["name"] = nameController.text;
+      request.fields["name"] = nameController.text;
+
 
       if (image.value.isNotEmpty) {
         var mimeType = lookupMimeType(image.value);
 
-        var img = await http.MultipartFile.fromPath('file', image.value,
+        var img = await http.MultipartFile.fromPath('profile_image', image.value,
+            contentType: MediaType.parse(mimeType!));
+        request.files.add(img);
+      }  if (coverImage.value.isNotEmpty) {
+        var mimeType = lookupMimeType(coverImage.value);
+
+        var img = await http.MultipartFile.fromPath('cover_image', coverImage.value,
             contentType: MediaType.parse(mimeType!));
         request.files.add(img);
       }
