@@ -10,6 +10,7 @@ class AppColors {
   static const Color redNormalHover = Color(0xffc70f1f);
   static const Color messageText = Color(0xff6A6A6A);
   static const Color brownNormal = Color(0xffF89C40);
+  static const Color brownLightActive = Color(0xffFDE0C4);
 
   ///============================ Blue Series ===============================
 

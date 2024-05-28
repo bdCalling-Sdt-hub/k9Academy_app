@@ -101,7 +101,7 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                           color: controller.inboxChat[index]
                                                       ["sender"] ==
                                                   "0"
-                                              ? AppColors.redLightActive
+                                              ? AppColors.brownLightActive
                                               : AppColors.blueLightActive),
                                       child: CustomText(
                                         maxLines: 10,
