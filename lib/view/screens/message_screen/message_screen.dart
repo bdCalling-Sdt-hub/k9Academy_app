@@ -22,7 +22,10 @@ class MessageScreen extends StatelessWidget {
         ),
       ),
       backgroundColor: AppColors.blackyDarkHover,
-      bottomNavigationBar: const MessageInputField(),
+      bottomNavigationBar: MessageInputField(
+        onTap: () {},
+        writeMsgController: TextEditingController(),
+      ),
       body: const Column(children: [
         //============================== Chat Bubble ==============================
 

@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:k9academy/global/controller/general_controller.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
@@ -12,6 +15,7 @@ import 'package:k9academy/view/screens/home_screen/model/training_programs.dart'
 class HomeController extends GetxController {
   final rxRequestStatus = Status.loading.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+  GeneralController generalController = Get.find<GeneralController>();
 
   ///================================BannerImage=========================
   final List<String> bannerImg = [
@@ -160,6 +164,31 @@ class HomeController extends GetxController {
       ApiChecker.checkApi(response);
 
       refresh();
+    }
+  }
+
+  ///========================== Write Comments ===========================
+
+  Rx<TextEditingController> writeController = TextEditingController().obs;
+  writeComments({required String postId}) async {
+    navigator!.pop();
+
+    generalController.showPopUpLoader();
+    var body = {"postId": postId, "content": writeController.value.text};
+
+    var response =
+        await ApiClient.postData(ApiUrl.postComments, jsonEncode(body));
+
+    if (response.statusCode == 200) {
+      navigator!.pop();
+      writeController.value.clear();
+
+      getSingleCommunityPost(id: postId);
+    } else {
+      navigator!.pop();
+      writeController.value.clear();
+
+      ApiChecker.checkApi(response);
     }
   }
 

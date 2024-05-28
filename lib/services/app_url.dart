@@ -28,4 +28,6 @@ class ApiUrl {
   static const communityPost = "/post/community-posts";
 
   static singleCommunityPost({required String id}) => "/post/single-post/$id";
+
+  static const postComments = "/post/add-comment";
 }

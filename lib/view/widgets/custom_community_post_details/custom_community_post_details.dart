@@ -144,7 +144,14 @@ class _CustomCommunityPostDetailsState
                                 backgroundColor: AppColors.lightDarkActive,
                                 context: context,
                                 builder: (context) {
-                                  return const MessageInputField();
+                                  return MessageInputField(
+                                    onTap: () {
+                                      homeController.writeComments(
+                                          postId: value.id ?? "");
+                                    },
+                                    writeMsgController:
+                                        homeController.writeController.value,
+                                  );
                                 });
                           },
                           child: Container(
