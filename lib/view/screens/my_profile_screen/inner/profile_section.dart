@@ -331,10 +331,14 @@ class ProfileSection extends StatelessWidget {
                           controller: profileController.nameController),
 
                       ///=====================================Email field ========================
-                      customWidgets.customTitleAndTextField(
-                          text: AppStaticStrings.email,
-                          hintText: "masumrna927@gmail.com",
-                          controller: profileController.emailController),
+                      CustomText(
+                        top: 7,
+                        bottom: 12,
+                        text: AppStaticStrings.email,
+                        fontSize: 16.sp,
+                        color: AppColors.lightActive,
+                      ),
+
 
                       ///=====================================number field =======================
                       customWidgets.customTitleAndTextField(

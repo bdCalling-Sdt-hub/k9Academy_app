@@ -115,125 +115,63 @@ class ProfileController extends GetxController {
       coverImage.value = getImages.path;
     }
   }
+
+
+
+
   ///======================================Edit Profile===============================
   RxBool isUpdateProfileLoading = false.obs;
   Future<void> multipartRequest({Map<String, String>? header}) async {
     isUpdateProfileLoading.value = true;
     update();
-
     try {
       var request = http.MultipartRequest(
           'PATCH',
           Uri.parse(
               "${ApiUrl.baseUrl}${ApiUrl.editProfile}"));
-
-
-
-      //     var data = {
-      //       "name": nameController.text,
-      //     };
-      //
       request.fields["name"] = nameController.text;
-      request.fields["name"] = nameController.text;
-      request.fields["name"] = nameController.text;
-      request.fields["name"] = nameController.text;
-      request.fields["name"] = nameController.text;
-
-
+      request.fields["phone_number"] = contactController.text;
+      request.fields["date_of_birth"] = dateController.text;
+      request.fields["age"] = ageController.text;
+      request.fields["gender"] = genderController.text;
       if (image.value.isNotEmpty) {
         var mimeType = lookupMimeType(image.value);
-
         var img = await http.MultipartFile.fromPath('profile_image', image.value,
             contentType: MediaType.parse(mimeType!));
         request.files.add(img);
       }  if (coverImage.value.isNotEmpty) {
         var mimeType = lookupMimeType(coverImage.value);
-
         var img = await http.MultipartFile.fromPath('cover_image', coverImage.value,
             contentType: MediaType.parse(mimeType!));
         request.files.add(img);
       }
-
       var token = await SharePrefsHelper.getString(AppConstants.bearerToken);
       request.headers['Authorization'] = "Bearer $token";
 
       var response = await request.send();
       isUpdateProfileLoading.value = false;
       update();
-      print("=====${response.statusCode}===============================Success");
+      debugPrint("=====${response.statusCode}===============================Success");
       if (response.statusCode == 200) {
         update();
         var data = await response.stream.bytesToString();
-        // Get.toNamed(AppRoutes.employeeProfiles);
         isAddItem.value =
         !isAddItem.value;
-        // getProfileInfo();
          toastMessage(message: "Profile Update successfully");
-        print("=================> data $data");
+        debugPrint("=================> data $data");
         isUpdateProfileLoading.value = false;
         update();
       } else {
         var data = await response.stream.bytesToString();
 
-        print("=================> data $data");
+        debugPrint("=================> data $data");
       }
     } catch (e) {
-      print("============> $e");
+      debugPrint("============> $e");
     }
   }
-  // Future<void> multipartRequest(
-  //     {String? imagePath, Map<String, String>? header}) async {
-  //   isUpdateProfileLoading.value = true;
-  //   refresh();
-  //   try {
-  //     var request = http.MultipartRequest(
-  //         'PATCH', Uri.parse("${ApiUrl.baseUrl}${ApiUrl.editProfile}"));
-  //
-  //     var data = {
-  //       "name": nameController.text,
-  //       "phone_number": contactController.text,
-  //       "date_of_birth": dateController.text,
-  //       "age": nameController.text,
-  //       "gender": genderController.text,
-  //     };
-  //
-  //     request.fields["data"] = jsonEncode(data);
-  //
-  //     if (imagePath != null) {
-  //       var mimeType = lookupMimeType(imagePath);
-  //
-  //       var img = await http.MultipartFile.fromPath('file', imagePath,
-  //           contentType: MediaType.parse(mimeType!));
-  //       request.files.add(img);
-  //     }
-  //
-  //     var token = await SharePrefsHelper.getString(AppConstants.bearerToken);
-  //     request.headers['Authorization'] = "Bearer $token";
-  //
-  //     var response = await request.send();
-  //     isUpdateProfileLoading.value = false;
-  //     refresh();
-  //     print("=====${response.statusCode}++++============================");
-  //     if (response.statusCode == 200) {
-  //
-  //       var data = await response.stream.bytesToString();
-  //       toastMessage(message: "Profile updated successfully");
-  //       // Get.toNamed(AppRoutes.userProfileScreen);
-  //       //  Get.back();
-  //       // isAddItem.value =
-  //       // !isAddItem.value;
-  //       print("=================> data $data");
-  //       isUpdateProfileLoading.value = false;
-  //       refresh();
-  //     } else {
-  //       var data = await response.stream.bytesToString();
-  //
-  //       print("=================> data $data");
-  //     }
-  //   } catch (e) {
-  //     print("============> $e");
-  //   }
-  // }
+
+
 
   @override
   void onInit() {
