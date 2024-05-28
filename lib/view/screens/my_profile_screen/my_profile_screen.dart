@@ -177,7 +177,7 @@ class MyProfileScreen extends StatelessWidget {
               child: IndexedStack(
                 index: profileController.selectedIndex.value,
                 children: [
-                  ProfileSection(),
+                  ProfileSection(profileController: profileController,),
                   TabBarPostScreen(),
                   const TabBarPackageScreen(),
                   ScheduleScreen()

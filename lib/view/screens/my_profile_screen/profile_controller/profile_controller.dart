@@ -83,7 +83,7 @@ class ProfileController extends GetxController {
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
 
-  Rx<ProfileModel> profileModel = ProfileModel().obs;
+  Rx<DataModel> profileModel = DataModel().obs;
 
 
   getProfile() async {
@@ -94,9 +94,9 @@ class ProfileController extends GetxController {
 
     if (response.statusCode == 200) {
       // final data = await json.decode(response.body);
-       profileModel.value =  ProfileModel.fromJson(response.body);
+       profileModel.value =  DataModel.fromJson(response.body);
 
-       print(profileModel.value.data!.userInfo!.name);
+       // print(profileModel.value.data!.userInfo!.name);
      // userInfo.value = profileModel.data!.userInfo!;
        profileModel.refresh();
       refresh();
