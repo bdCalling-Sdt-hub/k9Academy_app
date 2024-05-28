@@ -199,7 +199,7 @@ class _CustomCommunityPostDetailsState
                           var comments = value.comments?[index];
                           return Row(
                             children: [
-                              ///================== User Image ===================
+                              ///================== User Image ====================
 
                               CustomNetworkImage(
                                 boxShape: BoxShape.circle,
