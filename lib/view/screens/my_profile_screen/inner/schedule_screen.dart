@@ -44,7 +44,7 @@ class ScheduleScreen extends StatelessWidget {
                 bottom: 14,
               ),
               CustomText(
-                text: "Link",
+                text: AppStaticStrings.link,
                 fontWeight: FontWeight.w500,
                 fontSize: 14.sp,
                 color: AppColors.lightNormalHover,
@@ -55,7 +55,7 @@ class ScheduleScreen extends StatelessWidget {
               ),
               CustomText(
                 top: 16,
-                text: "Password",
+                text: AppStaticStrings.password,
                 fontWeight: FontWeight.w500,
                 fontSize: 14.sp,
                 color: AppColors.lightNormalHover,
@@ -155,7 +155,7 @@ class ScheduleScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomText(
-                          text: "Consultation",
+                          text: AppStaticStrings.consultation,
                           color: AppColors.lightNormalHover,
                           bottom: 7,
                           fontWeight: FontWeight.w500,

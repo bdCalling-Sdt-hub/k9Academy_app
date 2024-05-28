@@ -2,6 +2,7 @@ class AppStaticStrings {
   //============================= OnBoarding ================================
   static const dental = "Dental";
   static const getStarted = "Get Start";
+  static const link = "Link";
 
   ///============================= Authentication ================================///
 
@@ -150,7 +151,6 @@ class AppStaticStrings {
   static const meetingLink = "Meeting Link";
   static const meetingDate = "Meeting date";
   static const meetingTime = "Meeting time";
-  static const link = "Link";
   static const othersProfile = "Others profile";
 
   ///=========================== Side Drawer ========================
