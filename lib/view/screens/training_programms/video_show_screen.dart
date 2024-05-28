@@ -1,12 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:k9academy/helper/network_img/network_img.dart';
+import 'package:get/get.dart';
+import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
-import 'package:k9academy/utils/app_const/app_const.dart';
+import 'package:k9academy/view/screens/home_screen/model/training_details.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
+import 'package:chewie/chewie.dart';
+import 'package:video_player/video_player.dart';
 
-class VideoShowScreen extends StatelessWidget {
+class VideoShowScreen extends StatefulWidget {
   const VideoShowScreen({super.key});
+
+  @override
+  State<VideoShowScreen> createState() => _VideoShowScreenState();
+}
+
+class _VideoShowScreenState extends State<VideoShowScreen> {
+  final TrainingDetailsDatum data = Get.arguments;
+
+  late VideoPlayerController videoPlayerController;
+  late ChewieController chewieController;
+  bool _isVideoInitialized = false;
+
+  Future<void> videoInit() async {
+    videoPlayerController = VideoPlayerController.networkUrl(
+      Uri.parse("${ApiUrl.baseUrl}/${data.video}"),
+    );
+    await videoPlayerController.initialize();
+
+    chewieController = ChewieController(
+      videoPlayerController: videoPlayerController,
+      autoPlay: true,
+      looping: true,
+    );
+
+    setState(() {
+      _isVideoInitialized = true;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    videoInit();
+  }
+
+  @override
+  void dispose() {
+    videoPlayerController.dispose();
+    chewieController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +61,7 @@ class VideoShowScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.blackyDarker,
         title: CustomText(
-          text: "We provide e-collar",
+          text: data.articleTitle ?? "",
           fontSize: 20.sp,
         ),
       ),
@@ -25,20 +69,23 @@ class VideoShowScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ///==============================Video Image=========================
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              margin: const EdgeInsets.only(top: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: AppColors.blackyDarker),
-              child: CustomNetworkImage(
-                  imageUrl: AppConstants.videoImage,
-                  height: 150,
-                  width: double.infinity),
-            ),
+            ///============================== Video Player =========================
+            if (_isVideoInitialized)
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 3,
+                width: double.maxFinite,
+                child: Chewie(
+                  controller: chewieController,
+                ),
+              )
+            else
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Center(child: CircularProgressIndicator()),
+              ),
+
             SizedBox(
-              height: 20.w,
+              height: 10.w,
             ),
 
             ///====================================Text Design==========================
@@ -47,15 +94,15 @@ class VideoShowScreen extends StatelessWidget {
               width: double.infinity,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16)),
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10)),
                 color: AppColors.blackyDarker,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomText(
-                    text: "Article on e-collar training",
+                    text: data.articleName ?? "",
                     color: AppColors.lightNormal,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -64,15 +111,13 @@ class VideoShowScreen extends StatelessWidget {
                   CustomText(
                     textAlign: TextAlign.start,
                     maxLines: 40,
-                    text:
-                        "Sed tincidunt quis tortor. non quam Quisque placerat commodo laoreet Nunc ipsum hendrerit Ut ex amet, dui turpis malesuada laoreet tincidunt amet, Vestibulum lacus, Donec quam id at, sodales. Nullam sollicitudin. ipsum commodo felis, sed faucibus tincidunt efficitur. Nam efficitur. ipsum tempor Morbi odio tempor dui. luctus quam eu non ex viverra orci hendrerit Praesent placerat Ut non, Sed sed lobortis, fringilla enim. turpis Sed nisl. volutpat non, Quisque fringilla sodales. Donec est. eliteget viverra quam sapien Nam amet, amet, efficitur. maximus Nullam lorem. hendrerit viverra Lorem ullamcorper quis convallis. varius tincidunt convallis. eget non, at, non tincidunt Nullam ex facilisis viverra ac odio viverra nibh Cras risus sollicitudin. sodales. at malesuada faucibus amet, massa ipsum est. Nam urna vitae diam tincidunt lorem. sit placerat. Sed volutpat non ac Nam est. sodales. facilisis ex maximus tincidunt tincidunt faucibus ex Nam luctus adipiscing elit placerat. QuisqueDonec Nunc Praesent ultrices faucibus lacus nulla, In Ut Vestibulum tempor tincidunt laoreet ullamcorper sodales. ullamcorper amet, quis urna lacus facilisis malesuada vitae ex elementum elementum faucibus Nunc sodales. lorem. urna. elementum tincidunt placerat. vitae at elementum Vestibulum ac non. Praesent elit. scelerisque Ut dui. lobortis, dolor elit quis tincidunt ex venenatis Nam quis sollicitudin. In viverra quam volutpat dignissim, gravida ullamcorper malesuada lorem. tincidunt Morbi",
-                    color: AppColors.lightNormal,
+                    text: data.articleDescription ?? "",
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

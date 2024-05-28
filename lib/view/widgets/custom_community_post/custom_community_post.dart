@@ -5,7 +5,6 @@ import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/helper/network_img/network_img.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_icons/app_icons.dart';
-import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/widgets/custom_image/custom_image.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
@@ -15,11 +14,11 @@ class CustomCommunityPost extends StatelessWidget {
     super.key,
     required this.coverImage,
     required this.text,
-
     required this.dateTime,
     this.comment = true,
     this.popUpIcon = true,
-    this.onTap, required this.profileImage ,
+    this.onTap,
+    required this.profileImage,
   });
 
   final String coverImage;
@@ -68,17 +67,17 @@ class CustomCommunityPost extends StatelessWidget {
                       children: [
                         //================== User Image ================
 
-                       GestureDetector(
-                           onTap: (){},
-                           child: ClipRRect(
-                             borderRadius: BorderRadius.circular(30),
-                             child: CustomNetworkImage(
-                               imageUrl: profileImage,
-                               height: 30,
-                               width: 30,
-                             ),
-                           ),
-                         ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: CustomNetworkImage(
+                              imageUrl: profileImage,
+                              height: 30,
+                              width: 30,
+                            ),
+                          ),
+                        ),
                         SizedBox(
                           width: 12.w,
                         ),
@@ -134,32 +133,31 @@ class CustomCommunityPost extends StatelessWidget {
         ),
         if (popUpIcon == true)
           Positioned(
-              right: 0,
-              top: 0,
-              child: PopupMenuButton<String>(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10)),
-                ),
-                onSelected: (value) {},
-                itemBuilder: (BuildContext context) =>
-                <PopupMenuEntry<String>>[
-                  PopupMenuItem<String>(
-                    onTap: () {
-                      Get.toNamed(AppRoute.postScreen);
-                    },
-                    value: 'edit',
-                    child: const Text('Edit'),
-                  ),
-                  const PopupMenuItem<String>(
-                    value: 'delete',
-                    child: Text('Delete'),
-                  ),
-                ],
-                icon: const Icon(Icons.more_vert, color: Colors.white),
+            right: 0,
+            top: 0,
+            child: PopupMenuButton<String>(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10)),
               ),
+              onSelected: (value) {},
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                PopupMenuItem<String>(
+                  onTap: () {
+                    Get.toNamed(AppRoute.postScreen);
+                  },
+                  value: 'edit',
+                  child: const Text('Edit'),
+                ),
+                const PopupMenuItem<String>(
+                  value: 'delete',
+                  child: Text('Delete'),
+                ),
+              ],
+              icon: const Icon(Icons.more_vert, color: Colors.white),
+            ),
           ),
       ],
     );

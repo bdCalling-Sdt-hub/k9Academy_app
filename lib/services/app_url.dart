@@ -21,4 +21,7 @@ class ApiUrl {
 
   ///==================================== Home Screen ================================
   static const banner = "/auth/forgot-password";
+  static const trainingPrograms = "/training/all";
+  static trainingDetails({required String id}) =>
+      "/program-article/program-articles/$id";
 }

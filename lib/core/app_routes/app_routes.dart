@@ -117,7 +117,7 @@ class AppRoute {
     GetPage(name: myProfileScreen, page: () => MyProfileScreen()),
 
     ///==================== settingsScreen ====================
-    GetPage(name: settingsScreen, page: () =>  SettingsScreen()),
+    GetPage(name: settingsScreen, page: () => SettingsScreen()),
 
     ///==================== aboutUs ====================
     GetPage(name: aboutUs, page: () => const AboutUs()),

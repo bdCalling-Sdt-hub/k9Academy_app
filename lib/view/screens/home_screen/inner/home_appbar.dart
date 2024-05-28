@@ -1,11 +1,9 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/view/screens/home_screen/home_controller/home_controller.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../helper/network_img/network_img.dart';
 import '../../../../utils/app_const/app_const.dart';
 import '../../../../utils/static_strings/static_strings.dart';
