@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/core/dependency/dependency.dart';
 import 'package:k9academy/global/theme/dark.dart';
+import 'package:k9academy/services/socket.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   DependancyInjection di = DependancyInjection();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SocketApi.init();
   di.dependencies();
   runApp(const MyApp());
 }

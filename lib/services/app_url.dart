@@ -1,6 +1,7 @@
 class ApiUrl {
   ///=================================This is baseUrl==============================================>
   static const baseUrl = "http://192.168.10.116:5000";
+  static const socketUrl = "http://192.168.10.116:5000";
 
   ///=================================Authentication url==========================
   static const signupAuth = "/auth/register";
@@ -31,8 +32,10 @@ class ApiUrl {
 
   static const postComments = "/post/add-comment";
 
-
   ///=====================================Post Screen======================
   static const postEndpoint = "/post/add-post";
 
+  ///============================= Message Screen ==============================
+  static const getConversations = "/message/get-message";
+  static const sendMessage = "/message/send-message";
 }

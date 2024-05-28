@@ -144,6 +144,10 @@ class AuthenticationController extends GetxController {
 
       SharePrefsHelper.setString(
           AppConstants.bearerToken, response.body["data"]["accessToken"]);
+
+      SharePrefsHelper.setString(
+          AppConstants.profileID, response.body["data"]["id"]);
+
       Get.toNamed(AppRoute.homeScreen);
       toastMessage(message: response.body["message"]);
     } else {
