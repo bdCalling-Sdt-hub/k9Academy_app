@@ -331,6 +331,7 @@ class ProfileSection extends StatelessWidget {
                           controller: profileController.nameController),
 
                       ///=====================================Email field ========================
+
                       CustomText(
                         top: 7,
                         bottom: 12,
@@ -338,8 +339,6 @@ class ProfileSection extends StatelessWidget {
                         fontSize: 16.sp,
                         color: AppColors.lightActive,
                       ),
-
-
                       ///=====================================number field =======================
                       customWidgets.customTitleAndTextField(
                           text: AppStaticStrings.contactNo,
