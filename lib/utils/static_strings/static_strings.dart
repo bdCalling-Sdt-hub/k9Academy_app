@@ -142,6 +142,7 @@ class AppStaticStrings {
   static const enterYourAge = "Enter your age";
   static const enterYourGender = "Enter your gender";
   static const post = "Post";
+  static const enterYourPromocodeHere = "Enter Your Promocode here";
 
   static const date = "Date";
   static const price = "Price";

@@ -34,7 +34,7 @@ class Subscription extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomText(
-              text: "Enter Your Promocode here",
+              text: AppStaticStrings.enterYourPromocodeHere,
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
               bottom: 30,
@@ -64,14 +64,16 @@ class Subscription extends StatelessWidget {
                 ),
               ),
             ),
+            ///=============================Enter Your Promocode here Text Field=================
             const CustomTextField(
               inputTextStyle: TextStyle(color: Colors.black),
               fillColor: Colors.white,
-              hintText: "PROMOFROMMK9",
+              hintText: AppStaticStrings.enterYourPromocodeHere,
             ),
             SizedBox(
               height: 15.h,
             ),
+            ///=============================Confirm Button=================
             CustomButton(
               onTap: () {
                 subscriptionController.isPromoCode.value =
@@ -102,6 +104,7 @@ class Subscription extends StatelessWidget {
       body: Obx(() {
         return Stack(
           children: [
+            ///=====================================BackGround Images=====================
             Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -133,6 +136,7 @@ class Subscription extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            ///===========================Title================
                             CustomText(
                               text: subscriptionController
                                   .subscriptionList[index]["category"],
@@ -141,6 +145,7 @@ class Subscription extends StatelessWidget {
                               bottom: 16,
                               top: 20,
                             ),
+                            ///==========================Amount=================
                             CustomText(
                               text: subscriptionController
                                   .subscriptionList[index]["amount"],
@@ -177,6 +182,7 @@ class Subscription extends StatelessWidget {
                             SizedBox(
                               height: 15.h,
                             ),
+                            ///================================Make Payment Button============
                             Align(
                               alignment: Alignment.center,
                               child: CustomButton(
@@ -203,6 +209,7 @@ class Subscription extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    ///=====================================Have you Promo Code=============
                     CustomText(
                       text: AppStaticStrings.haveYourPromoCode,
                       fontSize: 16.sp,
@@ -226,6 +233,7 @@ class Subscription extends StatelessWidget {
                       },
                       title: AppStaticStrings.usePromoCode,
                     ),
+                    ///=============================Skip Button========================
                     GestureDetector(
                       onTap: () {
                         Get.toNamed(AppRoute.homeScreen);
