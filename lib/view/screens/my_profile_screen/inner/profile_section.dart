@@ -357,8 +357,6 @@ class ProfileSection extends StatelessWidget {
                   ),
                   CustomTextField(
                     readOnly: true,
-                    textEditingController:
-                    profileController.dateController,
                     hintText: DateConverter.formatDateYearMonth(
                         profileController.newSelectedDate.value),
                     suffixIcon: IconButton(
@@ -397,7 +395,7 @@ class ProfileSection extends StatelessWidget {
                     fillColor: AppColors.redNormal,
                     onTap: () {
                       profileController.multipartRequest();
-
+                   // print("${profileController.newSelectedDate.value}");
                     },
                     title: AppStaticStrings.saveChange,
                   ),

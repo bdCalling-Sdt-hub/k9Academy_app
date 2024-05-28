@@ -34,5 +34,6 @@ class ApiUrl {
 
   ///=====================================Post Screen======================
   static const postEndpoint = "/post/add-post";
+  static const getPostEndPoint = "/post/my-posts";
 
 }

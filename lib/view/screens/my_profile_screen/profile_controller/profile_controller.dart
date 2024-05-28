@@ -131,7 +131,7 @@ class ProfileController extends GetxController {
               "${ApiUrl.baseUrl}${ApiUrl.editProfile}"));
       request.fields["name"] = nameController.text;
       request.fields["phone_number"] = contactController.text;
-      request.fields["date_of_birth"] = dateController.text;
+      request.fields["date_of_birth"] = newSelectedDate.value.toString();
       request.fields["age"] = ageController.text;
       request.fields["gender"] = genderController.text;
       if (image.value.isNotEmpty) {

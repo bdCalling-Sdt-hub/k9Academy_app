@@ -6,7 +6,9 @@ import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
+import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/toast_message/toast_message.dart';
+import 'package:k9academy/view/screens/post_screen/model/post_model.dart';
 
 class PostController extends GetxController {
   RxString image = "".obs;
@@ -52,5 +54,31 @@ class PostController extends GetxController {
     } catch (e) {
       debugPrint("============> $e");
     }
+  }
+
+
+  ///==================================GetPost===========================
+  final rxRequestStatus = Status.loading.obs;
+
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+
+  RxList<PostModel> postList = <PostModel>[].obs;
+  getPost() async {
+    setRxRequestStatus(Status.loading);
+    var response = await ApiClient.getData(ApiUrl.getPostEndPoint);
+    setRxRequestStatus(Status.completed);
+    if (response.statusCode == 200) {
+      postList = RxList<PostModel>.from(
+          response.body["data"].map((x) => PostModel.fromJson(x)));
+      refresh();
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(response);
+    }
+    refresh();
   }
 }
