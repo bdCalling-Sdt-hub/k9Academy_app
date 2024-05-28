@@ -297,119 +297,113 @@ class ProfileSection extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ///========================================Edit Profile Section====================
-                Obx(() {
-                  return profileController.isAddItem.value
-                      ? Row(
-                    children: [
-                      const SizedBox(),
-                      const Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          profileController.isAddItem.value =
-                          !profileController.isAddItem.value;
-                        },
+            child: Obx(() {
+              return profileController.isAddItem.value
+                  ? Row(
+                children: [
+                  const SizedBox(),
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      profileController.isAddItem.value =
+                      !profileController.isAddItem.value;
+                    },
 
-                        ///=======================Edit Pencil===========================
-                        child: const CustomImage(
-                            imageSrc: AppIcons.editPencil),
-                      ),
-                    ],
-                  )
+                    ///=======================Edit Pencil===========================
+                    child: const CustomImage(
+                        imageSrc: AppIcons.editPencil),
+                  ),
+                ],
+              )
 
-                  ///========================================Edit Profile Section====================
-                      : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ///==================================Name Field=============================
-                      customWidgets.customTitleAndTextField(
-                          text: AppStaticStrings.name,
-                          hintText: AppStaticStrings.enterYourName,
-                          controller: profileController.nameController),
+              ///========================================Edit Profile Section====================
+                  : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ///==================================Name Field=============================
+                  customWidgets.customTitleAndTextField(
+                      text: AppStaticStrings.name,
+                      hintText: AppStaticStrings.enterYourName,
+                      controller: profileController.nameController),
 
-                      ///=====================================Email field ========================
+                  ///=====================================Email field ========================
 
-                      CustomText(
-                        top: 7,
-                        bottom: 12,
-                        text: AppStaticStrings.email,
-                        fontSize: 16.sp,
+                  CustomText(
+                    top: 7,
+                    bottom: 12,
+                    text: AppStaticStrings.email,
+                    fontSize: 16.sp,
+                    color: AppColors.lightActive,
+                  ),
+                  CustomTextField(
+                    readOnly: true,
+                    textEditingController:
+                    profileController.emailController,
+                    hintText: AppStaticStrings.enterYourEmail,
+                  ),
+                  ///=====================================number field =======================
+                  customWidgets.customTitleAndTextField(
+                      text: AppStaticStrings.contactNo,
+                      hintText: AppStaticStrings.enterYourContaNo,
+                      controller: profileController.contactController),
+
+                  ///=========================================Date of field=====================
+                  CustomText(
+                    top: 7,
+                    bottom: 12,
+                    text: AppStaticStrings.dateOfBirth,
+                    fontSize: 16.sp,
+                    color: AppColors.lightActive,
+                  ),
+                  CustomTextField(
+                    readOnly: true,
+                    textEditingController:
+                    profileController.dateController,
+                    hintText: DateConverter.formatDateYearMonth(
+                        profileController.newSelectedDate.value),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        profileController.calenderShow(
+                            context, profileController.newSelectedDate);
+                      },
+                      icon: const Icon(
+                        Icons.date_range,
+                        size: 30,
                         color: AppColors.lightActive,
                       ),
-                      CustomTextField(
-                        readOnly: true,
-                        textEditingController:
-                        profileController.emailController,
-                        hintText: AppStaticStrings.enterYourEmail,
-                      ),
-                      ///=====================================number field =======================
-                      customWidgets.customTitleAndTextField(
-                          text: AppStaticStrings.contactNo,
-                          hintText: AppStaticStrings.enterYourContaNo,
-                          controller: profileController.contactController),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 12.w,
+                  ),
 
-                      ///=========================================Date of field=====================
-                      CustomText(
-                        top: 7,
-                        bottom: 12,
-                        text: AppStaticStrings.dateOfBirth,
-                        fontSize: 16.sp,
-                        color: AppColors.lightActive,
-                      ),
-                      CustomTextField(
-                        readOnly: true,
-                        textEditingController:
-                        profileController.dateController,
-                        hintText: DateConverter.formatDateYearMonth(
-                            profileController.newSelectedDate.value),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            profileController.calenderShow(
-                                context, profileController.newSelectedDate);
-                          },
-                          icon: const Icon(
-                            Icons.date_range,
-                            size: 30,
-                            color: AppColors.lightActive,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 12.w,
-                      ),
+                  ///==================================Age field=============================
+                  customWidgets.customTitleAndTextField(
+                      text: AppStaticStrings.age,
+                      hintText: AppStaticStrings.enterYourAge,
+                      controller: profileController.ageController),
 
-                      ///==================================Age field=============================
-                      customWidgets.customTitleAndTextField(
-                          text: AppStaticStrings.age,
-                          hintText: AppStaticStrings.enterYourAge,
-                          controller: profileController.ageController),
+                  ///==================================Gender field============================
+                  customWidgets.customTitleAndTextField(
+                      text: AppStaticStrings.gender,
+                      hintText: AppStaticStrings.enterYourGender,
+                      controller: profileController.genderController),
+                  SizedBox(
+                    height: 10.h,
+                  ),
 
-                      ///==================================Gender field============================
-                      customWidgets.customTitleAndTextField(
-                          text: AppStaticStrings.gender,
-                          hintText: AppStaticStrings.enterYourGender,
-                          controller: profileController.genderController),
-                      SizedBox(
-                        height: 10.h,
-                      ),
+                  ///=====================================Save button =====================
+                  CustomButton(
+                    fillColor: AppColors.redNormal,
+                    onTap: () {
+                      profileController.multipartRequest();
 
-                      ///=====================================Save button =====================
-                      CustomButton(
-                        fillColor: AppColors.redNormal,
-                        onTap: () {
-                          profileController.multipartRequest();
-
-                        },
-                        title: AppStaticStrings.saveChange,
-                      ),
-                    ],
-                  );
-                }),
-              ],
-            ),
+                    },
+                    title: AppStaticStrings.saveChange,
+                  ),
+                ],
+              );
+            }),
           ),
           Obx(() {
             return profileController.isAddItem.value
