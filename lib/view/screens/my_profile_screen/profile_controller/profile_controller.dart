@@ -3,12 +3,17 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:k9academy/helper/shared_prefe/shared_prefe.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
+import 'package:k9academy/utils/toast_message/toast_message.dart';
 import 'package:k9academy/view/screens/my_profile_screen/get_profile_model/get_profile_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:mime/mime.dart';
 
 class ProfileController extends GetxController {
   var selectedIndex = 0.obs;
@@ -46,6 +51,40 @@ class ProfileController extends GetxController {
     }
   }
 
+
+
+  ///===============================GetProfile Method=========================
+
+  final rxRequestStatus = Status.loading.obs;
+
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+
+  Rx<DataModel> profileModel = DataModel().obs;
+
+  getProfile() async {
+    setRxRequestStatus(Status.loading);
+    //  refresh();
+    var response = await ApiClient.getData(ApiUrl.getProfile);
+    setRxRequestStatus(Status.completed);
+
+    if (response.statusCode == 200) {
+      // final data = await json.decode(response.body);
+      profileModel.value = DataModel.fromJson(response.body);
+
+      // print(profileModel.value.data!.userInfo!.name);
+      // userInfo.value = profileModel.data!.userInfo!;
+      profileModel.refresh();
+      refresh();
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(response);
+    }
+    refresh();
+  }
   ///=================================profile Image Picker==================================
   RxString image = "".obs;
 
@@ -54,7 +93,7 @@ class ProfileController extends GetxController {
   selectImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? getImages =
-        await picker.pickImage(source: ImageSource.gallery, imageQuality: 15);
+    await picker.pickImage(source: ImageSource.gallery, imageQuality: 15);
     if (getImages != null) {
       imageFile.value = File(getImages.path);
       image.value = getImages.path;
@@ -70,51 +109,122 @@ class ProfileController extends GetxController {
   selectCoverImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? getImages =
-        await picker.pickImage(source: ImageSource.gallery, imageQuality: 15);
+    await picker.pickImage(source: ImageSource.gallery, imageQuality: 15);
     if (getImages != null) {
       coverImageFile.value = File(getImages.path);
       coverImage.value = getImages.path;
     }
   }
+  ///======================================Edit Profile===============================
+  RxBool isUpdateProfileLoading = false.obs;
+  Future<void> multipartRequest({Map<String, String>? header}) async {
+    isUpdateProfileLoading.value = true;
+    update();
 
-  ///===============================GetProfile Method=========================
+    try {
+      var request = http.MultipartRequest(
+          'PATCH',
+          Uri.parse(
+              "${ApiUrl.baseUrl}${ApiUrl.editProfile}"));
 
-  final rxRequestStatus = Status.loading.obs;
-  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+          var data = {
+            "name": nameController.text,
+            "phone_number": contactController.text,
+            "date_of_birth": dateController.text,
+            "age": nameController.text,
+            "gender": genderController.text,
+          };
 
+      request.fields["data"] = jsonEncode(data);
 
-  Rx<DataModel> profileModel = DataModel().obs;
+      if (image.value.isNotEmpty) {
+        var mimeType = lookupMimeType(image.value);
 
-
-  getProfile() async {
-    setRxRequestStatus(Status.loading);
- //  refresh();
-    var response = await ApiClient.getData(ApiUrl.getProfile);
-    setRxRequestStatus(Status.completed);
-
-    if (response.statusCode == 200) {
-      // final data = await json.decode(response.body);
-       profileModel.value =  DataModel.fromJson(response.body);
-
-       // print(profileModel.value.data!.userInfo!.name);
-     // userInfo.value = profileModel.data!.userInfo!;
-       profileModel.refresh();
-      refresh();
-    } else {
-      if (response.statusText == ApiClient.noInternetMessage) {
-        setRxRequestStatus(Status.internetError);
-      } else {
-        setRxRequestStatus(Status.error);
+        var img = await http.MultipartFile.fromPath('file', image.value,
+            contentType: MediaType.parse(mimeType!));
+        request.files.add(img);
       }
-      ApiChecker.checkApi(response);
+
+      var token = await SharePrefsHelper.getString(AppConstants.bearerToken);
+      request.headers['Authorization'] = "Bearer $token";
+
+      var response = await request.send();
+      isUpdateProfileLoading.value = false;
+      update();
+      print("=====${response.statusCode}===============================Success");
+      if (response.statusCode == 200) {
+        update();
+        var data = await response.stream.bytesToString();
+        // Get.toNamed(AppRoutes.employeeProfiles);
+        isAddItem.value =
+        !isAddItem.value;
+        // getProfileInfo();
+         toastMessage(message: "Profile Update successfully");
+        print("=================> data $data");
+        isUpdateProfileLoading.value = false;
+        update();
+      } else {
+        var data = await response.stream.bytesToString();
+
+        print("=================> data $data");
+      }
+    } catch (e) {
+      print("============> $e");
     }
-    refresh();
-
-
   }
-
-
-
+  // Future<void> multipartRequest(
+  //     {String? imagePath, Map<String, String>? header}) async {
+  //   isUpdateProfileLoading.value = true;
+  //   refresh();
+  //   try {
+  //     var request = http.MultipartRequest(
+  //         'PATCH', Uri.parse("${ApiUrl.baseUrl}${ApiUrl.editProfile}"));
+  //
+  //     var data = {
+  //       "name": nameController.text,
+  //       "phone_number": contactController.text,
+  //       "date_of_birth": dateController.text,
+  //       "age": nameController.text,
+  //       "gender": genderController.text,
+  //     };
+  //
+  //     request.fields["data"] = jsonEncode(data);
+  //
+  //     if (imagePath != null) {
+  //       var mimeType = lookupMimeType(imagePath);
+  //
+  //       var img = await http.MultipartFile.fromPath('file', imagePath,
+  //           contentType: MediaType.parse(mimeType!));
+  //       request.files.add(img);
+  //     }
+  //
+  //     var token = await SharePrefsHelper.getString(AppConstants.bearerToken);
+  //     request.headers['Authorization'] = "Bearer $token";
+  //
+  //     var response = await request.send();
+  //     isUpdateProfileLoading.value = false;
+  //     refresh();
+  //     print("=====${response.statusCode}++++============================");
+  //     if (response.statusCode == 200) {
+  //
+  //       var data = await response.stream.bytesToString();
+  //       toastMessage(message: "Profile updated successfully");
+  //       // Get.toNamed(AppRoutes.userProfileScreen);
+  //       //  Get.back();
+  //       // isAddItem.value =
+  //       // !isAddItem.value;
+  //       print("=================> data $data");
+  //       isUpdateProfileLoading.value = false;
+  //       refresh();
+  //     } else {
+  //       var data = await response.stream.bytesToString();
+  //
+  //       print("=================> data $data");
+  //     }
+  //   } catch (e) {
+  //     print("============> $e");
+  //   }
+  // }
 
   @override
   void onInit() {

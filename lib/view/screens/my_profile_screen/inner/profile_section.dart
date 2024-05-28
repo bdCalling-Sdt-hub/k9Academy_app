@@ -391,8 +391,8 @@ class ProfileSection extends StatelessWidget {
                       CustomButton(
                         fillColor: AppColors.redNormal,
                         onTap: () {
-                          profileController.isAddItem.value =
-                          !profileController.isAddItem.value;
+                          profileController.multipartRequest();
+
                         },
                         title: AppStaticStrings.saveChange,
                       ),
