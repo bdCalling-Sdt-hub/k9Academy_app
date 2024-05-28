@@ -25,6 +25,12 @@ class ApiUrl {
   static trainingDetails({required String id}) =>
       "/program-article/program-articles/$id";
 
+  static const communityPost = "/post/community-posts";
+
+  static singleCommunityPost({required String id}) => "/post/single-post/$id";
+
+  static const postComments = "/post/add-comment";
+
 
   ///=====================================Post Screen======================
   static const postEndpoint = "/post/add-post";

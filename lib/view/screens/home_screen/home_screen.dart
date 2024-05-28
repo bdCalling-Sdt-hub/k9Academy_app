@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
-import 'package:k9academy/utils/app_img/app_img.dart';
+import 'package:k9academy/helper/time_converter/time_converter.dart';
+import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/home_screen/home_controller/home_controller.dart';
 import 'package:k9academy/view/widgets/custom_community_post/custom_community_post.dart';
@@ -51,29 +52,39 @@ class HomeScreen extends StatelessWidget {
                 top: 10,
               ),
             ),
-            Column(
-              children: List.generate(
-                  homeController.communityPostItems.length,
-                  (index) => Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 16),
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.toNamed(AppRoute.communityPostDetails);
-                          },
+            Obx(() {
+              return Column(
+                children:
+                    List.generate(homeController.communityPost.length, (index) {
+                  var data = homeController.communityPost[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 16),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppRoute.communityPostDetails,
+                            arguments: data);
+                      },
 
-                          ///=======================================CustomCommunity PostDesign====================
-                          child: CustomCommunityPost(
-                            profileImage: AppImages.dog3,
-                            popUpIcon: false,
-                            coverImage:
-                                homeController.communityPostItems[index],
-                            text: "Jon Week",
-                            dateTime: '3 may, 2024',
-                          ),
-                        ),
-                      )),
-            )
+                      ///=======================================CustomCommunity PostDesign====================
+
+                      child: CustomCommunityPost(
+                        profileImage: (data.user?.profileImage
+                                    ?.startsWith('https') ??
+                                false)
+                            ? data.user?.profileImage ?? ""
+                            : "${ApiUrl.baseUrl}${data.user?.profileImage ?? ""}",
+                        popUpIcon: false,
+                        coverImage: "${ApiUrl.baseUrl}${data.image ?? ""}",
+                        text: data.user?.name ?? "",
+                        dateTime: DateConverter.estimatedDate(
+                            data.createdAt ?? DateTime.now()),
+                      ),
+                    ),
+                  );
+                }),
+              );
+            })
           ],
         ),
       ),

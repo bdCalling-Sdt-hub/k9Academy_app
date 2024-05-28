@@ -55,6 +55,7 @@ dependencies:
   pin_code_fields: ^8.0.1
   chewie: ^1.8.1
   video_player: ^2.8.6
+  readmore: ^3.0.0
 
 dev_dependencies:
   flutter_test:

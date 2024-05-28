@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:k9academy/global/controller/general_controller.dart';
 import 'package:k9academy/view/screens/authentication/authentication_controller/authentication_controller.dart';
 import 'package:k9academy/view/screens/home_screen/home_controller/home_controller.dart';
 import 'package:k9academy/view/screens/message_screen/controller/message_controller.dart';
@@ -17,5 +18,7 @@ class DependancyInjection extends Bindings {
     Get.lazyPut(() => ScheduleController(), fenix: true);
     Get.lazyPut(() => PostController(), fenix: true);
     Get.lazyPut(() => AuthenticationController(), fenix: true);
+
+    Get.lazyPut(() => GeneralController(), fenix: true);
   }
 }
