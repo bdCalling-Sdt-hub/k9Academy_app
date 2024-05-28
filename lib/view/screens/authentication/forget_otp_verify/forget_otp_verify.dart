@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,12 +11,42 @@ import 'package:k9academy/view/widgets/custom_loader/custom_loader.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class ForgetOtpVerify extends StatelessWidget {
-  ForgetOtpVerify({super.key});
+class ForgetOtpVerify extends StatefulWidget {
+  const ForgetOtpVerify({super.key});
+
+  @override
+  State<ForgetOtpVerify> createState() => _ForgetOtpVerifyState();
+}
+
+class _ForgetOtpVerifyState extends State<ForgetOtpVerify> {
   final AuthenticationController authenticationController =
       Get.find<AuthenticationController>();
 
+
   final formKey = GlobalKey<FormState>();
+  int _secondsRemaining = 180;
+  late Timer _timer;
+
+  void startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_secondsRemaining > 0) {
+          _secondsRemaining--;
+        } else {
+          _timer.cancel();
+        }
+      });
+    });
+  }
+
+
+  @override
+  void initState() {
+    startTimer();
+    super.initState();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -97,12 +129,28 @@ class ForgetOtpVerify extends StatelessWidget {
 
                 Align(
                   alignment: Alignment.centerRight,
-                  child: TextButton(
-                      onPressed: () {},
-                      child: TextButton(
-                          onPressed: () {},
-                          child:
-                              const CustomText(text: AppStaticStrings.resendOTP))),
+                  child: GestureDetector(
+                    onTap: () {
+                      if (_secondsRemaining == 0) {
+                        _secondsRemaining = 180;
+                        startTimer();
+                        authenticationController.resentUser().then((value) {
+                          if (value == false) {
+                            setState(() {
+                              _timer.cancel();
+                              _secondsRemaining = 0;
+                            });
+                          }
+                        });
+                      }
+                    },
+                    child: CustomText(
+                        text: _secondsRemaining == 0
+                            ? "Resend OTP".tr
+                            : "Resend OTP $_secondsRemaining",
+                        color: AppColors.lightDark,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
 
                 SizedBox(
