@@ -63,14 +63,14 @@ class ProfileController extends GetxController {
 
   getProfile() async {
     setRxRequestStatus(Status.loading);
-    //  refresh();
+     refresh();
     var response = await ApiClient.getData(ApiUrl.getProfile);
     setRxRequestStatus(Status.completed);
 
     if (response.statusCode == 200) {
       // final data = await json.decode(response.body);
       profileModel.value = DataModel.fromJson(response.body);
-
+          print("==================================${response.body}");
       // print(profileModel.value.data!.userInfo!.name);
       // userInfo.value = profileModel.data!.userInfo!;
       profileModel.refresh();
@@ -83,7 +83,6 @@ class ProfileController extends GetxController {
       }
       ApiChecker.checkApi(response);
     }
-    refresh();
   }
   ///=================================profile Image Picker==================================
   RxString image = "".obs;

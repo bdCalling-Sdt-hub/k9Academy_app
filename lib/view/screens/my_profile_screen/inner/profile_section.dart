@@ -288,7 +288,9 @@ class ProfileSection extends StatelessWidget {
   });
 
   final ProfileController profileController;
+
   final CustomWidgets customWidgets = CustomWidgets();
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -404,6 +406,7 @@ class ProfileSection extends StatelessWidget {
             }),
           ),
           Obx(() {
+            var data = profileController.profileModel.value.userInfo;
             return profileController.isAddItem.value
                 ? Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -419,7 +422,7 @@ class ProfileSection extends StatelessWidget {
                   ),
 
                   CustomText(
-                    text: AppStaticStrings.mrDogLover,
+                    text: data?.name??"",
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightNormalHover,
                     fontSize: 14.sp,
@@ -434,7 +437,7 @@ class ProfileSection extends StatelessWidget {
                     bottom: 5,
                   ),
                   CustomText(
-                    text: "masumrna927@gmail.com",
+                    text: data?.email??"",
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightNormalHover,
                     fontSize: 14.sp,
@@ -449,7 +452,7 @@ class ProfileSection extends StatelessWidget {
                     bottom: 5,
                   ),
                   CustomText(
-                    text: "+099999",
+                    text: data?.phoneNumber??"",
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightNormalHover,
                     fontSize: 14.sp,
@@ -464,7 +467,7 @@ class ProfileSection extends StatelessWidget {
                     bottom: 5,
                   ),
                   CustomText(
-                    text: "17 dec, 2024",
+                    text: data?.name??"",
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightNormalHover,
                     fontSize: 14.sp,
@@ -479,7 +482,7 @@ class ProfileSection extends StatelessWidget {
                     bottom: 5,
                   ),
                   CustomText(
-                    text: "22",
+                    text: data?.name??"",
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightNormalHover,
                     fontSize: 14.sp,
@@ -494,7 +497,7 @@ class ProfileSection extends StatelessWidget {
                     bottom: 5,
                   ),
                   CustomText(
-                    text: "Male",
+                    text: data?.name??"",
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightNormalHover,
                     fontSize: 14.sp,
