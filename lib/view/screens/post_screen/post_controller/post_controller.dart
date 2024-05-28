@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
@@ -41,6 +42,7 @@ class PostController extends GetxController {
           ]);
 
       if (response.statusCode == 200) {
+        Get.toNamed(AppRoute.myProfileScreen);
         toastMessage(message: response.body["message"]);
         isPostLoading.value = false;
         update();

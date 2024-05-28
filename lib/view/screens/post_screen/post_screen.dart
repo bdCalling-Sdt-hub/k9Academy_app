@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/helper/network_img/network_img.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
@@ -27,7 +26,7 @@ class PostScreen extends StatelessWidget {
           IconButton(
               onPressed: () {
                 postController.multipartRequest();
-                // Get.toNamed(AppRoute.myProfileScreen);
+
               },
               icon: Container(
                 decoration: BoxDecoration(
