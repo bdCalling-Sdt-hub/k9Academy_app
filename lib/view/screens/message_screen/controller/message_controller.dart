@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/global/controller/general_controller.dart';
@@ -11,7 +13,8 @@ import 'package:k9academy/view/screens/message_screen/model/message_model.dart';
 class MessageController extends GetxController {
   ScrollController scrollController = ScrollController();
   GeneralController generalController = Get.find<GeneralController>();
-
+  RxInt totalPage = 0.obs;
+  RxInt currentPage = 0.obs;
   final rxRequestStatus = Status.loading.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
@@ -19,21 +22,8 @@ class MessageController extends GetxController {
 
   getProfileID() {
     profileID.value = generalController.userId.value;
+    debugPrint("User Id ======================>>>>>>>>>>>>${profileID.value}");
   }
-
-  // List<Map<String, dynamic>> inboxChat = [
-  //   {"sender": "0", "message": "Hii, hello", "messageType": "text"},
-  //   {
-  //     "sender": "0",
-  //     "message":
-  //         "We will meet soon  sorry  babe. i promise upcoming sun we will meet for sure. See you again. bye bye",
-  //     "messageType": "text"
-  //   },
-  //   {"sender": "1", "message": "okk", "messageType": "text"},
-  //   {"sender": "0", "message": "Iam Fine, hello", "messageType": "text"},
-  //   {"sender": "1", "message": "hii", "messageType": "text"},
-  //   {"sender": "1", "message": "Bye", "messageType": "text"},
-  // ];
 
   ///========================= Get Conversation List ============================
 
@@ -45,10 +35,17 @@ class MessageController extends GetxController {
     var response = await ApiClient.getData(ApiUrl.getConversations);
 
     if (response.statusCode == 200) {
-      messageList.value = List<MessageDatum>.from(
-          response.body["data"].map((x) => MessageDatum.fromJson(x)));
+      messageList.value = List<MessageDatum>.from(response.body["data"]
+              ["messages"]
+          .map((x) => MessageDatum.fromJson(x)));
+
+      if (messageList.isNotEmpty) {
+        currentPage.value = response.body['data']['meta']['page'];
+        totalPage.value = response.body['data']['meta']['totalPage'];
+      }
 
       setRxRequestStatus(Status.completed);
+      refresh();
     } else {
       if (response.statusText == ApiClient.noInternetMessage) {
         setRxRequestStatus(Status.internetError);
@@ -59,28 +56,91 @@ class MessageController extends GetxController {
     }
   }
 
+  ///============================= Load More Data ============================
+
+  var isLoadMoreRunning = false.obs;
+  RxInt page = 1.obs;
+
+  loadMore() async {
+    debugPrint("============== Load More Message ================");
+    if (rxRequestStatus.value != Status.loading &&
+        isLoadMoreRunning.value == false &&
+        totalPage != currentPage) {
+      isLoadMoreRunning(true);
+      page.value += 1;
+
+      Response response = await ApiClient.getData(
+        "${ApiUrl.getConversations}?page=$page",
+      );
+      currentPage.value = response.body['data']['meta']['page'];
+      totalPage.value = response.body['data']['meta']['totalPage'];
+
+      if (response.statusCode == 200) {
+        var demoList = List<MessageDatum>.from(response.body["data"]["messages"]
+            .map((x) => MessageDatum.fromJson(x)));
+        messageList.addAll(demoList);
+
+        messageList.refresh();
+        refresh();
+      } else {
+        ApiChecker.checkApi(response);
+      }
+      isLoadMoreRunning(false);
+    }
+  }
+
+  //===================Pagination Scroll Controller===============
+
+  Future<void> addScrollListener() async {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      loadMore();
+    }
+  }
+
   ///========================= Listen to Socket =======================
   socketConnect() async {
     SocketApi.socket.on("getMessage", (data) {
       debugPrint("Socket Res=================>>>>>>>>>>>>>$data");
+
+      MessageDatum newMsg = MessageDatum.fromJson(data);
+
+      messageList.insert(0, newMsg);
+      messageList.refresh();
     });
   }
 
   ///========================= Send Message =======================
   Rx<TextEditingController> sendController = TextEditingController().obs;
   sendMessage() async {
+    if (sendController.value.text.isEmpty &&
+        generalController.imagePath.value.isEmpty) {
+      return;
+    }
     generalController.showPopUpLoader();
 
     var body = {"message": sendController.value.text};
 
-    var response = ApiClient.postMultipartData(ApiUrl.sendMessage, body,
-        multipartBody: [
-          MultipartBody("image", generalController.imageFile.value)
-        ]);
+    var response = generalController.imagePath.isEmpty
+        ? await ApiClient.postData(ApiUrl.sendMessage, jsonEncode(body))
+        : await ApiClient.postMultipartData(ApiUrl.sendMessage, body,
+            multipartBody: [
+                MultipartBody("image", File(generalController.imagePath.value))
+              ]);
+
+    if (response.statusCode == 200) {
+      sendController.value.clear();
+      generalController.imagePath.value = "";
+      navigator!.pop();
+    } else {
+      navigator!.pop();
+      ApiChecker.checkApi(response);
+    }
   }
 
   @override
   void onInit() {
+    scrollController.addListener(addScrollListener);
     getMessageList();
     getProfileID();
     socketConnect();

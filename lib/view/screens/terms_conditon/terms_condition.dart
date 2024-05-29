@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:get/get.dart';
+import 'package:k9academy/global/controller/general_controller.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
+import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
+import 'package:k9academy/view/screens/net_connection_screen/net_connection_screen.dart';
+import 'package:k9academy/view/widgets/custom_loader/custom_loader.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
+import 'package:k9academy/view/widgets/general_error/general_error.dart';
 
 class TermsCondition extends StatelessWidget {
-  const TermsCondition({super.key});
+  TermsCondition({super.key});
+  final GeneralController controller = Get.find<GeneralController>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,30 +26,39 @@ class TermsCondition extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-        child: Column(
-          children: [
-            const CustomText(
-                textAlign: TextAlign.left,
-                maxLines: 10,
-                text:
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
-            CustomText(
-                top: 30.h,
-                textAlign: TextAlign.left,
-                maxLines: 10,
-                text:
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
-            CustomText(
-                top: 30.h,
-                textAlign: TextAlign.left,
-                maxLines: 10,
-                text:
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
-          ],
-        ),
-      ),
+      body: Obx(() {
+        switch (controller.rxRequestStatus.value) {
+          case Status.loading:
+            return const CustomLoader();
+          case Status.internetError:
+            return NoInternetScreen(onTap: () {
+              controller.getContent();
+            });
+          case Status.error:
+            return GeneralErrorScreen(
+              onTap: () {
+                controller.getContent();
+              },
+            );
+
+          case Status.completed:
+            // return Center();
+            return controller.terms.value.isEmpty
+                ? const Center(
+                    child: CustomText(
+                      text: 'Empty',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+                : SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 24),
+                    physics: const BouncingScrollPhysics(),
+                    child: HtmlWidget(
+                        textStyle: const TextStyle(color: AppColors.light),
+                        controller.terms.value));
+        }
+      }),
     );
   }
 }

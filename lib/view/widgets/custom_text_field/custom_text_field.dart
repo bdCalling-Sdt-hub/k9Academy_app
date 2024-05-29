@@ -29,7 +29,7 @@ class CustomTextField extends StatefulWidget {
     this.onTapClick = _defaultOnTap,
     this.isPrefixIcon = false,
     this.focusBorderColor = AppColors.light,
-    this.height = 48,
+    this.height = 50,
     this.maxLength,
     this.labelText = '',
   });
