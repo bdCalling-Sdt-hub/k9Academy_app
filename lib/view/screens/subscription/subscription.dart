@@ -173,7 +173,7 @@ class Subscription extends StatelessWidget {
 
                                 ///==========================Amount=================
                                 CustomText(
-                                  text: data.price.toString(),
+                                  text: "\$${data.price.toString()}",
                                   fontSize: 24.sp,
                                   fontWeight: FontWeight.w500,
                                   bottom: 16,
@@ -181,10 +181,9 @@ class Subscription extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: List.generate(
-                                      subscriptionController.subscriptionLists
-                                          .length, (featureIndex) {
-                                    var datas = subscriptionController.subscriptionLists
-                                        [featureIndex].items;
+                                      data.items?.length ?? 0, (featureIndex) {
+                                    var feature =
+                                    data.items?[featureIndex];
 
                                     return Padding(
                                       padding:
@@ -196,8 +195,8 @@ class Subscription extends StatelessWidget {
                                             size: 30.sp,
                                           ),
                                           CustomText(
-                                            text: "",
-                                            // text: datas.title??"",
+                                            // text: "",
+                                            text:feature?.title??"",
                                             left: 10,
                                             fontWeight: FontWeight.w400,
                                             fontSize: 14.sp,
