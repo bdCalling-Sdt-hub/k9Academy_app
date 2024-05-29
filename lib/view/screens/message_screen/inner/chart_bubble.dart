@@ -28,6 +28,7 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
     super.dispose();
   }
 
+//
   @override
   Widget build(BuildContext context) {
     return Container(
