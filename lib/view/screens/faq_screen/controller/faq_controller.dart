@@ -11,6 +11,7 @@ class FaqController extends GetxController {
   RxInt selectedFqw = 100000.obs;
 
   ///========================== Get Faq =============================
+  ///
   RxList<FaqDatum> faqList = <FaqDatum>[].obs;
   getFaq() async {
     setRxRequestStatus(Status.loading);
