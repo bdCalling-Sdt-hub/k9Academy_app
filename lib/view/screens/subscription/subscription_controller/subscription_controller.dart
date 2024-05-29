@@ -8,16 +8,12 @@ import 'package:k9academy/view/screens/subscription/subscription_model/subscript
 class SubscriptionController extends GetxController {
   RxBool isPromoCode = false.obs;
 
-
-
   ///==================================GetSubscription===========================
   final rxRequestStatus = Status.loading.obs;
+
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
   RxList<SubscriptionData> subscriptionLists = <SubscriptionData>[].obs;
-  RxList<Item> item = <Item>[].obs;
-
-
 
   getSubscription() async {
     setRxRequestStatus(Status.loading);
@@ -31,7 +27,6 @@ class SubscriptionController extends GetxController {
       setRxRequestStatus(Status.completed);
 
       refresh();
-
     } else {
       if (response.statusText == ApiClient.noInternetMessage) {
         setRxRequestStatus(Status.internetError);
@@ -41,16 +36,12 @@ class SubscriptionController extends GetxController {
       ApiChecker.checkApi(response);
 
       refresh();
-
-
     }
   }
 
-
-@override
+  @override
   void onInit() {
-  getSubscription();
+    getSubscription();
     super.onInit();
   }
-
 }
