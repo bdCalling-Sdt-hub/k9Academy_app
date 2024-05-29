@@ -11,25 +11,28 @@ class TabBarPostScreen extends StatelessWidget {
 
   final HomeController homeController = Get.find<HomeController>();
   final PostController postController = Get.find<PostController>();
+
   @override
   Widget build(BuildContext context) {
-    var data = postController.postModel?.value.phoneNumber;
-
+    var data = postController.postData.value.user?.phoneNumber;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
             children: List.generate(
+
           homeController.communityPostItems.length,
           (index) => Padding(
+
             padding: const EdgeInsets.symmetric(vertical: 15),
             child: CustomCommunityPost(
+
               profileImage: AppImages.dog3,
 
               comment: false,
               onTap: () {
-                print("===================================================${data}");
-                // postController.getPost();
+                print("MyPost===================================================$data");
+                postController.getMyPost();
                 // Get.toNamed(AppRoute.myPostDetails);
               },
               coverImage: homeController.communityPostItems[index],

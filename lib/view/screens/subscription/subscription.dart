@@ -102,6 +102,7 @@ class Subscription extends StatelessWidget {
         ),
       ),
       body: Obx(() {
+        var data= subscriptionController.subscription.value.title;
         return Stack(
           children: [
             ///=====================================BackGround Images=====================
@@ -188,7 +189,10 @@ class Subscription extends StatelessWidget {
                               child: CustomButton(
                                 fillColor: AppColors.redNormal,
                                 width: MediaQuery.of(context).size.width / 2,
-                                onTap: () {},
+                                onTap: () {
+                                  print("=========================title $data");
+                                  subscriptionController.getSubscription();
+                                },
                                 title: AppStaticStrings.makePayment,
                               ),
                             ),

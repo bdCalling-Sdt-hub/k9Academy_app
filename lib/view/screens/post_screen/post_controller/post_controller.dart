@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -60,24 +59,24 @@ class PostController extends GetxController {
 
   ///==================================GetPost===========================
   final rxRequestStatus = Status.loading.obs;
-
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
-  // RxList<PostModel> postList = <PostModel>[].obs;
-  Rx<User>? postModel ;
+  RxList<PostData> postList = <PostData>[].obs;
 
-  getPost() async {
+  Rx<PostData> postData = PostData().obs;
+
+  Future<bool> getMyPost() async {
     setRxRequestStatus(Status.loading);
+    refresh();
     var response = await ApiClient.getData(ApiUrl.getPostEndPoint);
-    setRxRequestStatus(Status.completed);
+
     if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
-      return Post.fromJson(data['data'][0]);
-      // postModel.value = PostModel.fromJson(response.body);
-      // print("getpost==================================${response.body}");
-      // postList = RxList<PostModel>.from(
-      //     response.body["data"][0].map((x) => PostModel.fromJson(x)));
+      postList.value = List<PostData>.from(
+          response.body["data"].map((x) => PostData.fromJson(x)));
+      setRxRequestStatus(Status.completed);
+
       refresh();
+      return true;
     } else {
       if (response.statusText == ApiClient.noInternetMessage) {
         setRxRequestStatus(Status.internetError);
@@ -85,7 +84,13 @@ class PostController extends GetxController {
         setRxRequestStatus(Status.error);
       }
       ApiChecker.checkApi(response);
+
+      refresh();
+
+      return false;
     }
-    refresh();
   }
+
+
+
 }

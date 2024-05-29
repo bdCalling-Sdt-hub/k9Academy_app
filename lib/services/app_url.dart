@@ -39,4 +39,5 @@ class ApiUrl {
   ///============================= Message Screen ==============================
   static const getConversations = "/message/get-message";
   static const sendMessage = "/message/send-message";
+  static const subscriptionPlanAll = "/subscription-plan/all";
 }
