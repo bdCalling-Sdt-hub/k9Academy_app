@@ -145,6 +145,7 @@ class _CustomCommunityPostDetailsState
                                 context: context,
                                 builder: (context) {
                                   return MessageInputField(
+                                    isComment: true,
                                     onTap: () {
                                       homeController.writeComments(
                                           postId: value.id ?? "");

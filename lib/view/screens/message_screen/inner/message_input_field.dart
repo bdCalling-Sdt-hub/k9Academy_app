@@ -9,12 +9,14 @@ class MessageInputField extends StatelessWidget {
       {super.key,
       required this.writeMsgController,
       required this.onTap,
-      this.isComment = true});
+      this.isComment = false});
 
   final TextEditingController writeMsgController;
 
   final VoidCallback onTap;
   final bool isComment;
+
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,8 @@ class MessageInputField extends StatelessWidget {
       duration: const Duration(milliseconds: 100),
       curve: Curves.decelerate,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding:
+            EdgeInsets.symmetric(horizontal: 20, vertical: isComment ? 20 : 10),
         child: Row(
           children: [
             //=============================== Gallery Button ==========================

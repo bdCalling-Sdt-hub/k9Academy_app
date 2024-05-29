@@ -11,7 +11,7 @@ class ApiChecker {
 
       await SharePrefsHelper.setBool(AppConstants.rememberMe, false);
 
-      Get.offAllNamed(AppRoute.onBoarding);
+      Get.offAllNamed(AppRoute.signIn);
     } else {
       showCustomSnackBar(response.statusText!, getXSnackBar: getXSnackBar);
     }

@@ -73,51 +73,50 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
 
                                   ///============================Message Body==============================
 
-                                  Flexible(
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 10),
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 10),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: AppColors.redLight),
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(8.r),
-                                            topRight: Radius.circular(8.r),
-                                            bottomLeft:
-                                                controller.inboxChat[index]
-                                                            ["sender"] ==
-                                                        "0"
-                                                    ? Radius.circular(8.r)
-                                                    : Radius.circular(0.r),
-                                            bottomRight:
-                                                controller.inboxChat[index]
-                                                            ["sender"] !=
-                                                        "0"
-                                                    ? Radius.circular(8.r)
-                                                    : Radius.circular(0.r),
+                                        Flexible(
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 16, vertical: 10),
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 16, vertical: 10),
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: AppColors.redLight),
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(8.r),
+                                                  topRight:
+                                                      Radius.circular(8.r),
+                                                  bottomLeft: data.senderId ==
+                                                          messageController
+                                                              .profileID.value
+                                                      ? Radius.circular(8.r)
+                                                      : Radius.circular(0.r),
+                                                  bottomRight: data.senderId ==
+                                                          messageController
+                                                              .profileID.value
+                                                      ? Radius.circular(8.r)
+                                                      : Radius.circular(0.r),
+                                                ),
+                                                color: data.senderId ==
+                                                        messageController
+                                                            .profileID.value
+                                                    ? AppColors.redLightActive
+                                                    : AppColors
+                                                        .blueLightActive),
+                                            child: CustomText(
+                                              maxLines: 10,
+                                              textAlign: TextAlign.left,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              text: data.message ?? "",
+                                              color: data.senderId ==
+                                                      messageController
+                                                          .profileID.value
+                                                  ? AppColors.messageText
+                                                  : AppColors.messageText,
+                                            ),
                                           ),
-                                          color: controller.inboxChat[index]
-                                                      ["sender"] ==
-                                                  "0"
-                                              ? AppColors.brownLightActive
-                                              : AppColors.blueLightActive),
-                                      child: CustomText(
-                                        maxLines: 10,
-                                        textAlign: TextAlign.left,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        text: controller.inboxChat[index]
-                                            ["message"],
-                                        color: controller.inboxChat[index]
-                                                    ["sender"] ==
-                                                "0"
-                                            ? AppColors.messageText
-                                            : AppColors.messageText,
-                                      ),
-                                    ),
-                                  ),
+                                        ),
 
                                   ///=======================Show time if Sending Message=================
 
