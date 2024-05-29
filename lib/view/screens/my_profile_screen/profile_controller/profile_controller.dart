@@ -146,7 +146,7 @@ class ProfileController extends GetxController {
       debugPrint(
           "=====${response.statusCode}===============================Success");
       if (response.statusCode == 200) {
-        update();
+        getProfile();
         var data = await response.stream.bytesToString();
         isAddItem.value = !isAddItem.value;
         toastMessage(message: "Profile Update successfully");

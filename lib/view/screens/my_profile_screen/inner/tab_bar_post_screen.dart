@@ -14,7 +14,7 @@ class TabBarPostScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var data = postController.postData.value.user?.phoneNumber;
+    var data = postController.postData.value.user?.name;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
