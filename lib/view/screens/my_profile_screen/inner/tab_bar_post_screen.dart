@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
+import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/view/screens/home_screen/home_controller/home_controller.dart';
+import 'package:k9academy/view/screens/net_connection_screen/net_connection_screen.dart';
 import 'package:k9academy/view/screens/post_screen/post_controller/post_controller.dart';
 import 'package:k9academy/view/widgets/custom_community_post/custom_community_post.dart';
+import 'package:k9academy/view/widgets/custom_loader/custom_loader.dart';
+import 'package:k9academy/view/widgets/error/genarel_error.dart';
 
 class TabBarPostScreen extends StatelessWidget {
   TabBarPostScreen({super.key});
@@ -14,36 +18,49 @@ class TabBarPostScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var data = postController.postData.value.user?.name;
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-            children: List.generate(
+    return Obx(() {
+      switch (postController.rxRequestStatus.value) {
+        case Status.loading:
+          return const CustomLoader();
+        case Status.internetError:
+          return NoInternetScreen(
+            onTap: () {
+              postController.getMyPost();
+            },
+          );
+        case Status.error:
+          return GeneralErrorScreen(
+            onTap: () {
+              postController.getMyPost();
+            },
+          );
 
-          homeController.communityPostItems.length,
-          (index) => Padding(
-
-            padding: const EdgeInsets.symmetric(vertical: 15),
-            child: CustomCommunityPost(
-
-              profileImage: AppImages.dog3,
-
-              comment: false,
-              onTap: () {
-                print("MyPost===================================================$data");
-                postController.getMyPost();
-                // Get.toNamed(AppRoute.myPostDetails);
-              },
-              coverImage: homeController.communityPostItems[index],
-              text: 'masum',
-
-              dateTime: '10',
-
+        case Status.completed:
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                  children:
+                      List.generate(postController.postData.length, (index) {
+                var data = postController.postData[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: CustomCommunityPost(
+                    profileImage: AppImages.dog3,
+                    comment: false,
+                    onTap: () {
+                      // Get.toNamed(AppRoute.myPostDetails);
+                      print("${data.user!.createdAt.toString()}");
+                    },
+                    coverImage: homeController.communityPostItems[index],
+                    text: data.user?.name ?? "",
+                    dateTime: data.user!.createdAt.toString(),
+                  ),
+                );
+              })),
             ),
-          ),
-        )),
-      ),
-    );
+          );
+      }
+    });
   }
 }

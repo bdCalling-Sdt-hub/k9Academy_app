@@ -61,23 +61,17 @@ class PostController extends GetxController {
   final rxRequestStatus = Status.loading.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
-  RxList<PostData> postList = <PostData>[].obs;
-
-  Rx<PostData> postData = PostData().obs;
-
-  Future<bool> getMyPost() async {
+  RxList<PostData> postData = <PostData>[].obs;
+  getMyPost() async {
     setRxRequestStatus(Status.loading);
     refresh();
     var response = await ApiClient.getData(ApiUrl.getPostEndPoint);
 
     if (response.statusCode == 200) {
-      postData.value = PostData.fromJson(response.body['data']);
-      postList.value = List<PostData>.from(
+      postData.value = List<PostData>.from(
           response.body["data"].map((x) => PostData.fromJson(x)));
       setRxRequestStatus(Status.completed);
-
       refresh();
-      return true;
     } else {
       if (response.statusText == ApiClient.noInternetMessage) {
         setRxRequestStatus(Status.internetError);
@@ -85,13 +79,16 @@ class PostController extends GetxController {
         setRxRequestStatus(Status.error);
       }
       ApiChecker.checkApi(response);
-
       refresh();
-
-      return false;
     }
   }
 
 
+
+  @override
+  void onInit() {
+    getMyPost();
+    super.onInit();
+  }
 
 }
