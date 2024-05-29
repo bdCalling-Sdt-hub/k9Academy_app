@@ -89,7 +89,7 @@ class _NavBarState extends State<NavBar> {
       }
     } else if (index == 1) {
       if (!(widget.currentIndex == 1)) {
-        Get.to(() => const MessageScreen());
+        Get.to(() => MessageScreen());
       }
     } else if (index == 2) {
       if (!(widget.currentIndex == 2)) {

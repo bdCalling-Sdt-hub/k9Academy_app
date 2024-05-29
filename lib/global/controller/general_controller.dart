@@ -32,11 +32,14 @@ class GeneralController extends GetxController {
     String id = await SharePrefsHelper.getString(AppConstants.profileID);
 
     userId.value = id;
+
+    debugPrint("User Id Controller ======================>>>>>>>>>>>>$id");
     refresh();
   }
 
   ///========================== Pick Image ========================
   Rx<File> imageFile = File("").obs;
+  RxString imagePath = "".obs;
 
   selectImage() async {
     final ImagePicker picker = ImagePicker();
@@ -44,12 +47,13 @@ class GeneralController extends GetxController {
         await picker.pickImage(source: ImageSource.gallery, imageQuality: 15);
     if (getImages != null) {
       imageFile.value = File(getImages.path);
+      imagePath.value = getImages.path;
     }
   }
 
   @override
-  void onClose() {
+  void onInit() {
     getId();
-    super.onClose();
+    super.onInit();
   }
 }

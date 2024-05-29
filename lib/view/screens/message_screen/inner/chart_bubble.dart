@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:k9academy/helper/time_converter/time_converter.dart';
+import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/view/screens/message_screen/controller/message_controller.dart';
@@ -73,7 +76,8 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                 const SizedBox(
                                   width: 8,
                                 ),
-                                if (data.messageType == "text")
+                                if (data.messageType == "text" ||
+                                    data.messageType == "both")
                                   Flexible(
                                     child: Row(
                                       mainAxisAlignment: data.senderId ==
@@ -87,7 +91,9 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                             messageController.profileID.value)
                                           CustomText(
                                             right: 10.w,
-                                            text: "3.20",
+                                            text: DateConverter.hourMinit(
+                                                data.createdAt ??
+                                                    DateTime.now()),
                                             color: AppColors.redLight,
                                             fontSize: 10.w,
                                             fontWeight: FontWeight.w200,
@@ -103,7 +109,8 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                                 horizontal: 16, vertical: 10),
                                             decoration: BoxDecoration(
                                                 border: Border.all(
-                                                    color: AppColors.redLight),
+                                                    color: AppColors
+                                                        .lightDarkHover),
                                                 borderRadius: BorderRadius.only(
                                                   topLeft: Radius.circular(8.r),
                                                   topRight:
@@ -119,23 +126,47 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                                       ? Radius.circular(8.r)
                                                       : Radius.circular(0.r),
                                                 ),
-                                                color: data.senderId ==
-                                                        messageController
-                                                            .profileID.value
-                                                    ? AppColors.redLightActive
-                                                    : AppColors
-                                                        .blueLightActive),
-                                            child: CustomText(
-                                              maxLines: 10,
-                                              textAlign: TextAlign.left,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
-                                              text: data.message ?? "",
-                                              color: data.senderId ==
-                                                      messageController
-                                                          .profileID.value
-                                                  ? AppColors.messageText
-                                                  : AppColors.messageText,
+                                                color: data.messageType ==
+                                                        "both"
+                                                    ? null
+                                                    : data.senderId ==
+                                                            messageController
+                                                                .profileID.value
+                                                        ? AppColors.messageText
+                                                        : AppColors
+                                                            .blueNormalHover),
+                                            child: Column(
+                                              children: [
+                                                if (data.messageType == "both")
+                                                  Container(
+                                                      height: 160.h,
+                                                      width: 260.w,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                          image: DecorationImage(
+                                                              fit: BoxFit.cover,
+                                                              image: CachedNetworkImageProvider(
+                                                                "${ApiUrl.baseUrl}${data.image ?? ""}",
+                                                              )))),
+                                                CustomText(
+                                                  maxLines: 100,
+                                                  textAlign: TextAlign.left,
+                                                  fontSize: 12,
+                                                  top:
+                                                      data.messageType == "both"
+                                                          ? 10
+                                                          : 0,
+                                                  fontWeight: FontWeight.w400,
+                                                  text: data.message ?? "",
+                                                  color: data.senderId ==
+                                                          messageController
+                                                              .profileID.value
+                                                      ? AppColors.light
+                                                      : AppColors.light,
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -146,13 +177,27 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                             messageController.profileID.value)
                                           CustomText(
                                             left: 10.w,
-                                            text: "3.20",
+                                            text: DateConverter.hourMinit(
+                                                data.createdAt ??
+                                                    DateTime.now()),
                                             fontSize: 10.w,
                                             fontWeight: FontWeight.w200,
                                           ),
                                       ],
                                     ),
                                   ),
+                                if (data.messageType == "image")
+                                  Container(
+                                      height: 160.h,
+                                      width: 260.w,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: CachedNetworkImageProvider(
+                                                "${ApiUrl.baseUrl}${data.image ?? ""}",
+                                              )))),
                                 const SizedBox(
                                   width: 8,
                                 ),

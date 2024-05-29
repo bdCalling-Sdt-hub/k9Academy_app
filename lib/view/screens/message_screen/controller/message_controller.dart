@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/global/controller/general_controller.dart';
@@ -19,6 +22,7 @@ class MessageController extends GetxController {
 
   getProfileID() {
     profileID.value = generalController.userId.value;
+    debugPrint("User Id ======================>>>>>>>>>>>>${profileID.value}");
   }
 
   // List<Map<String, dynamic>> inboxChat = [
@@ -63,20 +67,40 @@ class MessageController extends GetxController {
   socketConnect() async {
     SocketApi.socket.on("getMessage", (data) {
       debugPrint("Socket Res=================>>>>>>>>>>>>>$data");
+
+      MessageDatum newMsg = MessageDatum.fromJson(data);
+
+      messageList.insert(0, newMsg);
+      messageList.refresh();
     });
   }
 
   ///========================= Send Message =======================
   Rx<TextEditingController> sendController = TextEditingController().obs;
   sendMessage() async {
+    if (sendController.value.text.isEmpty &&
+        generalController.imagePath.value.isEmpty) {
+      return;
+    }
     generalController.showPopUpLoader();
 
     var body = {"message": sendController.value.text};
 
-    var response = ApiClient.postMultipartData(ApiUrl.sendMessage, body,
-        multipartBody: [
-          MultipartBody("image", generalController.imageFile.value)
-        ]);
+    var response = generalController.imagePath.isEmpty
+        ? await ApiClient.postData(ApiUrl.sendMessage, jsonEncode(body))
+        : await ApiClient.postMultipartData(ApiUrl.sendMessage, body,
+            multipartBody: [
+                MultipartBody("image", File(generalController.imagePath.value))
+              ]);
+
+    if (response.statusCode == 200) {
+      sendController.value.clear();
+      generalController.imagePath.value = "";
+      navigator!.pop();
+    } else {
+      navigator!.pop();
+      ApiChecker.checkApi(response);
+    }
   }
 
   @override
