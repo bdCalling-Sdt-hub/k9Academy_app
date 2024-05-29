@@ -52,7 +52,6 @@ class TabBarPostScreen extends StatelessWidget {
                     comment: false,
                     onTap: () {
                       Get.toNamed(AppRoute.myPostDetails);
-
                     },
                     coverImage: "${ApiUrl.baseUrl}${data.image ?? ""}",
                     text: data.user?.name ?? "",
