@@ -46,6 +46,7 @@ class ApiUrl {
   static const privacy = "/manage/get-privacy-policy";
 
   static const terms = "/manage/get-terms-conditions";
+  static const faq = "/manage/get-faq";
 
   ///============================= Notification Screen ==============================
   static const notifications = "/notification/my-notifications";

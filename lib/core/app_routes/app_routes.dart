@@ -153,7 +153,7 @@ class AppRoute {
     GetPage(name: myPostDetails, page: () => const MyPostDetails()),
     GetPage(name: tabBarPostScreen, page: () => TabBarPostScreen()),
     GetPage(name: postScreen, page: () => PostScreen()),
-    GetPage(name: forgetOtpVerify, page: () => ForgetOtpVerify()),
+    GetPage(name: forgetOtpVerify, page: () => const ForgetOtpVerify()),
     GetPage(
         name: noInternetScreen,
         page: () => NoInternetScreen(

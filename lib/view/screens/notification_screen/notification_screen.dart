@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:k9academy/helper/time_converter/time_converter.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
@@ -12,30 +13,6 @@ import 'package:k9academy/view/widgets/general_error/general_error.dart';
 
 class NotificationScreen extends StatelessWidget {
   NotificationScreen({super.key});
-
-  final List<Map<String, String>> notifications = [
-    {
-      "title": "New Post  Published",
-      "sub": "Toothache how and why?",
-      "time": "20-Dec-2024, 3:00 PM"
-    },
-    {
-      "title": "xmas greetings message",
-      "sub": "Dr.Adit is available for your consultation.",
-      "time": "30-Dec-2024, 6:00 PM"
-    },
-    {
-      "title": "New Post  Published",
-      "sub": "Toothache how and why?",
-      "time": "18-Dec-2027, 9:00 PM"
-    },
-    {
-      "title":
-          "New Post  Published Dr.Adit is available for your consultation.",
-      "sub": "Dr.Adit is available for your consultation.",
-      "time": "01-Dec-2024, 3:00 PM"
-    },
-  ];
 
   final NotificationController controller = Get.find<NotificationController>();
   @override
@@ -57,13 +34,13 @@ class NotificationScreen extends StatelessWidget {
             case Status.internetError:
               return NoInternetScreen(
                 onTap: () {
-                  // messageController.getMessageList();
+                  controller.getNotifications();
                 },
               );
             case Status.error:
               return GeneralErrorScreen(
                 onTap: () {
-                  //messageController.getMessageList();
+                  controller.getNotifications();
                 },
               );
 
@@ -71,9 +48,9 @@ class NotificationScreen extends StatelessWidget {
               return ListView.builder(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-                itemCount: notifications.length,
+                itemCount: controller.notifications.length,
                 itemBuilder: (context, index) {
-                  var data = notifications[index];
+                  var data = controller.notifications[index];
                   return Container(
                     margin: const EdgeInsets.only(bottom: 15),
                     decoration: BoxDecoration(
@@ -96,7 +73,7 @@ class NotificationScreen extends StatelessWidget {
                         CustomText(
                           textAlign: TextAlign.left,
                           maxLines: 3,
-                          text: data["title"] ?? "",
+                          text: data.title ?? "",
                           color: AppColors.lightNormal,
                           fontWeight: FontWeight.w500,
                           fontSize: 14,
@@ -109,14 +86,15 @@ class NotificationScreen extends StatelessWidget {
                           maxLines: 3,
                           top: 6,
                           bottom: 6,
-                          text: data["sub"] ?? "",
+                          text: data.message ?? "",
                           fontWeight: FontWeight.w500,
                         ),
 
                         ///======================= Time ======================
 
                         CustomText(
-                          text: data["time"] ?? "",
+                          text: DateConverter.estimatedDate(
+                              data.createdAt ?? DateTime.now()),
                           fontWeight: FontWeight.w300,
                         ),
                       ],

@@ -261,9 +261,11 @@ class DataModel {
   DataModel({this.userInfo, this.posts, this.schedule});
 
   DataModel.fromJson(Map<String, dynamic> json) {
-    userInfo = json['userInfo'] != null ? UserInfo.fromJson(json['userInfo']) : null;
+    userInfo =
+        json['userInfo'] != null ? UserInfo.fromJson(json['userInfo']) : null;
     posts = json['posts'] != null ? List<dynamic>.from(json['posts']) : [];
-    schedule = json['schedule'] != null ? List<dynamic>.from(json['schedule']) : [];
+    schedule =
+        json['schedule'] != null ? List<dynamic>.from(json['schedule']) : [];
   }
 
   Map<String, dynamic> toJson() {

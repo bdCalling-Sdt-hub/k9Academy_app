@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:k9academy/helper/network_img/network_img.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
@@ -34,12 +36,16 @@ class CustomWidgets {
                     height: 148.w,
                     width: 144.h,
                   ),
-                  CustomText(
-                    left: 15,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14.sp,
-                    text: text,
-                    top: 13,
+                  Expanded(
+                    child: CustomText(
+                      maxLines: 3,
+                      textAlign: TextAlign.left,
+                      left: 15,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14.sp,
+                      text: text,
+                      top: 13,
+                    ),
                   ),
                 ],
               ),
@@ -73,25 +79,30 @@ class CustomWidgets {
                   height: 178.w,
                   width: 203.h,
                 ),
-                Row(
-                  children: [
-                    CustomText(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14.sp,
-                      text: text,
-                      top: 13,
-                    ),
-                    SizedBox(
-                      width: 14.h,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 15),
-                      child: CustomImage(
-                        imageSrc: AppIcons.dogPow,
-                        imageType: ImageType.svg,
+                Expanded(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CustomText(
+                          maxLines: 2,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14.sp,
+                          text: text,
+                          top: 13,
+                        ),
                       ),
-                    )
-                  ],
+                      SizedBox(
+                        width: 14.h,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 15),
+                        child: CustomImage(
+                          imageSrc: AppIcons.dogPow,
+                          imageType: ImageType.svg,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ],
             )),
@@ -131,7 +142,6 @@ class CustomWidgets {
     required String hintText,
     required TextEditingController controller,
   }) =>
-
       Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: Column(
@@ -147,7 +157,6 @@ class CustomWidgets {
             CustomTextField(
               textEditingController: controller,
               hintText: hintText,
-
             ),
           ],
         ),
