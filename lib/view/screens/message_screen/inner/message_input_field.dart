@@ -90,17 +90,14 @@ class MessageInputField extends StatelessWidget {
                   //============================Text Input Field=====================
 
                   Expanded(
-                      child: SizedBox(
-                    height: 50,
-                    child: CustomTextField(
-                      textEditingController: writeMsgController,
-                      textInputAction: TextInputAction.done,
-                      hintText: "write your message",
-                      fieldBorderColor: AppColors.blueNormal,
-                      focusBorderColor: AppColors.blueNormal,
-                      fillColor: Colors.transparent,
-                      borderRadius: 10.r,
-                    ),
+                      child: CustomTextField(
+                    textEditingController: writeMsgController,
+                    textInputAction: TextInputAction.done,
+                    hintText: "write your message",
+                    fieldBorderColor: AppColors.blueNormal,
+                    focusBorderColor: AppColors.blueNormal,
+                    fillColor: Colors.transparent,
+                    borderRadius: 10.r,
                   )),
 
                   //=============================== Send Button ==========================

@@ -56,7 +56,7 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                   itemCount: messageController.messageList.length,
                   itemBuilder: (context, index) {
                     var data = messageController.messageList[index];
-                    if (index < messageController.messageList.length) {
+                    if (messageController.isLoadMoreRunning.value == false) {
                       return Column(
                         ///=======================Align the text based on user=================
                         crossAxisAlignment:
@@ -144,7 +144,7 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                                       decoration: BoxDecoration(
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(20),
+                                                                  .circular(8),
                                                           image: DecorationImage(
                                                               fit: BoxFit.cover,
                                                               image: CachedNetworkImageProvider(

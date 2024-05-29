@@ -38,4 +38,11 @@ class ApiUrl {
   ///============================= Message Screen ==============================
   static const getConversations = "/message/get-message";
   static const sendMessage = "/message/send-message";
+
+  ///============================= Content Screen ==============================
+  static const aboutUs = "/manage/get-about-us";
+
+  static const privacy = "/manage/get-privacy-policy";
+
+  static const terms = "/manage/get-terms-conditions";
 }

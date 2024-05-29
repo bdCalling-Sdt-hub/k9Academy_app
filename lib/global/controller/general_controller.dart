@@ -4,10 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:k9academy/helper/shared_prefe/shared_prefe.dart';
+import 'package:k9academy/services/api_client.dart';
+import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/view/widgets/custom_loader/custom_loader.dart';
 
 class GeneralController extends GetxController {
+  final rxRequestStatus = Status.loading.obs;
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+
   ///========================== Show Popup Loader ========================
   showPopUpLoader() {
     return showDialog(
@@ -48,6 +53,29 @@ class GeneralController extends GetxController {
     if (getImages != null) {
       imageFile.value = File(getImages.path);
       imagePath.value = getImages.path;
+    }
+  }
+
+  ///============================== Get Content (About us, Privacy Policy, Terms) ============================
+
+  RxString about = "".obs;
+  RxString privacy = "".obs;
+  RxString terms = "".obs;
+
+  getContent() async {
+    setRxRequestStatus(Status.loading);
+    var aboutRes = await ApiClient.getData(ApiUrl.aboutUs);
+    var privacyRes = await ApiClient.getData(ApiUrl.privacy);
+    var termsRes = await ApiClient.getData(ApiUrl.terms);
+
+    if (aboutRes.statusCode == 200 &&
+        privacyRes.statusCode == 200 &&
+        termsRes.statusCode == 200) {
+      about.value = aboutRes.body["data"]["description"];
+      privacy.value = aboutRes.body["data"]["description"];
+      terms.value = aboutRes.body["data"]["description"];
+      setRxRequestStatus(Status.completed);
+      refresh();
     }
   }
 
