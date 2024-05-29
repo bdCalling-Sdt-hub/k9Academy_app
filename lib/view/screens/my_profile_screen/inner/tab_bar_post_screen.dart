@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
+import 'package:k9academy/helper/time_converter/time_converter.dart';
+import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/view/screens/home_screen/home_controller/home_controller.dart';
@@ -46,15 +48,16 @@ class TabBarPostScreen extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: CustomCommunityPost(
-                    profileImage: AppImages.dog3,
+                    profileImage:  "${ApiUrl.baseUrl}${data.user?.profileImage ?? ""}",
                     comment: false,
                     onTap: () {
-                      // Get.toNamed(AppRoute.myPostDetails);
-                      print("${data.user!.createdAt.toString()}");
+                      Get.toNamed(AppRoute.myPostDetails);
+
                     },
-                    coverImage: homeController.communityPostItems[index],
+                    coverImage: "${ApiUrl.baseUrl}${data.image ?? ""}",
                     text: data.user?.name ?? "",
-                    dateTime: data.user!.createdAt.toString(),
+                    dateTime: DateConverter.formatTime(
+                        "${data.createdAt ?? DateTime.now()}"),
                   ),
                 );
               })),

@@ -21,11 +21,17 @@ class DateConverter {
     return output;
   }
 
+
+
   static DateTime convertStringToDatetime() {
     DateTime now = DateTime.now();
     return now.toUtc();
   }
-
+  static String formatTime(String dateTimeString) {
+    DateTime dateTime = DateTime.parse(dateTimeString).toLocal();
+    DateFormat formatter = DateFormat('h:mm a');
+    return formatter.format(dateTime);
+  }
   ///=============== Calculate Time of Day ===============
 
   static String getTimePeriod() {
