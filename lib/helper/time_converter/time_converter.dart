@@ -5,6 +5,12 @@ class DateConverter {
     return DateFormat('dd MMM yyyy').format(dateTime);
   }
 
+  static String formatDetails(String dateString) {
+    var inputDate = DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ').parse(dateString);
+    var outputFormat = DateFormat('dd MMM yyy').format(inputDate);
+    return outputFormat;
+  }
+
   static String formatDateYearMonth(DateTime dateTime) {
     return DateFormat('yyyy-MM-dd').format(dateTime);
   }

@@ -34,6 +34,7 @@ class ApiUrl {
 
   ///=====================================Post Screen======================
   static const postEndpoint = "/post/add-post";
+  static const getPostEndPoint = "/post/my-posts";
 
   ///============================= Message Screen ==============================
   static const getConversations = "/message/get-message";
@@ -48,4 +49,5 @@ class ApiUrl {
 
   ///============================= Notification Screen ==============================
   static const notifications = "/notification/my-notifications";
+  static const subscriptionPlanAll = "/subscription-plan/all";
 }

@@ -2,6 +2,7 @@ class AppStaticStrings {
   //============================= OnBoarding ================================
   static const dental = "Dental";
   static const getStarted = "Get Start";
+  static const link = "Link";
 
   ///============================= Authentication ================================///
 
@@ -142,6 +143,7 @@ class AppStaticStrings {
   static const enterYourAge = "Enter your age";
   static const enterYourGender = "Enter your gender";
   static const post = "Post";
+  static const enterYourPromocodeHere = "Enter Your Promocode here";
 
   static const date = "Date";
   static const price = "Price";
@@ -149,7 +151,6 @@ class AppStaticStrings {
   static const meetingLink = "Meeting Link";
   static const meetingDate = "Meeting date";
   static const meetingTime = "Meeting time";
-  static const link = "Link";
   static const othersProfile = "Others profile";
 
   ///=========================== Side Drawer ========================
@@ -178,6 +179,11 @@ class AppStaticStrings {
   static const usePromoCode = "Use promo code";
   static const haveYourPromoCode = "Have You promo code ?";
   static const confirm = "Confirm";
+  static const noInternet = "No internet connections found. Check your connections, Please try again";
   static const yourSubscriptionPackageIsExpired =
       "Your Subscription package is Expired. ";
+
+  ///==================================All HintText=======================
+  static const yourName= "Your Name :";
+
 }

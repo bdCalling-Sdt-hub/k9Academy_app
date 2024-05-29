@@ -3,12 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:k9academy/core/app_routes/app_routes.dart';
-import 'package:k9academy/helper/network_img/network_img.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
-import 'package:k9academy/utils/app_const/app_const.dart';
+import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/post_screen/post_controller/post_controller.dart';
+import 'package:k9academy/view/widgets/custom_image/custom_image.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart';
 import 'package:k9academy/view/widgets/nav_bar/nav_bar.dart';
@@ -27,7 +26,6 @@ class PostScreen extends StatelessWidget {
           IconButton(
               onPressed: () {
                 postController.multipartRequest();
-                // Get.toNamed(AppRoute.myProfileScreen);
               },
               icon: Container(
                 decoration: BoxDecoration(
@@ -45,7 +43,7 @@ class PostScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
         child: Column(
           children: [
-             CustomTextField(
+            CustomTextField(
               maxLines: 10,
               textEditingController: postController.descriptionController,
             ),
@@ -69,14 +67,10 @@ class PostScreen extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                         )
-                      : ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: CustomNetworkImage(
-                            imageUrl: AppConstants.onlineImage,
-                            height: MediaQuery.of(context).size.height / 2.5,
-                            width: MediaQuery.of(context).size.width / 1,
-                          ),
-                        ));
+                      : CustomImage(
+                        imageSrc: AppImages.gallery,
+                        imageType: ImageType.png,
+                      ));
             }),
           ],
         ),

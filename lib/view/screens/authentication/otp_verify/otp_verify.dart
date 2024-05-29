@@ -38,11 +38,9 @@ class _OtpVerifyState extends State<OtpVerify> {
     });
   }
 
-  // bool? forgetPass = false;
 
   @override
   void initState() {
-    // forgetPass = Get.arguments;
     startTimer();
     super.initState();
   }
@@ -127,15 +125,6 @@ class _OtpVerifyState extends State<OtpVerify> {
 
                     ///<==============================Resend Button=============================>
 
-                    // Align(
-                    //   alignment: Alignment.centerRight,
-                    //   child: TextButton(
-                    //       onPressed: () {
-                    //         authenticationController.resetCodeSignup();
-                    //       },
-                    //       child: const CustomText(
-                    //           text: AppStaticStrings.resendOTP)),
-                    // ),
                     Align(
                       alignment: Alignment.centerRight,
                       child: GestureDetector(

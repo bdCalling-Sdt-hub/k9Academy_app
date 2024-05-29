@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_icons/app_icons.dart';
+import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/widgets/custom_button/custom_button.dart';
 import 'package:k9academy/view/widgets/custom_image/custom_image.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
@@ -25,8 +26,7 @@ class NoInternetScreen extends StatelessWidget {
                   top: 40,
                   bottom: 40,
                   maxLines: 3,
-                  text:
-                      "No internet connections found. Check your connections, Please try again"),
+                  text:AppStaticStrings.noInternet),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: CustomButton(
