@@ -10,22 +10,17 @@ class SubscriptionController extends GetxController {
 
   ///==================================GetSubscription===========================
   final rxRequestStatus = Status.loading.obs;
-
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
-
   RxList<SubscriptionData> subscriptionLists = <SubscriptionData>[].obs;
-
   getSubscription() async {
     setRxRequestStatus(Status.loading);
     refresh();
     var response = await ApiClient.getData(ApiUrl.subscriptionPlanAll);
 
     if (response.statusCode == 200) {
-      // subscription.value = SubscriptionData.fromJson(response.body["data"]);
       subscriptionLists.value = List<SubscriptionData>.from(
           response.body["data"].map((x) => SubscriptionData.fromJson(x)));
       setRxRequestStatus(Status.completed);
-
       refresh();
     } else {
       if (response.statusText == ApiClient.noInternetMessage) {
