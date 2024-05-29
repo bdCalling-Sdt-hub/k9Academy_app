@@ -46,6 +46,8 @@ class PostScreen extends StatelessWidget {
             CustomTextField(
               maxLines: 10,
               textEditingController: postController.descriptionController,
+              hintText: "Please provide a brief..............",
+              hintStyle: TextStyle(color: AppColors.lightDarker),
             ),
 
             const SizedBox(
@@ -67,10 +69,18 @@ class PostScreen extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                         )
-                      : CustomImage(
-                        imageSrc: AppImages.gallery,
-                        imageType: ImageType.png,
-                      ));
+                      : Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all( color: AppColors.lightDark)
+                    ),
+                    child:  const SizedBox(
+                      height: 300,
+                        width: 400,
+                        child: Icon(Icons.add_photo_alternate_outlined,size: 200,)),
+                  )
+              
+              );
             }),
           ],
         ),
