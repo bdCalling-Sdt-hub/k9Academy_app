@@ -272,14 +272,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/helper/time_converter/time_converter.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
+import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_icons/app_icons.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/my_profile_screen/profile_controller/profile_controller.dart';
 import 'package:k9academy/view/widgets/custom_button/custom_button.dart';
 import 'package:k9academy/view/widgets/custom_image/custom_image.dart';
+import 'package:k9academy/view/widgets/custom_loader/custom_loader.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart';
 import 'package:k9academy/view/widgets/custom_widgets/custom_widgets.dart';
+import 'package:k9academy/view/widgets/error/genarel_error.dart';
 
 class ProfileSection extends StatelessWidget {
   ProfileSection({
@@ -322,6 +325,7 @@ class ProfileSection extends StatelessWidget {
                   : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
                   ///==================================Name Field=============================
                   customWidgets.customTitleAndTextField(
                       text: AppStaticStrings.name,
@@ -343,6 +347,7 @@ class ProfileSection extends StatelessWidget {
                     profileController.emailController,
                     hintText: AppStaticStrings.enterYourEmail,
                   ),
+
                   ///=====================================number field =======================
                   customWidgets.customTitleAndTextField(
                       text: AppStaticStrings.contactNo,
@@ -397,7 +402,7 @@ class ProfileSection extends StatelessWidget {
                     fillColor: AppColors.redNormal,
                     onTap: () {
                       profileController.multipartRequest();
-                   // print("${profileController.newSelectedDate.value}");
+                      // print("${profileController.newSelectedDate.value}");
                     },
                     title: AppStaticStrings.saveChange,
                   ),
@@ -406,108 +411,130 @@ class ProfileSection extends StatelessWidget {
             }),
           ),
           Obx(() {
-            var data = profileController.profileModel.value.userInfo;
-            return profileController.isAddItem.value
-                ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ///=====================================Name ===========================
-                  CustomText(
-                    text: AppStaticStrings.name,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15.sp,
-                    bottom: 5,
-                  ),
+             var data = profileController.profileModel.value.userInfo;
+            switch (profileController.rxRequestStatus.value) {
+              case Status.loading:
+                return const CustomLoader();
+              case Status.internetError:
+                return const CustomLoader();
+              case Status.error:
+                return GeneralErrorScreen(
+                  onTap: () {
+                    profileController.getProfile();
+                  },
+                );
 
-                  CustomText(
-                    text: data?.name??"",
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.lightNormalHover,
-                    fontSize: 14.sp,
-                    bottom: 5,
-                  ),
+              case Status.completed:
 
-                  ///=====================================Email ===========================
-                  CustomText(
-                    text: AppStaticStrings.email,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15.sp,
-                    bottom: 5,
-                  ),
-                  CustomText(
-                    text: data?.email??"",
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.lightNormalHover,
-                    fontSize: 14.sp,
-                    bottom: 5,
-                  ),
+                return profileController.isAddItem.value
+                    ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ///=====================================Name ===========================
+                      GestureDetector(
+                        onTap:(){
+                          print('===========${data?.phoneNumber}');
+                          profileController.getProfile();
+                        },
+                        child: CustomText(
+                          text: AppStaticStrings.name,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15.sp,
+                          bottom: 5,
+                        ),
+                      ),
 
-                  ///=====================================Contact Number ===========================
-                  CustomText(
-                    text: AppStaticStrings.contactNo,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15.sp,
-                    bottom: 5,
-                  ),
-                  CustomText(
-                    text: data?.phoneNumber??"",
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.lightNormalHover,
-                    fontSize: 14.sp,
-                    bottom: 5,
-                  ),
+                      CustomText(
+                        text: data?.name??"",
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightNormalHover,
+                        fontSize: 14.sp,
+                        bottom: 5,
+                      ),
 
-                  ///=====================================Date of Birth ===========================
-                  CustomText(
-                    text: AppStaticStrings.dateOfBirth,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15.sp,
-                    bottom: 5,
-                  ),
-                  CustomText(
-                    text: data?.name??"",
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.lightNormalHover,
-                    fontSize: 14.sp,
-                    bottom: 5,
-                  ),
+                      ///=====================================Email ===========================
+                      CustomText(
+                        text: AppStaticStrings.email,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15.sp,
+                        bottom: 5,
+                      ),
+                      CustomText(
+                        text: data?.email??"",
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightNormalHover,
+                        fontSize: 14.sp,
+                        bottom: 5,
+                      ),
 
-                  ///=====================================Age ===========================
-                  CustomText(
-                    text: AppStaticStrings.age,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15.sp,
-                    bottom: 5,
-                  ),
-                  CustomText(
-                    text: data?.name??"",
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.lightNormalHover,
-                    fontSize: 14.sp,
-                    bottom: 5,
-                  ),
+                      ///=====================================Contact Number ===========================
+                      CustomText(
+                        text: AppStaticStrings.contactNo,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15.sp,
+                        bottom: 5,
+                      ),
+                      CustomText(
+                        text: data?.phoneNumber??"",
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightNormalHover,
+                        fontSize: 14.sp,
+                        bottom: 5,
+                      ),
 
-                  ///=====================================Gender ===========================
-                  CustomText(
-                    text: AppStaticStrings.gender,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15.sp,
-                    bottom: 5,
+                      ///=====================================Date of Birth ===========================
+                      CustomText(
+                        text: AppStaticStrings.dateOfBirth,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15.sp,
+                        bottom: 5,
+                      ),
+                      CustomText(
+                        text: DateConverter.formatDetails(data?.date_of_birth??""),
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightNormalHover,
+                        fontSize: 14.sp,
+                        bottom: 5,
+                      ),
+
+                      ///=====================================Age ===========================
+                      CustomText(
+                        text: AppStaticStrings.age,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15.sp,
+                        bottom: 5,
+                      ),
+                      CustomText(
+                        text: data?.age??"",
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightNormalHover,
+                        fontSize: 14.sp,
+                        bottom: 5,
+                      ),
+
+                      ///=====================================Gender ===========================
+                      CustomText(
+                        text: AppStaticStrings.gender,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15.sp,
+                        bottom: 5,
+                      ),
+                      CustomText(
+                        text: data?.gender??"",
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightNormalHover,
+                        fontSize: 14.sp,
+                        bottom: 5,
+                      ),
+                    ],
                   ),
-                  CustomText(
-                    text: data?.name??"",
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.lightNormalHover,
-                    fontSize: 14.sp,
-                    bottom: 5,
-                  ),
-                ],
-              ),
-            )
-                : const SizedBox();
-          }),
+                )
+                    : const SizedBox();
+
+            }
+          })
         ],
       ),
     );

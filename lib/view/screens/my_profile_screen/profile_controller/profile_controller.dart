@@ -49,8 +49,6 @@ class ProfileController extends GetxController {
     }
   }
 
-
-
   ///===============================GetProfile Method=========================
 
   final rxRequestStatus = Status.loading.obs;
@@ -61,16 +59,13 @@ class ProfileController extends GetxController {
 
   getProfile() async {
     setRxRequestStatus(Status.loading);
-     refresh();
+    refresh();
     var response = await ApiClient.getData(ApiUrl.getProfile);
     setRxRequestStatus(Status.completed);
-
     if (response.statusCode == 200) {
-      // final data = await json.decode(response.body);
-      profileModel.value = DataModel.fromJson(response.body);
-          print("==================================${response.body}");
-      // print(profileModel.value.data!.userInfo!.name);
-      // userInfo.value = profileModel.data!.userInfo!;
+      profileModel.value = DataModel.fromJson(response.body["data"]);
+      print("==================================${response.body}");
+
       profileModel.refresh();
       refresh();
     } else {
@@ -82,6 +77,7 @@ class ProfileController extends GetxController {
       ApiChecker.checkApi(response);
     }
   }
+
   ///=================================profile Image Picker==================================
   RxString image = "".obs;
 
@@ -90,7 +86,7 @@ class ProfileController extends GetxController {
   selectImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? getImages =
-    await picker.pickImage(source: ImageSource.gallery, imageQuality: 15);
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 15);
     if (getImages != null) {
       imageFile.value = File(getImages.path);
       image.value = getImages.path;
@@ -106,26 +102,22 @@ class ProfileController extends GetxController {
   selectCoverImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? getImages =
-    await picker.pickImage(source: ImageSource.gallery, imageQuality: 15);
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 15);
     if (getImages != null) {
       coverImageFile.value = File(getImages.path);
       coverImage.value = getImages.path;
     }
   }
 
-
-
-
   ///======================================Edit Profile===============================
   RxBool isUpdateProfileLoading = false.obs;
+
   Future<void> multipartRequest({Map<String, String>? header}) async {
     isUpdateProfileLoading.value = true;
     update();
     try {
       var request = http.MultipartRequest(
-          'PATCH',
-          Uri.parse(
-              "${ApiUrl.baseUrl}${ApiUrl.editProfile}"));
+          'PATCH', Uri.parse("${ApiUrl.baseUrl}${ApiUrl.editProfile}"));
       request.fields["name"] = nameController.text;
       request.fields["phone_number"] = contactController.text;
       request.fields["date_of_birth"] = newSelectedDate.value.toString();
@@ -133,12 +125,15 @@ class ProfileController extends GetxController {
       request.fields["gender"] = genderController.text;
       if (image.value.isNotEmpty) {
         var mimeType = lookupMimeType(image.value);
-        var img = await http.MultipartFile.fromPath('profile_image', image.value,
+        var img = await http.MultipartFile.fromPath(
+            'profile_image', image.value,
             contentType: MediaType.parse(mimeType!));
         request.files.add(img);
-      }  if (coverImage.value.isNotEmpty) {
+      }
+      if (coverImage.value.isNotEmpty) {
         var mimeType = lookupMimeType(coverImage.value);
-        var img = await http.MultipartFile.fromPath('cover_image', coverImage.value,
+        var img = await http.MultipartFile.fromPath(
+            'cover_image', coverImage.value,
             contentType: MediaType.parse(mimeType!));
         request.files.add(img);
       }
@@ -148,13 +143,13 @@ class ProfileController extends GetxController {
       var response = await request.send();
       isUpdateProfileLoading.value = false;
       update();
-      debugPrint("=====${response.statusCode}===============================Success");
+      debugPrint(
+          "=====${response.statusCode}===============================Success");
       if (response.statusCode == 200) {
         update();
         var data = await response.stream.bytesToString();
-        isAddItem.value =
-        !isAddItem.value;
-         toastMessage(message: "Profile Update successfully");
+        isAddItem.value = !isAddItem.value;
+        toastMessage(message: "Profile Update successfully");
         debugPrint("=================> data $data");
         isUpdateProfileLoading.value = false;
         update();
@@ -167,8 +162,6 @@ class ProfileController extends GetxController {
       debugPrint("============> $e");
     }
   }
-
-
 
   @override
   void onInit() {

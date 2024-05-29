@@ -285,6 +285,9 @@ class UserInfo {
   String? sId;
   String? name;
   String? email;
+  String? age;
+  String? date_of_birth;
+  String? gender;
   String? phoneNumber;
   String? role;
   String? profileImage;
@@ -302,6 +305,9 @@ class UserInfo {
     this.sId,
     this.name,
     this.email,
+    this.age,
+    this.date_of_birth,
+    this.gender,
     this.phoneNumber,
     this.role,
     this.profileImage,
@@ -320,6 +326,9 @@ class UserInfo {
     sId = json['_id'];
     name = json['name'];
     email = json['email'];
+    age = json['age'];
+    date_of_birth = json['date_of_birth'];
+    gender = json['gender'];
     phoneNumber = json['phone_number'];
     role = json['role'];
     profileImage = json['profile_image'];
@@ -339,6 +348,9 @@ class UserInfo {
     data['_id'] = sId;
     data['name'] = name;
     data['email'] = email;
+    data['age'] = age;
+    data['date_of_birth'] = date_of_birth;
+    data['gender'] = gender;
     data['phone_number'] = phoneNumber;
     data['role'] = role;
     data['profile_image'] = profileImage;
