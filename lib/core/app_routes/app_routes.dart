@@ -120,16 +120,16 @@ class AppRoute {
     GetPage(name: settingsScreen, page: () => SettingsScreen()),
 
     ///==================== aboutUs ====================
-    GetPage(name: aboutUs, page: () => const AboutUs()),
+    GetPage(name: aboutUs, page: () => AboutUs()),
 
     ///==================== fAQScreen ====================
     GetPage(name: fAQScreen, page: () => FAQScreen()),
 
     ///==================== privacyPolicy ====================
-    GetPage(name: privacyPolicy, page: () => const PrivacyPolicy()),
+    GetPage(name: privacyPolicy, page: () => PrivacyPolicy()),
 
     ///==================== termsCondition ====================
-    GetPage(name: termsCondition, page: () => const TermsCondition()),
+    GetPage(name: termsCondition, page: () => TermsCondition()),
 
     ///==================== changePasswordScreen ====================
     GetPage(name: changePasswordScreen, page: () => ChangePasswordScreen()),

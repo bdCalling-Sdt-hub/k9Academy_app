@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:k9academy/helper/shared_prefe/shared_prefe.dart';
+import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
@@ -76,11 +77,23 @@ class GeneralController extends GetxController {
       terms.value = aboutRes.body["data"]["description"];
       setRxRequestStatus(Status.completed);
       refresh();
+    } else {
+      if (aboutRes.statusText == ApiClient.noInternetMessage ||
+          privacyRes.statusText == ApiClient.noInternetMessage ||
+          termsRes.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(aboutRes);
+      ApiChecker.checkApi(privacyRes);
+      ApiChecker.checkApi(termsRes);
     }
   }
 
   @override
   void onInit() {
+    getContent();
     getId();
     super.onInit();
   }

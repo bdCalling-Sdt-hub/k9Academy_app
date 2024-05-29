@@ -106,7 +106,7 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 16, vertical: 10),
                                             margin: const EdgeInsets.symmetric(
-                                                horizontal: 16, vertical: 10),
+                                                vertical: 10),
                                             decoration: BoxDecoration(
                                                 border: Border.all(
                                                     color: AppColors
@@ -192,7 +192,7 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                       width: 260.w,
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(20),
+                                              BorderRadius.circular(8),
                                           image: DecorationImage(
                                               fit: BoxFit.cover,
                                               image: CachedNetworkImageProvider(

@@ -45,6 +45,7 @@ dependencies:
   http: ^1.2.1
   mime: ^1.0.5
   http_parser: ^4.0.2
+  flutter_widget_from_html_core: ^0.14.12
   flutter:
     sdk: flutter
 
