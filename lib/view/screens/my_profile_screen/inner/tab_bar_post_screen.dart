@@ -13,7 +13,8 @@ class TabBarPostScreen extends StatelessWidget {
   final PostController postController = Get.find<PostController>();
   @override
   Widget build(BuildContext context) {
-    // var data = postController.postList.
+    var data = postController.postModel?.value.phoneNumber;
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -27,7 +28,9 @@ class TabBarPostScreen extends StatelessWidget {
 
               comment: false,
               onTap: () {
-                Get.toNamed(AppRoute.myPostDetails);
+                print("===================================================${data}");
+                // postController.getPost();
+                // Get.toNamed(AppRoute.myPostDetails);
               },
               coverImage: homeController.communityPostItems[index],
               text: 'masum',
