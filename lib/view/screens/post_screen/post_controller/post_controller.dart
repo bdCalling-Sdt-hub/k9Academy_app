@@ -71,7 +71,7 @@ class PostController extends GetxController {
     var response = await ApiClient.getData(ApiUrl.getPostEndPoint);
 
     if (response.statusCode == 200) {
-      postData.value = PostData.fromJson(response.body);
+      postData.value = PostData.fromJson(response.body['data']);
       postList.value = List<PostData>.from(
           response.body["data"].map((x) => PostData.fromJson(x)));
       setRxRequestStatus(Status.completed);
