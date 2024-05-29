@@ -6,6 +6,7 @@ class AppImages {
   static String onBoarding3 = "$basePath/Onboarding3.png";
 
   static String packageBG = "$basePath/packageBG.jpg";
+  static String gallery = "$basePath/photo.png";
 
   ///TODO Remove those image
   static String userImage =
