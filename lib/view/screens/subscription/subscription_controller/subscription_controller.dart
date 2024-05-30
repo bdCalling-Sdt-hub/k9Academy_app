@@ -1,8 +1,12 @@
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
+import 'package:k9academy/utils/toast_message/toast_message.dart';
 import 'package:k9academy/view/screens/subscription/subscription_model/subscription_model.dart';
 
 class SubscriptionController extends GetxController {
@@ -33,6 +37,28 @@ class SubscriptionController extends GetxController {
       refresh();
     }
   }
+
+
+  ///==================================== Promo Code =========================
+  RxBool isPromoLoading = false.obs;
+  TextEditingController promoController = TextEditingController();
+  promoCode() async {
+    isPromoLoading.value = true;
+    refresh();
+    Map<String, String> body = {
+      "promo_code": promoController.text
+    };
+
+    var response =
+    await ApiClient.postData(ApiUrl.promoCode, jsonEncode(body));
+    if (response.statusCode == 200) {
+      toastMessage(message: response.body["message"]);
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    isPromoLoading.value = false;
+  }
+
 
   @override
   void onInit() {
