@@ -133,7 +133,7 @@ class _CustomCommunityPostDetailsState
                         borderRadius: BorderRadius.circular(8),
                         imageUrl: "${ApiUrl.baseUrl}${value.image ?? ""}",
                         width: double.infinity,
-                        height: 171,
+                        height: 220,
                       ),
 
                       ///=============================Comment =====================
