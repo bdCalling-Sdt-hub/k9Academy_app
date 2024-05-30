@@ -37,7 +37,7 @@ class PromoModel {
 class PromoData {
   String? id;
   String? title;
-  List<Item>? items;
+  List<PromoItem>? items;
   bool? status;
   String? promoCode;
   DateTime? createdAt;
@@ -60,7 +60,7 @@ class PromoData {
   factory PromoData.fromJson(Map<String, dynamic> json) => PromoData(
     id: json["_id"],
     title: json["title"],
-    items: json["items"] == null ? [] : List<Item>.from(json["items"]!.map((x) => Item.fromJson(x))),
+    items: json["items"] == null ? [] : List<PromoItem>.from(json["items"]!.map((x) => PromoItem.fromJson(x))),
     status: json["status"],
     promoCode: json["promo_code"],
     createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
@@ -82,18 +82,18 @@ class PromoData {
   };
 }
 
-class Item {
+class PromoItem {
   String? title;
   String? id;
   String? itemId;
 
-  Item({
+  PromoItem({
     this.title,
     this.id,
     this.itemId,
   });
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
+  factory PromoItem.fromJson(Map<String, dynamic> json) => PromoItem(
     title: json["title"],
     id: json["_id"],
     itemId: json["id"],

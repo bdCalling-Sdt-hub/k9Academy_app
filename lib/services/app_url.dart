@@ -60,5 +60,5 @@ class ApiUrl {
   ///===========================Subscription==========================
   static const subscriptionPlanAll = "/subscription-plan/all";
   static const promoCode = "/promo/unlock";
-  static const getPromoCode = "/promo-package/all";
+  static const getPromoPackage = "/promo-package/all";
 }

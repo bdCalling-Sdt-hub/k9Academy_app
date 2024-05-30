@@ -25,79 +25,92 @@ class Subscription extends StatelessWidget {
   void showDialogBox(BuildContext context, int index) {
     Get.dialog(
       barrierDismissible: false,
-      AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-          side: BorderSide(
-            color: Colors.white.withOpacity(0.2), // Set your border color here
-            width: 2,
-          ),
-        ),
-        backgroundColor: AppColors.blackyDarker.withOpacity(0.3),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CustomText(
-              text: AppStaticStrings.enterYourPromocodeHere,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w600,
-              bottom: 30,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: List.generate(
-                  subscriptionController.subscriptionLists.length,
-                (featureIndex) {
-                  var data =
-              subscriptionController.subscriptionLists[index];
-                  return
-                    Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Row(
-                    children: [
-                      CustomImage(
-                        imageSrc: AppIcons.checkDone,
-                        size: 30.sp,
-                      ),
-                      CustomText(
-                        text: data.title??"",
-                        left: 10,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.sp,
-                      ),
-                    ],
-                  ),
-                );
-  }
-              ),
-            ),
-            ///=============================Enter Your Promocode here Text Field=================
-             CustomTextField(
-              inputTextStyle: const TextStyle(color: Colors.black),
-              fillColor: Colors.white,
-              hintText: AppStaticStrings.enterYourPromocodeHere,
-              textEditingController: subscriptionController.promoController,
-            ),
-            SizedBox(
-              height: 15.h,
-            ),
-
-            ///=============================Confirm Button=================
-
-
-            CustomButton(
+      Obx(() {
+        switch (subscriptionController.rxRequestStatus.value) {
+          case Status.loading:
+            return const CustomLoader();
+          case Status.internetError:
+            return NoInternetScreen(
               onTap: () {
-                subscriptionController.promoCode();
-
+                subscriptionController.getPromoPackage();
               },
-              title: AppStaticStrings.confirm,
-              fillColor: AppColors.blueNormal,
-            ),
-          ],
-        ),
-      ),
+            );
+          case Status.error:
+            return GeneralErrorScreen(
+              onTap: () {
+                subscriptionController.getPromoPackage();
+              },
+            );
+          case Status.completed:
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+                side: BorderSide(
+                  color: Colors.white.withOpacity(0.2),
+                  width: 2,
+                ),
+              ),
+              backgroundColor: AppColors.blackyDarker.withOpacity(0.3),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomText(
+                    text: AppStaticStrings.enterYourPromocodeHere,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                    bottom: 30,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: List.generate(subscriptionController.promoData.length, (featureIndex) {
+                      var promoItems = subscriptionController.promoData[featureIndex].items;
+                      return Column(
+                        children: promoItems!.map((item) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Row(
+                              children: [
+                                CustomImage(
+                                  imageSrc: AppIcons.checkDone,
+                                  size: 30.sp,
+                                ),
+                                CustomText(
+                                  text: item.title!,
+                                  left: 10,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14.sp,
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                      );
+                    }),
+                  ),
+                  CustomTextField(
+                    inputTextStyle: const TextStyle(color: Colors.black),
+                    fillColor: Colors.white,
+                    hintText: AppStaticStrings.enterYourPromocodeHere,
+                    textEditingController: subscriptionController.promoController,
+                  ),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  CustomButton(
+                    onTap: () {
+                      subscriptionController.promoCode();
+                    },
+                    title: AppStaticStrings.confirm,
+                    fillColor: AppColors.blueNormal,
+                  ),
+                ],
+              ),
+            );
+        }
+      }),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -185,8 +198,7 @@ class Subscription extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: List.generate(
                                       data.items?.length ?? 0, (featureIndex) {
-                                    var feature =
-                                    data.items?[featureIndex];
+                                    var feature = data.items?[featureIndex];
 
                                     return Padding(
                                       padding:
@@ -199,7 +211,7 @@ class Subscription extends StatelessWidget {
                                           ),
                                           CustomText(
                                             // text: "",
-                                            text:feature?.title??"",
+                                            text: feature?.title ?? "",
                                             left: 10,
                                             fontWeight: FontWeight.w400,
                                             fontSize: 14.sp,
@@ -220,9 +232,7 @@ class Subscription extends StatelessWidget {
                                     fillColor: AppColors.redNormal,
                                     width:
                                         MediaQuery.of(context).size.width / 2,
-                                    onTap: () {
-
-                                    },
+                                    onTap: () {},
                                     title: AppStaticStrings.makePayment,
                                   ),
                                 ),

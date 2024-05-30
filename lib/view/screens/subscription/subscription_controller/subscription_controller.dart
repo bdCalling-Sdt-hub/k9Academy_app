@@ -39,12 +39,12 @@ class SubscriptionController extends GetxController {
     }
   }
 
-   ///=====================================PromoCode Get==============================
+   ///=====================================PromoPackageGet==============================
   RxList<PromoData> promoData = <PromoData>[].obs;
-  getPromoCode() async {
+  getPromoPackage() async {
     setRxRequestStatus(Status.loading);
     refresh();
-    var response = await ApiClient.getData(ApiUrl.getPromoCode);
+    var response = await ApiClient.getData(ApiUrl.getPromoPackage);
 
     if (response.statusCode == 200) {
       promoData.value = List<PromoData>.from(
@@ -91,6 +91,7 @@ class SubscriptionController extends GetxController {
   @override
   void onInit() {
     getSubscription();
+    getPromoPackage();
     super.onInit();
   }
 }
