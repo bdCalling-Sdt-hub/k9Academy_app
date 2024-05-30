@@ -43,34 +43,37 @@ class Subscription extends StatelessWidget {
               fontWeight: FontWeight.w600,
               bottom: 30,
             ),
-            // Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: List.generate(
-            //     subscriptionController
-            //         .subscriptionList[index]["features"].length,
-            //     (featureIndex) => Padding(
-            //       padding: const EdgeInsets.only(bottom: 10),
-            //       child: Row(
-            //         children: [
-            //           CustomImage(
-            //             imageSrc: AppIcons.checkDone,
-            //             size: 30.sp,
-            //           ),
-            //           CustomText(
-            //             text: subscriptionController.subscriptionList[index]
-            //                 ["features"][featureIndex],
-            //             left: 10,
-            //             fontWeight: FontWeight.w400,
-            //             fontSize: 14.sp,
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: List.generate(
+                  subscriptionController.subscriptionLists.length,
+                (featureIndex) {
+                  var data =
+              subscriptionController.subscriptionLists[index];
+                  return
+                    Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    children: [
+                      CustomImage(
+                        imageSrc: AppIcons.checkDone,
+                        size: 30.sp,
+                      ),
+                      CustomText(
+                        text: data.title??"",
+                        left: 10,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.sp,
+                      ),
+                    ],
+                  ),
+                );
+  }
+              ),
+            ),
             ///=============================Enter Your Promocode here Text Field=================
              CustomTextField(
-              inputTextStyle: TextStyle(color: Colors.black),
+              inputTextStyle: const TextStyle(color: Colors.black),
               fillColor: Colors.white,
               hintText: AppStaticStrings.enterYourPromocodeHere,
               textEditingController: subscriptionController.promoController,
