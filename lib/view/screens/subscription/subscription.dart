@@ -69,23 +69,23 @@ class Subscription extends StatelessWidget {
             //   ),
             // ),
             ///=============================Enter Your Promocode here Text Field=================
-            const CustomTextField(
+             CustomTextField(
               inputTextStyle: TextStyle(color: Colors.black),
               fillColor: Colors.white,
               hintText: AppStaticStrings.enterYourPromocodeHere,
+              textEditingController: subscriptionController.promoController,
             ),
             SizedBox(
               height: 15.h,
             ),
 
             ///=============================Confirm Button=================
+
+
             CustomButton(
               onTap: () {
-                subscriptionController.isPromoCode.value =
-                    !subscriptionController.isPromoCode.value;
+                subscriptionController.promoCode();
 
-                subscriptionController.isPromoCode.refresh();
-                navigator!.pop();
               },
               title: AppStaticStrings.confirm,
               fillColor: AppColors.blueNormal,

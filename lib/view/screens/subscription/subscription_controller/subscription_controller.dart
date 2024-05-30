@@ -53,6 +53,11 @@ class SubscriptionController extends GetxController {
     await ApiClient.postData(ApiUrl.promoCode, jsonEncode(body));
     if (response.statusCode == 200) {
       toastMessage(message: response.body["message"]);
+      isPromoCode.value =
+      !isPromoCode.value;
+      isPromoCode.refresh();
+      navigator!.pop();
+      promoController.clear();
     } else {
       ApiChecker.checkApi(response);
     }
