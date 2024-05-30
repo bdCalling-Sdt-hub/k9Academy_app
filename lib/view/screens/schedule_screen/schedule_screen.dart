@@ -21,7 +21,7 @@ import 'package:k9academy/view/widgets/error/genarel_error.dart';
 class ScheduleScreen extends StatelessWidget {
   ScheduleScreen({super.key});
 
-  void showDialogBox(BuildContext context, String meetingLink, String password) {
+  void showDialogBox(BuildContext context, String meetingLink, String password,String date) {
     Get.dialog(
       AlertDialog(
         backgroundColor: AppColors.blackyDarkHover,
@@ -45,11 +45,22 @@ class ScheduleScreen extends StatelessWidget {
                   )
                 ],
               ),
-              const CustomText(
-                text: "Meeting date: 25 May, 2024 / 8:00 pm",
-                fontWeight: FontWeight.w400,
-                color: AppColors.lightNormal,
-                bottom: 14,
+              Row(
+                children: [
+                  const CustomText(
+                    text: "Meeting date:",
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.lightNormal,
+                    bottom: 14,
+                    right: 10,
+                  ),
+                  CustomText(
+                    text: date,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.blueNormal,
+                    bottom: 14,
+                  ),
+                ],
               ),
               CustomText(
                 text: AppStaticStrings.link,
@@ -229,7 +240,8 @@ class ScheduleScreen extends StatelessWidget {
                                       showDialogBox(
                                           context,
                                           data.meetLink ?? '',
-                                          data.password ?? "");
+                                          data.password ?? "",DateConverter.estimatedDate(
+                                          data.date ?? DateTime.now()));
                                     },
                                     title: AppStaticStrings.meetingLink,
                                     fillColor: AppColors.redNormal,
