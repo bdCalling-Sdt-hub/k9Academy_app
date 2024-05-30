@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
@@ -7,7 +8,8 @@ import 'package:k9academy/view/screens/schedule_screen/model/schedule_model.dart
 
 class ScheduleController extends GetxController {
   var dates = <DateTime>[].obs;
-
+  TextEditingController meetingController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   void updateDates(List<DateTime> newDates) {
     dates.value = newDates;
   }

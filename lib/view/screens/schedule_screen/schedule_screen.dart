@@ -1,4 +1,5 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,7 @@ import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_icons/app_icons.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
+import 'package:k9academy/utils/toast_message/toast_message.dart';
 import 'package:k9academy/view/screens/net_connection_screen/net_connection_screen.dart';
 import 'package:k9academy/view/screens/schedule_screen/schedule_controller/schedule_controller.dart';
 import 'package:k9academy/view/widgets/custom_button/custom_button.dart';
@@ -20,12 +22,13 @@ import 'package:k9academy/view/widgets/error/genarel_error.dart';
 class ScheduleScreen extends StatelessWidget {
   ScheduleScreen({super.key});
 
-  void showDialogBox(BuildContext context, String meetingLink,String password) {
+  void showDialogBox(
+      BuildContext context, String meetingLink, String password) {
     Get.dialog(
       AlertDialog(
         backgroundColor: AppColors.blackyDarkHover,
         content: SizedBox(
-          height: 300,
+          height: 350,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -58,8 +61,19 @@ class ScheduleScreen extends StatelessWidget {
                 bottom: 16,
               ),
               CustomTextField(
-                textEditingController: TextEditingController(text: meetingLink),
-                maxLines: 2,
+                readOnly: true,
+                textEditingController: scheduleController.meetingController=TextEditingController(text: meetingLink),
+                maxLines: 4,
+                suffixIcon: IconButton(
+                    onPressed: ()async {
+                      await FlutterClipboard.copy(scheduleController.meetingController.text);
+                      toastMessage(message: "Copied to Meeting Link");
+                    },
+                    icon: const Icon(
+                      Icons.copy,
+                      size: 20,
+                      color: Colors.white,
+                    )),
               ),
               CustomText(
                 top: 16,
@@ -69,8 +83,19 @@ class ScheduleScreen extends StatelessWidget {
                 color: AppColors.lightNormalHover,
                 bottom: 16,
               ),
-               CustomTextField(
-                textEditingController: TextEditingController(text: password),
+              CustomTextField(
+                readOnly: true,
+                textEditingController: scheduleController.passwordController=TextEditingController(text: password),
+                suffixIcon: IconButton(
+                    onPressed: ()async {
+                      await FlutterClipboard.copy(scheduleController.passwordController.text);
+                      toastMessage(message: "Copied to Password");
+                    },
+                    icon: const Icon(
+                      Icons.copy,
+                      size: 20,
+                      color: Colors.white,
+                    )),
               ),
             ],
           ),
@@ -112,11 +137,14 @@ class ScheduleScreen extends StatelessWidget {
                     child: CalendarDatePicker2(
                       config: CalendarDatePicker2Config(
                         daySplashColor: AppColors.lightNormalActive,
-                        controlsTextStyle: const TextStyle(color: AppColors.light),
-                        dayTextStyle: const TextStyle(color: AppColors.lightDark),
+                        controlsTextStyle:
+                            const TextStyle(color: AppColors.light),
+                        dayTextStyle:
+                            const TextStyle(color: AppColors.lightDark),
                         monthTextStyle: const TextStyle(color: AppColors.light),
                         yearTextStyle: const TextStyle(color: AppColors.light),
-                        weekdayLabelTextStyle: const TextStyle(color: AppColors.light),
+                        weekdayLabelTextStyle:
+                            const TextStyle(color: AppColors.light),
                         selectedDayHighlightColor: AppColors.lightDarker,
                       ),
                       value: scheduleController.dates,
@@ -130,7 +158,7 @@ class ScheduleScreen extends StatelessWidget {
                 Column(
                   children: List.generate(
                     scheduleController.scheduleList.length,
-                        (index) {
+                    (index) {
                       var data = scheduleController.scheduleList[index];
                       return Container(
                         padding: const EdgeInsets.all(15),
@@ -146,14 +174,16 @@ class ScheduleScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomText(
-                                  text: DateConverter.estimatedDate(data.date ?? DateTime.now()),
+                                  text: DateConverter.estimatedDate(
+                                      data.date ?? DateTime.now()),
                                   color: AppColors.blueNormal,
                                   bottom: 7,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14.sp,
                                 ),
                                 CustomText(
-                                  text: DateConverter.formatTime("${data.createdAt ?? DateTime.now()}"),
+                                  text: DateConverter.formatTime(
+                                      "${data.createdAt ?? DateTime.now()}"),
                                   color: AppColors.lightActive,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14.sp,
@@ -190,11 +220,15 @@ class ScheduleScreen extends StatelessWidget {
                                   ),
                                   CustomButton(
                                     onTap: () {
-                                      showDialogBox(context, data.meetLink ?? '',data.password??"");
+                                      showDialogBox(
+                                          context,
+                                          data.meetLink ?? '',
+                                          data.password ?? "");
                                     },
                                     title: AppStaticStrings.meetingLink,
                                     fillColor: AppColors.redNormal,
-                                    width: MediaQuery.of(context).size.width / 2.5,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
                                   ),
                                 ],
                               ),
