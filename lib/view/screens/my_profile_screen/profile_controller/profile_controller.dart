@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
@@ -9,8 +10,8 @@ import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/toast_message/toast_message.dart';
-import 'package:k9academy/view/screens/my_profile_screen/get_profile_model/get_profile_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:k9academy/view/screens/my_profile_screen/profile_model/profile_model.dart';
 import 'package:mime/mime.dart';
 
 class ProfileController extends GetxController {
@@ -22,7 +23,7 @@ class ProfileController extends GetxController {
 
   var isAddItem = true.obs;
 
-  TextEditingController nameController = TextEditingController();
+  TextEditingController nameController = TextEditingController( );
   TextEditingController emailController = TextEditingController();
   TextEditingController contactController = TextEditingController();
   TextEditingController dateController = TextEditingController();

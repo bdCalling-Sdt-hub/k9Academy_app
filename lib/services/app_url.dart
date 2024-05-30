@@ -54,11 +54,14 @@ class ApiUrl {
   static const notifications = "/notification/my-notifications";
   static const notificationRead = "/notification/update-notification";
 
-  ///================================= SubsCription ====================================
 
 
   ///===========================Subscription==========================
   static const subscriptionPlanAll = "/subscription-plan/all";
   static const promoCode = "/promo/unlock";
   static const getPromoPackage = "/promo-package/all";
+
+
+  ///==================================Schedule Screen======================
+  static const schedule = '/schedule/my-schedule';
 }
