@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
+import 'package:k9academy/global/controller/general_controller.dart';
 import 'package:k9academy/helper/shared_prefe/shared_prefe.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
@@ -26,6 +27,8 @@ class AuthenticationController extends GetxController {
   TextEditingController newPasswordController = TextEditingController();
 
   TextEditingController oldPasswordController = TextEditingController();
+
+  GeneralController generalController = Get.find<GeneralController>();
 
   RxBool isRemember = false.obs;
   toggleRemember() {
@@ -148,6 +151,8 @@ class AuthenticationController extends GetxController {
       SharePrefsHelper.setString(
           AppConstants.profileID, response.body["data"]["id"]);
 
+      generalController.getTokenInfo();
+
       Get.toNamed(AppRoute.homeScreen);
       toastMessage(message: response.body["message"]);
     } else {
@@ -237,15 +242,17 @@ class AuthenticationController extends GetxController {
     refresh();
     Map<String, String> body = {
       "oldPassword": passwordController.text,
-      "newPassword": confirmPasswordController.text
+      "newPassword": confirmPasswordController.text,
+      "confirmPassword": confirmPasswordController.text
     };
 
     var response = await ApiClient.patchData(
-        ApiUrl.changePassword, jsonEncode(body),
-        headers: headers);
+      ApiUrl.changePassword,
+      jsonEncode(body),
+    );
     if (response.statusCode == 200) {
       toastMessage(message: response.body["message"]);
-      Get.toNamed(AppRoute.signIn);
+      // Get.toNamed(AppRoute.signIn);
     } else {
       ApiChecker.checkApi(response);
     }

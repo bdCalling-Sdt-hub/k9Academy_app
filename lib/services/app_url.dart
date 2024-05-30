@@ -52,6 +52,10 @@ class ApiUrl {
 
   ///============================= Notification Screen ==============================
   static const notifications = "/notification/my-notifications";
+  static const notificationRead = "/notification/update-notification";
+
+  ///================================= SubsCription ====================================
+
 
   ///===========================Subscription==========================
   static const subscriptionPlanAll = "/subscription-plan/all";

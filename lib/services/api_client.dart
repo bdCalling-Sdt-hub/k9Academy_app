@@ -46,41 +46,33 @@ class ApiClient extends GetxService {
   }
 
   ///================================================================patch Method============================///
-  static Future<Response> patchData(String uri, dynamic body,
-      {Map<String, String>? headers, bool isbody = true}) async {
+  static Future<Response> patchData(
+    String uri,
+    dynamic body, {
+    Map<String, String>? headers,
+    bool isBody = true,
+  }) async {
     bearerToken = await SharePrefsHelper.getString(AppConstants.bearerToken);
 
     var mainHeaders = {
-      // 'Content-Type': 'application/x-www-form-urlencoded',
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $bearerToken'
     };
     try {
-      debugPrint('====> API Call: $uri\nHeader: ${headers ?? mainHeaders}');
+      debugPrint(
+          '====> API Call: ${ApiUrl.baseUrl}$uri\nHeader: ${headers ?? mainHeaders}');
       debugPrint('====> API Body: $body');
 
-      if (isbody) {
-        http.Response response = await client
-            .patch(
-              Uri.parse(ApiUrl.baseUrl + uri),
-              body: body,
-              headers: headers ?? mainHeaders,
-            )
-            .timeout(const Duration(seconds: timeoutInSeconds));
-
-        return handleResponse(response, uri);
-      } else {
-        http.Response response = await client
-            .patch(
-              Uri.parse(ApiUrl.baseUrl + uri),
-              headers: headers ?? mainHeaders,
-            )
-            .timeout(const Duration(seconds: timeoutInSeconds));
-
-        return handleResponse(response, uri);
-      }
+      http.Response response = await client
+          .patch(
+            Uri.parse(ApiUrl.baseUrl + uri),
+            body: isBody ? body : null,
+            headers: headers ?? mainHeaders,
+          )
+          .timeout(const Duration(seconds: timeoutInSeconds));
+      return handleResponse(response, uri);
     } catch (e) {
-      debugPrint('------------>${e.toString()}');
+      debugPrint('Error------------${e.toString()}');
 
       return const Response(statusCode: 1, statusText: noInternetMessage);
     }

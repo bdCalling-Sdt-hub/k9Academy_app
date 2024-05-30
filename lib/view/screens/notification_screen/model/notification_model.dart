@@ -1,55 +1,9 @@
-// To parse this JSON data, do
-//
-//     final notificationModel = notificationModelFromJson(jsonString);
-
-import 'dart:convert';
-
-NotificationModel notificationModelFromJson(String str) =>
-    NotificationModel.fromJson(json.decode(str));
-
-String notificationModelToJson(NotificationModel data) =>
-    json.encode(data.toJson());
-
-class NotificationModel {
-  int? statusCode;
-  bool? success;
-  String? message;
-  List<NotificationDatum>? data;
-
-  NotificationModel({
-    this.statusCode,
-    this.success,
-    this.message,
-    this.data,
-  });
-
-  factory NotificationModel.fromJson(Map<String, dynamic> json) =>
-      NotificationModel(
-        statusCode: json["statusCode"],
-        success: json["success"],
-        message: json["message"],
-        data: json["data"] == null
-            ? []
-            : List<NotificationDatum>.from(
-                json["data"]!.map((x) => NotificationDatum.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "statusCode": statusCode,
-        "success": success,
-        "message": message,
-        "data": data == null
-            ? []
-            : List<dynamic>.from(data!.map((x) => x.toJson())),
-      };
-}
-
 class NotificationDatum {
   String? id;
   String? user;
   String? title;
   String? message;
-  String? status;
+  bool? status;
   DateTime? createdAt;
   DateTime? updatedAt;
   int? v;

@@ -91,10 +91,21 @@ class GeneralController extends GetxController {
     }
   }
 
+  String token = "";
+
+  getTokenInfo() async {
+    token = await SharePrefsHelper.getString(AppConstants.bearerToken);
+
+    if (token.isNotEmpty) {
+      getContent();
+      getId();
+    }
+  }
+
   @override
   void onInit() {
-    getContent();
-    getId();
+    getTokenInfo();
+
     super.onInit();
   }
 }
