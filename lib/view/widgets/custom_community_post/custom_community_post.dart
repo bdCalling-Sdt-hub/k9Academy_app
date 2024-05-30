@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/helper/network_img/network_img.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_icons/app_icons.dart';
@@ -16,7 +14,7 @@ class CustomCommunityPost extends StatelessWidget {
     required this.text,
     required this.dateTime,
     this.comment = true,
-    this.popUpIcon = true,
+    this.popUpIcon,
     this.onTap,
     required this.profileImage,
   });
@@ -24,10 +22,9 @@ class CustomCommunityPost extends StatelessWidget {
   final String coverImage;
   final String profileImage;
   final String text;
-
   final String dateTime;
   final bool comment;
-  final bool popUpIcon;
+  final Widget? popUpIcon;
   final VoidCallback? onTap;
 
   @override
@@ -66,8 +63,7 @@ class CustomCommunityPost extends StatelessWidget {
                     Expanded(
                       child: Row(
                         children: [
-                          //================== User Image ================
-
+                          // User Image
                           GestureDetector(
                             onTap: () {},
                             child: ClipRRect(
@@ -106,15 +102,13 @@ class CustomCommunityPost extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    //============== Comment =============
-
-                    if (comment == true)
+                    if (comment)
                       Container(
                         padding: const EdgeInsets.all(7),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: AppColors.lightDarkActive),
+                          borderRadius: BorderRadius.circular(25),
+                          color: AppColors.lightDarkActive,
+                        ),
                         child: Row(
                           children: [
                             CustomImage(
@@ -129,42 +123,19 @@ class CustomCommunityPost extends StatelessWidget {
                             )
                           ],
                         ),
-                      )
+                      ),
                   ],
                 ),
               ),
-
               SizedBox(height: 10.h),
             ],
           ),
         ),
-        if (popUpIcon == true)
+        if (popUpIcon != null)
           Positioned(
             right: 0,
             top: 0,
-            child: PopupMenuButton<String>(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10)),
-              ),
-              onSelected: (value) {},
-              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                PopupMenuItem<String>(
-                  onTap: () {
-                    Get.toNamed(AppRoute.postScreen);
-                  },
-                  value: 'edit',
-                  child: const Text('Edit'),
-                ),
-                const PopupMenuItem<String>(
-                  value: 'delete',
-                  child: Text('Delete'),
-                ),
-              ],
-              icon: const Icon(Icons.more_vert, color: Colors.white),
-            ),
+            child: popUpIcon!,
           ),
       ],
     );

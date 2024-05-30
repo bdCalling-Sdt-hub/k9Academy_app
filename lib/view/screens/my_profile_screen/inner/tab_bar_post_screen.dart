@@ -5,11 +5,14 @@ import 'package:k9academy/helper/time_converter/time_converter.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_img/app_img.dart';
+import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/home_screen/home_controller/home_controller.dart';
 import 'package:k9academy/view/screens/net_connection_screen/net_connection_screen.dart';
+import 'package:k9academy/view/screens/post_screen/model/post_model.dart';
 import 'package:k9academy/view/screens/post_screen/post_controller/post_controller.dart';
 import 'package:k9academy/view/widgets/custom_community_post/custom_community_post.dart';
 import 'package:k9academy/view/widgets/custom_loader/custom_loader.dart';
+import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/error/genarel_error.dart';
 
 class TabBarPostScreen extends StatelessWidget {
@@ -17,6 +20,7 @@ class TabBarPostScreen extends StatelessWidget {
 
   final HomeController homeController = Get.find<HomeController>();
   final PostController postController = Get.find<PostController>();
+  final PostData data = PostData();
 
   @override
   Widget build(BuildContext context) {
@@ -39,28 +43,62 @@ class TabBarPostScreen extends StatelessWidget {
 
         case Status.completed:
           return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                  children:
-                      List.generate(postController.postData.length, (index) {
-                var data = postController.postData[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  child: CustomCommunityPost(
-                    profileImage:  "${ApiUrl.baseUrl}${data.user?.profileImage ?? ""}",
-                    comment: false,
-                    onTap: () {
-                      Get.toNamed(AppRoute.myPostDetails);
-                    },
-                    coverImage: "${ApiUrl.baseUrl}${data.image ?? ""}",
-                    text: data.user?.name ?? "",
-                    dateTime: DateConverter.formatTime(
-                        "${data.createdAt ?? DateTime.now()}"),
+            child: postController.postData.isEmpty
+                ? const Center(
+
+                    child: CustomText(
+                    text: AppStaticStrings.noDataFound,
+                    fontSize: 20,
+                  ))
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                        children: List.generate(postController.postData.length,
+                            (index) {
+                      var data = postController.postData[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        child: CustomCommunityPost(
+                          popUpIcon: PopupMenuButton<String>(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)),
+                            ),
+                            onSelected: (value) {},
+                            itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry<String>>[
+                              PopupMenuItem<String>(
+                                onTap: () {
+                                  Get.toNamed(AppRoute.postScreen);
+                                },
+                                child: const Text('Edit'),
+                              ),
+                              PopupMenuItem<String>(
+                                onTap: () {
+                                  postController.deletePost(data.id.toString());
+                                },
+                                child: const Text('Delete'),
+                              ),
+                            ],
+                            icon: const Icon(Icons.more_vert,
+                                color: Colors.white),
+                          ),
+                          profileImage:
+                              "${ApiUrl.baseUrl}${data.user?.profileImage ?? ""}",
+                          comment: false,
+                          onTap: () {
+                            // Get.toNamed(AppRoute.myPostDetails);
+                          },
+                          coverImage: "${ApiUrl.baseUrl}${data.image ?? ""}",
+                          text: data.user?.name ?? "",
+                          dateTime: DateConverter.formatTime(
+                              "${data.createdAt ?? DateTime.now()}"),
+                        ),
+                      );
+                    })),
                   ),
-                );
-              })),
-            ),
           );
       }
     });

@@ -1,3 +1,4 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -8,7 +9,6 @@ import 'package:k9academy/view/screens/my_profile_screen/schedule_controller/sch
 import 'package:k9academy/view/widgets/custom_image/custom_image.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class ScheduleScreen extends StatelessWidget {
   ScheduleScreen({super.key});
@@ -38,7 +38,7 @@ class ScheduleScreen extends StatelessWidget {
                 ],
               ),
               const CustomText(
-                text: "Meeting date: 25 may, 2024 / 8:00 pm",
+                text: "Meeting date: 25 May, 2024 / 8:00 pm",
                 fontWeight: FontWeight.w400,
                 color: AppColors.lightNormal,
                 bottom: 14,
@@ -51,7 +51,7 @@ class ScheduleScreen extends StatelessWidget {
                 bottom: 16,
               ),
               const CustomTextField(
-                hintText: "https://marketplace.zoom ... link",
+                hintText: "https://marketplace.zoom ... link",
               ),
               CustomText(
                 top: 16,
@@ -71,7 +71,7 @@ class ScheduleScreen extends StatelessWidget {
     );
   }
 
-  final ScheduleController scheduleController = Get.find<ScheduleController>();
+  final ScheduleController scheduleController = Get.put(ScheduleController());
 
   @override
   Widget build(BuildContext context) {
@@ -84,21 +84,23 @@ class ScheduleScreen extends StatelessWidget {
               color: AppColors.blackyNormalActive,
               borderRadius: BorderRadius.circular(15),
             ),
-            child: Obx(
-              () {
-                return TableCalendar(
-                  selectedDayPredicate: (day) =>
-                      isSameDay(day, scheduleController.today.value),
-                  onDaySelected: (selectedDay, focusedDay) {
-                    scheduleController.onDaySelected(selectedDay, focusedDay);
-                  },
-                  rowHeight: 43,
-                  focusedDay: scheduleController.focusedDay.value,
-                  firstDay: DateTime.utc(2010),
-                  lastDay: DateTime.utc(2050),
-                );
-              },
-            ),
+            child: Obx(() {
+              return CalendarDatePicker2(
+                config: CalendarDatePicker2Config(
+                  daySplashColor: AppColors.lightNormalActive,
+                  controlsTextStyle: const TextStyle(color: AppColors.light),
+                  dayTextStyle: const TextStyle(color: AppColors.lightDark),
+                  monthTextStyle: const TextStyle(color: AppColors.light),
+                  yearTextStyle: const TextStyle(color: AppColors.light),
+                  weekdayLabelTextStyle: const TextStyle(color: AppColors.light),
+                  selectedDayHighlightColor: AppColors.lightDarker,
+                ),
+                value: scheduleController.dates,
+                onValueChanged: (dates) {
+                  // scheduleController.updateDates(dates);
+                },
+              );
+            }),
           ),
           SizedBox(
             height: 20.h,
@@ -106,7 +108,7 @@ class ScheduleScreen extends StatelessWidget {
           Column(
             children: List.generate(
               4,
-              (index) => Container(
+                  (index) => Container(
                 padding: const EdgeInsets.all(15),
                 margin: const EdgeInsets.all(20),
                 width: double.infinity,
