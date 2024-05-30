@@ -1,6 +1,5 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:clipboard/clipboard.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,8 +21,7 @@ import 'package:k9academy/view/widgets/error/genarel_error.dart';
 class ScheduleScreen extends StatelessWidget {
   ScheduleScreen({super.key});
 
-  void showDialogBox(
-      BuildContext context, String meetingLink, String password) {
+  void showDialogBox(BuildContext context, String meetingLink, String password) {
     Get.dialog(
       AlertDialog(
         backgroundColor: AppColors.blackyDarkHover,
@@ -62,11 +60,13 @@ class ScheduleScreen extends StatelessWidget {
               ),
               CustomTextField(
                 readOnly: true,
-                textEditingController: scheduleController.meetingController=TextEditingController(text: meetingLink),
+                textEditingController: scheduleController.meetingController =
+                    TextEditingController(text: meetingLink),
                 maxLines: 4,
                 suffixIcon: IconButton(
-                    onPressed: ()async {
-                      await FlutterClipboard.copy(scheduleController.meetingController.text);
+                    onPressed: () async {
+                      await FlutterClipboard.copy(
+                          scheduleController.meetingController.text);
                       toastMessage(message: "Copied to Meeting Link");
                     },
                     icon: const Icon(
@@ -85,10 +85,12 @@ class ScheduleScreen extends StatelessWidget {
               ),
               CustomTextField(
                 readOnly: true,
-                textEditingController: scheduleController.passwordController=TextEditingController(text: password),
+                textEditingController: scheduleController.passwordController =
+                    TextEditingController(text: password),
                 suffixIcon: IconButton(
-                    onPressed: ()async {
-                      await FlutterClipboard.copy(scheduleController.passwordController.text);
+                    onPressed: () async {
+                      await FlutterClipboard.copy(
+                          scheduleController.passwordController.text);
                       toastMessage(message: "Copied to Password");
                     },
                     icon: const Icon(
@@ -125,6 +127,11 @@ class ScheduleScreen extends StatelessWidget {
             },
           );
         case Status.completed:
+
+          List<DateTime?> scheduleDates = scheduleController.scheduleList
+              .map((schedule) => schedule.date)
+              .toList();
+
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -136,21 +143,20 @@ class ScheduleScreen extends StatelessWidget {
                     ),
                     child: CalendarDatePicker2(
                       config: CalendarDatePicker2Config(
+                        calendarType: CalendarDatePicker2Type.multi,
                         daySplashColor: AppColors.lightNormalActive,
                         controlsTextStyle:
-                            const TextStyle(color: AppColors.light),
+                        const TextStyle(color: AppColors.light),
                         dayTextStyle:
-                            const TextStyle(color: AppColors.lightDark),
+                        const TextStyle(color: AppColors.lightDark),
                         monthTextStyle: const TextStyle(color: AppColors.light),
                         yearTextStyle: const TextStyle(color: AppColors.light),
                         weekdayLabelTextStyle:
-                            const TextStyle(color: AppColors.light),
-                        selectedDayHighlightColor: AppColors.lightDarker,
+                        const TextStyle(color: AppColors.light),
+                        selectedDayHighlightColor: AppColors.blueNormal,
                       ),
-                      value: scheduleController.dates,
-                      onValueChanged: (dates) {
-                        // scheduleController.updateDates(dates);
-                      },
+                      value: scheduleDates,
+
                     )),
                 SizedBox(
                   height: 20.h,
@@ -158,7 +164,7 @@ class ScheduleScreen extends StatelessWidget {
                 Column(
                   children: List.generate(
                     scheduleController.scheduleList.length,
-                    (index) {
+                        (index) {
                       var data = scheduleController.scheduleList[index];
                       return Container(
                         padding: const EdgeInsets.all(15),
@@ -228,7 +234,7 @@ class ScheduleScreen extends StatelessWidget {
                                     title: AppStaticStrings.meetingLink,
                                     fillColor: AppColors.redNormal,
                                     width:
-                                        MediaQuery.of(context).size.width / 2.5,
+                                    MediaQuery.of(context).size.width / 2.5,
                                   ),
                                 ],
                               ),
