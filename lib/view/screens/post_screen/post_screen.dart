@@ -1,13 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
-import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/post_screen/post_controller/post_controller.dart';
-import 'package:k9academy/view/widgets/custom_image/custom_image.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/custom_text_field/custom_text_field.dart';
 import 'package:k9academy/view/widgets/nav_bar/nav_bar.dart';
@@ -44,6 +41,7 @@ class PostScreen extends StatelessWidget {
         child: Column(
           children: [
             CustomTextField(
+              maxLength: 1000,
               maxLines: 10,
               textEditingController: postController.descriptionController,
               hintText: "Please provide a brief..............",
@@ -70,17 +68,17 @@ class PostScreen extends StatelessWidget {
                           ),
                         )
                       : Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all( color: AppColors.lightDark)
-                    ),
-                    child:  const SizedBox(
-                      height: 300,
-                        width: 400,
-                        child: Icon(Icons.add_photo_alternate_outlined,size: 200,)),
-                  )
-              
-              );
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(color: AppColors.lightDark)),
+                          child: const SizedBox(
+                              height: 300,
+                              width: 400,
+                              child: Icon(
+                                Icons.add_photo_alternate_outlined,
+                                size: 200,
+                              )),
+                        ));
             }),
           ],
         ),

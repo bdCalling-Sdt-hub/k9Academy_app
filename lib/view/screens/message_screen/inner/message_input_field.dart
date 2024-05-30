@@ -20,10 +20,7 @@ class MessageInputField extends StatelessWidget {
 
   final GeneralController generalController = Get.find<GeneralController>();
 
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      return AnimatedPadding(
+  Widget design(BuildContext context) => AnimatedPadding(
         padding: MediaQuery.of(context).viewInsets,
         duration: const Duration(milliseconds: 100),
         curve: Curves.decelerate,
@@ -125,6 +122,15 @@ class MessageInputField extends StatelessWidget {
           ),
         ),
       );
-    });
+
+  @override
+  Widget build(BuildContext context) {
+    if (isComment) {
+      return design(context);
+    } else {
+      return Obx(() {
+        return design(context);
+      });
+    }
   }
 }
