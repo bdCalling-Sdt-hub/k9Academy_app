@@ -7,7 +7,8 @@ import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/toast_message/toast_message.dart';
-import 'package:k9academy/view/screens/subscription/subscription_model/subscription_model.dart';
+import 'package:k9academy/view/screens/subscription/model/promo_model.dart';
+import 'package:k9academy/view/screens/subscription/model/subscription_model.dart';
 
 class SubscriptionController extends GetxController {
   RxBool isPromoCode = false.obs;
@@ -38,8 +39,30 @@ class SubscriptionController extends GetxController {
     }
   }
 
+   ///=====================================PromoPackageGet==============================
+  RxList<PromoData> promoData = <PromoData>[].obs;
+  getPromoPackage() async {
+    setRxRequestStatus(Status.loading);
+    refresh();
+    var response = await ApiClient.getData(ApiUrl.getPromoPackage);
 
-  ///==================================== Promo Code =========================
+    if (response.statusCode == 200) {
+      promoData.value = List<PromoData>.from(
+          response.body["data"].map((x) => PromoData.fromJson(x)));
+      setRxRequestStatus(Status.completed);
+      refresh();
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(response);
+
+      refresh();
+    }
+  }
+  ///==================================== Promo Code  Post=========================
   RxBool isPromoLoading = false.obs;
   TextEditingController promoController = TextEditingController();
   promoCode() async {
@@ -68,6 +91,7 @@ class SubscriptionController extends GetxController {
   @override
   void onInit() {
     getSubscription();
+    getPromoPackage();
     super.onInit();
   }
 }
