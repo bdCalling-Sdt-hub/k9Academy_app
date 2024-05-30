@@ -47,7 +47,7 @@ class PostScreen extends StatelessWidget {
               maxLines: 10,
               textEditingController: postController.descriptionController,
               hintText: "Please provide a brief..............",
-              hintStyle: TextStyle(color: AppColors.lightDarker),
+              hintStyle: const TextStyle(color: AppColors.lightDarker),
             ),
 
             const SizedBox(
