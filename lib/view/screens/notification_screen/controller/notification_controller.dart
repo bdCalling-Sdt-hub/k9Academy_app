@@ -12,6 +12,7 @@ class NotificationController extends GetxController {
   ///============================ Get Notification ===============================
 
   RxList<NotificationDatum> notifications = <NotificationDatum>[].obs;
+
   getNotifications() async {
     setRxRequestStatus(Status.loading);
     refresh();
@@ -29,6 +30,17 @@ class NotificationController extends GetxController {
       } else {
         setRxRequestStatus(Status.error);
       }
+      ApiChecker.checkApi(response);
+    }
+  }
+
+  ///====================== Read All Notifications =========================
+  readAllNotification() async {
+    var response =
+        await ApiClient.patchData(ApiUrl.notificationRead, {}, isBody: false);
+    if (response.statusCode == 200) {
+      getNotifications();
+    } else {
       ApiChecker.checkApi(response);
     }
   }
