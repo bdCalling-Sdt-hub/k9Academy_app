@@ -187,7 +187,6 @@ class AppStaticStrings {
 
   ///==================================All HintText=======================
   static const yourName = "Your Name :";
-  static const yourName= "Your Name :";
-  static const noDataFound= "No Data Found";
 
+  static const noDataFound = "No Data Found";
 }
