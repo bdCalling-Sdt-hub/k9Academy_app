@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                                 false)
                             ? data.user?.profileImage ?? ""
                             : "${ApiUrl.baseUrl}${data.user?.profileImage ?? ""}",
-                        popUpIcon: false,
+
                         coverImage: "${ApiUrl.baseUrl}${data.image ?? ""}",
                         text: data.user?.name ?? "",
                         dateTime: DateConverter.estimatedDate(

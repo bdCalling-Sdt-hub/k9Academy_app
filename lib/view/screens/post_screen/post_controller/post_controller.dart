@@ -44,6 +44,7 @@ class PostController extends GetxController {
           ]);
 
       if (response.statusCode == 200) {
+        getMyPost();
         Get.toNamed(AppRoute.myProfileScreen);
         toastMessage(message: response.body["message"]);
         isPostLoading.value = false;
@@ -83,7 +84,22 @@ class PostController extends GetxController {
     }
   }
 
-
+///==========================================DeletePost===================================
+  deletePost(String id) async {
+    setRxRequestStatus(Status.loading);
+    refresh();
+    var response = await ApiClient.deleteData(
+      "${ApiUrl.deletePost}/$id",
+    );
+    refresh();
+    if (response.statusCode == 200) {
+      setRxRequestStatus(Status.completed);
+      getMyPost();
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }
+  ///=========================================Edit Post======================
 
   @override
   void onInit() {

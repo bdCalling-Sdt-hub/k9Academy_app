@@ -35,6 +35,8 @@ class ApiUrl {
   ///=====================================Post Screen======================
   static const postEndpoint = "/post/add-post";
   static const getPostEndPoint = "/post/my-posts";
+  static const deletePost = "/post/delete-post";
+  static const editPost = "/post/edit-post/66430232357f107f25dd23dc";
 
   ///============================= Message Screen ==============================
   static const getConversations = "/message/get-message";
@@ -50,5 +52,8 @@ class ApiUrl {
 
   ///============================= Notification Screen ==============================
   static const notifications = "/notification/my-notifications";
+
+  ///===========================Subscription==========================
   static const subscriptionPlanAll = "/subscription-plan/all";
+  static const promoCode = "/promo/unlock";
 }
