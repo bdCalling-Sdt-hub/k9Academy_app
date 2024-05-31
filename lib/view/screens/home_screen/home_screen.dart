@@ -69,6 +69,7 @@ class HomeScreen extends StatelessWidget {
                       ///=======================================CustomCommunity PostDesign====================
 
                       child: CustomCommunityPost(
+
                         profileImage: (data.user?.profileImage
                                     ?.startsWith('https') ??
                                 false)

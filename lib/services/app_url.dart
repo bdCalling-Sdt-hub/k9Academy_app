@@ -65,4 +65,7 @@ class ApiUrl {
 
   ///==================================Schedule Screen======================
   static const schedule = '/schedule/my-schedule';
+
+  ///=============================Other profile============================
+ static const otherProfile = "/auth/others-profile/6655958fba36cf6c812abcf5";
 }

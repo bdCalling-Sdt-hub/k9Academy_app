@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/helper/network_img/network_img.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
-import 'package:k9academy/view/screens/home_screen/home_controller/home_controller.dart';
-import 'package:k9academy/view/screens/my_profile_screen/profile_controller/profile_controller.dart';
+import 'package:k9academy/view/screens/net_connection_screen/net_connection_screen.dart';
+import 'package:k9academy/view/screens/other_profile/controller/otherProfile_controller.dart';
 import 'package:k9academy/view/widgets/custom_community_post/custom_community_post.dart';
+import 'package:k9academy/view/widgets/custom_loader/custom_loader.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
+import 'package:k9academy/view/widgets/error/genarel_error.dart';
 
 class OtherProfile extends StatelessWidget {
   OtherProfile({super.key});
-
-  ///=================================ProfileController===================================
-  final ProfileController profileController = Get.find<ProfileController>();
-  final HomeController homeController = Get.find<HomeController>();
 
   ///=================================CoverImage Widget===================================
   Widget buildCoverImage() => Container(
@@ -40,6 +37,8 @@ class OtherProfile extends StatelessWidget {
           ],
         ),
       );
+  final OtherProfileController otherProfileController =
+  Get.put(OtherProfileController());
 
   ///=================================profileImage===================================
   final double profileHeight = 120;
@@ -60,71 +59,93 @@ class OtherProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final top = 171 - profileHeight / 1.5;
     return Scaffold(
-      backgroundColor: AppColors.blackyDarkHover,
+        backgroundColor: AppColors.blackyDarkHover,
 
-      ///=================================ProfileAppbar===================================
-      appBar: AppBar(
-        backgroundColor: AppColors.blackyDarker,
-        centerTitle: true,
-        title: CustomText(
-          text: AppStaticStrings.othersProfile,
-          color: AppColors.lightNormal,
-          fontSize: 18.sp,
+        ///=================================ProfileAppbar===================================
+        appBar: AppBar(
+          backgroundColor: AppColors.blackyDarker,
+          centerTitle: true,
+          title: CustomText(
+            text: AppStaticStrings.othersProfile,
+            color: AppColors.lightNormal,
+            fontSize: 18.sp,
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.center,
-              children: [
-                ///=================================Declaring cover image===================================
-                buildCoverImage(),
+        body: Obx(() {
+          switch (otherProfileController.rxRequestStatus.value) {
+            case Status.loading:
+              return const CustomLoader();
+            case Status.internetError:
+              return NoInternetScreen(
+                onTap: () {
+                  otherProfileController.getOtherProfile();
+                  // otherProfileController.getOtherProfile(id);
+                },
+              );
+            case Status.error:
+              return GeneralErrorScreen(
+                onTap: () {
+                  otherProfileController.getOtherProfile();
+                  // otherProfileController.getOtherProfile(id);
+                },
+              );
 
-                ///=================================Declaring Profile Image===================================
-                Positioned(left: 10, top: top, child: buildProfileImage()),
-              ],
-            ),
-            CustomText(
-              top: 55,
-              left: 15,
-              text: AppStaticStrings.posts,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-              bottom: 12,
-            ),
-            const Divider(
-              color: Colors.black,
-            ),
-            Column(
-              children: List.generate(
-                  homeController.communityPostItems.length,
-                  (index) => Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 16),
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.toNamed(AppRoute.communityPostDetails);
-                          },
+            case Status.completed:
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.center,
+                      children: [
+                        ///=================================Declaring cover image===================================
+                        buildCoverImage(),
 
-                          ///=======================================CustomCommunity PostDesign====================
-                          child: CustomCommunityPost(
-                              profileImage: AppImages.dog3,
+                        ///=================================Declaring Profile Image===================================
+                        Positioned(
+                            left: 10, top: top, child: buildProfileImage()),
+                      ],
+                    ),
+                    CustomText(
+                      top: 55,
+                      left: 15,
+                      text: AppStaticStrings.posts,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      bottom: 12,
+                    ),
+                    const Divider(
+                      color: Colors.black,
+                    ),
+                    Column(
+                      children: List.generate(
+                          4, (index) {
+                            // var data = otherProfileController.otherPost[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 16),
+                          child: GestureDetector(
+                            onTap: () {
+                              // Get.toNamed(
+                              //     AppRoute.communityPostDetails);
+                            },
 
-                              coverImage:
-                                  homeController.communityPostItems[index],
-                              text: "Jon Week",
-
-                              dateTime: '3 may, 2024',
-                              comment: false),
-                        ),
-                      )),
-            )
-          ],
-        ),
-      ),
-    );
+                            ///=======================================CustomCommunity PostDesign====================
+                            child: CustomCommunityPost(
+                                profileImage: AppImages.dog3,
+                                coverImage: AppImages.dogImage,
+                                text: "masum",
+                                dateTime: '3 may, 2024',
+                                comment: false,),
+                          ),
+                        );
+                      }),
+                    )
+                  ],
+                ),
+              );
+          }
+        }));
   }
 }

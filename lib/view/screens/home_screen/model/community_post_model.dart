@@ -176,6 +176,7 @@ class DatumUser {
   String? phoneNumber;
   String? role;
   String? profileImage;
+  String? coverImage;
   String? activationCode;
   bool? isBlock;
   bool? isActive;
@@ -194,6 +195,7 @@ class DatumUser {
     this.phoneNumber,
     this.role,
     this.profileImage,
+    this.coverImage,
     this.activationCode,
     this.isBlock,
     this.isActive,
@@ -213,6 +215,7 @@ class DatumUser {
         phoneNumber: json["phone_number"],
         role: json["role"],
         profileImage: json["profile_image"],
+        coverImage: json["cover_Image"],
         activationCode: json["activationCode"],
         isBlock: json["is_block"],
         isActive: json["isActive"],
@@ -238,6 +241,7 @@ class DatumUser {
         "phone_number": phoneNumber,
         "role": role,
         "profile_image": profileImage,
+        "cover_image": coverImage,
         "activationCode": activationCode,
         "is_block": isBlock,
         "isActive": isActive,
