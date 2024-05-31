@@ -100,6 +100,34 @@ class PostController extends GetxController {
     }
   }
   ///=========================================Edit Post======================
+  RxBool isEditPost = false.obs;
+
+  Future<void> editPost({Map<String, String>? header}) async {
+    isEditPost.value = true;
+    update();
+    try {
+      var body = {
+        "title": "",
+      };
+      var response = await ApiClient.patchMultipartData(
+          ApiUrl.editPost, body,
+          multipartBody: [
+            MultipartBody("image", File(image.value)),
+          ]);
+
+      if (response.statusCode == 200) {
+        Get.toNamed(AppRoute.myProfileScreen);
+        toastMessage(message: response.body["message"]);
+        isEditPost.value = false;
+        update();
+      } else {
+        ApiChecker.checkApi(response);
+      }
+    } catch (e) {
+      debugPrint("============> $e");
+    }
+  }
+
 
   @override
   void onInit() {
