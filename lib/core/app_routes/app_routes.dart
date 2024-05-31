@@ -150,7 +150,7 @@ class AppRoute {
     ///==================== videoShowScreen ====================
     GetPage(name: searchScreen, page: () => SearchScreen()),
     GetPage(name: otherProfile, page: () => OtherProfile()),
-    GetPage(name: myPostDetails, page: () => const MyPostDetails()),
+    GetPage(name: myPostDetails, page: () =>  MyPostDetails()),
     GetPage(name: tabBarPostScreen, page: () => TabBarPostScreen()),
     GetPage(name: postScreen, page: () => PostScreen()),
     GetPage(name: forgetOtpVerify, page: () => const ForgetOtpVerify()),

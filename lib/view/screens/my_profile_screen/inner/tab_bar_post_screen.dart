@@ -4,7 +4,6 @@ import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/helper/time_converter/time_converter.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
-import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/home_screen/home_controller/home_controller.dart';
 import 'package:k9academy/view/screens/net_connection_screen/net_connection_screen.dart';
@@ -45,7 +44,6 @@ class TabBarPostScreen extends StatelessWidget {
           return SingleChildScrollView(
             child: postController.postData.isEmpty
                 ? const Center(
-
                     child: CustomText(
                     text: AppStaticStrings.noDataFound,
                     fontSize: 20,
@@ -89,7 +87,13 @@ class TabBarPostScreen extends StatelessWidget {
                               "${ApiUrl.baseUrl}${data.user?.profileImage ?? ""}",
                           comment: false,
                           onTap: () {
-                            // Get.toNamed(AppRoute.myPostDetails);
+                            Get.toNamed(AppRoute.myPostDetails, arguments: [
+                              data.user?.name,
+                              data.description,
+                              data.image,
+                              data.user?.profileImage,
+                              data.createdAt
+                            ]);
                           },
                           coverImage: "${ApiUrl.baseUrl}${data.image ?? ""}",
                           text: data.user?.name ?? "",
