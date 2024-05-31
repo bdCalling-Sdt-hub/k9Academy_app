@@ -64,15 +64,12 @@ class CustomCommunityPost extends StatelessWidget {
                       child: Row(
                         children: [
                           // User Image
-                          GestureDetector(
-                            onTap: () {},
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
-                              child: CustomNetworkImage(
-                                imageUrl: profileImage,
-                                height: 30,
-                                width: 30,
-                              ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: CustomNetworkImage(
+                              imageUrl: profileImage,
+                              height: 30,
+                              width: 30,
                             ),
                           ),
                           SizedBox(

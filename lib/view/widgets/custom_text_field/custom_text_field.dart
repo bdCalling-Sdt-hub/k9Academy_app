@@ -31,7 +31,7 @@ class CustomTextField extends StatefulWidget {
     this.focusBorderColor = AppColors.light,
     this.height = 50,
     this.maxLength,
-    this.labelText = '',
+    this.labelText = '', this.onFieldSubmitted,
   });
 
   final TextEditingController? textEditingController;
@@ -56,6 +56,7 @@ class CustomTextField extends StatefulWidget {
   final Color fieldBorderColor;
   final Color focusBorderColor;
   final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
   final bool isPassword;
   final bool isPrefixIcon;
   final VoidCallback onTapClick;
@@ -80,6 +81,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             widget.onTapClick();
           },
           onChanged: widget.onChanged,
+          onFieldSubmitted: widget.onFieldSubmitted,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           readOnly: widget.readOnly,
           controller: widget.textEditingController,

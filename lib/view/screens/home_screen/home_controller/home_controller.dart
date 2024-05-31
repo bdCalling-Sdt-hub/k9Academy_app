@@ -10,6 +10,7 @@ import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/view/screens/home_screen/model/community_post_model.dart';
 import 'package:k9academy/view/screens/home_screen/model/training_details.dart';
+import 'package:k9academy/view/screens/home_screen/model/training_program_all_model.dart';
 import 'package:k9academy/view/screens/home_screen/model/training_programs.dart';
 
 class HomeController extends GetxController {
@@ -191,6 +192,48 @@ class HomeController extends GetxController {
     }
   }
 
+
+  ///=====================================Training Programs All============================
+
+  RxList<TrainingProgramsData> trainingProgramsList = <TrainingProgramsData>[].obs;
+  getTrainingProgramAll() async {
+    setRxRequestStatus(Status.loading);
+    refresh();
+    var response = await ApiClient.getData(ApiUrl.trainingProgramAll);
+
+    if (response.statusCode == 200) {
+      trainingProgramsList.value = List<TrainingProgramsData>.from(
+          response.body["data"].map((x) => TrainingProgramsData.fromJson(x)));
+      setRxRequestStatus(Status.completed);
+      refresh();
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(response);
+      refresh();
+    }
+  }
+
+
+  ///==================================Search Method===============================
+  search({required String search}) async {
+    setRxRequestStatus(Status.loading);
+    trainingProgramsList.refresh();
+    var response = await ApiClient.getData("${ApiUrl.trainingProgramAll}?searchTerm=$search");
+    trainingProgramsList.refresh();
+    if (response.statusCode == 200) {
+      trainingProgramsList = RxList<TrainingProgramsData>.from(
+          response.body["data"].map((x) => TrainingProgramsData.fromJson(x)));
+      setRxRequestStatus(Status.completed);
+      trainingProgramsList.refresh();
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }
+
 //// ========================== All API Here ==============================
 
   homeScreenAPIs() async {
@@ -207,6 +250,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     homeScreenAPIs();
+    getTrainingProgramAll();
     super.onInit();
   }
 }
