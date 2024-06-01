@@ -24,12 +24,9 @@ class DateConverter {
     }
   }
 
-
-
   static String formatDateYearMonth(DateTime dateTime) {
     return DateFormat('yyyy-MM-dd').format(dateTime);
   }
-
 
   static String hourMinit(DateTime utcDateTime) {
     DateTime localDateTime = utcDateTime.toLocal();
@@ -37,17 +34,17 @@ class DateConverter {
     return output;
   }
 
-
-
   static DateTime convertStringToDatetime() {
     DateTime now = DateTime.now();
     return now.toUtc();
   }
+
   static String formatTime(String dateTimeString) {
     DateTime dateTime = DateTime.parse(dateTimeString).toLocal();
     DateFormat formatter = DateFormat('h:mm a');
     return formatter.format(dateTime);
   }
+
   ///=============== Calculate Time of Day ===============
 
   static String getTimePeriod() {
@@ -63,7 +60,7 @@ class DateConverter {
     if (currentHour >= morningBoundary && currentHour < noonBoundary) {
       return "Good Morning";
     } else if (currentHour >= noonBoundary && currentHour < eveningBoundary) {
-      return "Good Noon";
+      return "Good After Noon";
     } else {
       return "Good Evening";
     }

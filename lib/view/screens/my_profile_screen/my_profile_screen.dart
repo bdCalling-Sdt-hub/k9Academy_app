@@ -60,11 +60,11 @@ class MyProfileScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-
                 bottom: 10.h,
                 right: 120.w,
                 child: CustomText(
-                  text: profileController.profileModel.value.userInfo?.name??"",
+                  text:
+                      profileController.profileModel.value.userInfo?.name ?? "",
                   fontSize: 17.sp,
                   fontWeight: FontWeight.w600,
                 ),
@@ -99,10 +99,11 @@ class MyProfileScreen extends StatelessWidget {
                       ),
                       if (!profileController.isAddItem.value)
                         InkWell(
-                            onTap: (){
+                            onTap: () {
                               profileController.selectImage();
                             },
-                            child: const CustomImage(imageSrc: AppIcons.cemera)),
+                            child:
+                                const CustomImage(imageSrc: AppIcons.cemera)),
                     ],
                   )
                 : Stack(
@@ -116,10 +117,11 @@ class MyProfileScreen extends StatelessWidget {
                       ),
                       if (!profileController.isAddItem.value)
                         InkWell(
-                            onTap: (){
+                            onTap: () {
                               profileController.selectImage();
                             },
-                            child: const CustomImage(imageSrc: AppIcons.cemera)),
+                            child:
+                                const CustomImage(imageSrc: AppIcons.cemera)),
                     ],
                   );
           },
@@ -143,7 +145,7 @@ class MyProfileScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height /4,
+            height: MediaQuery.of(context).size.height / 4,
             child: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -152,9 +154,10 @@ class MyProfileScreen extends StatelessWidget {
               ],
             ),
           ),
-            SizedBox(
-              height: 20.h,
-            ),
+          SizedBox(
+            height: 20.h,
+          ),
+
           ///================================= Inner 4 TabBar Widgets ===================================
           TabBarWidgets(profileController: profileController),
           const Divider(),
