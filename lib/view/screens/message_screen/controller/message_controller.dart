@@ -32,7 +32,8 @@ class MessageController extends GetxController {
   getMessageList() async {
     setRxRequestStatus(Status.loading);
     refresh();
-    var response = await ApiClient.getData(ApiUrl.getConversations);
+    var response = await ApiClient.getData(
+        ApiUrl.getConversations(id: generalController.conversationID.value));
 
     if (response.statusCode == 200) {
       messageList.value = List<MessageDatum>.from(response.body["data"]
@@ -70,7 +71,7 @@ class MessageController extends GetxController {
       page.value += 1;
 
       Response response = await ApiClient.getData(
-        "${ApiUrl.getConversations}?page=$page",
+        "${ApiUrl.getConversations(id: generalController.conversationID.value)}?page=$page",
       );
       currentPage.value = response.body['data']['meta']['page'];
       totalPage.value = response.body['data']['meta']['totalPage'];

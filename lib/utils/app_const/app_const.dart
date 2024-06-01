@@ -8,6 +8,8 @@ class AppConstants {
   static String successfull = "Request Successfull";
   static String error = "Oops, something went wrong";
   static String profileID = "profileID";
+  static String conversationID = "conversationID";
+
   static String userStatus = "userStatus";
   static String rememberMe = "rememberMe";
   static String videoImage =

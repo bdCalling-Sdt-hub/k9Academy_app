@@ -105,11 +105,21 @@ class GeneralController extends GetxController {
   }
 
   ///=============================== Get Conversation ID ==============================
+  RxString conversationID = "".obs;
+  getConversationID() async {
+    conversationID.value =
+        await SharePrefsHelper.getString(AppConstants.conversationID);
+
+    refresh();
+
+    debugPrint(
+        "Conversation Id: ============<><><><><><>>>>${conversationID.value}");
+  }
 
   @override
   void onInit() {
     getTokenInfo();
-
+    getConversationID();
     super.onInit();
   }
 }
