@@ -119,7 +119,10 @@ class MessageController extends GetxController {
     }
     generalController.showPopUpLoader();
 
-    var body = {"message": sendController.value.text};
+    var body = {
+      "message": sendController.value.text,
+      "conversationId": "665ae579e700270d59e38f63"
+    };
 
     var response = generalController.imagePath.isEmpty
         ? await ApiClient.postData(ApiUrl.sendMessage, jsonEncode(body))
