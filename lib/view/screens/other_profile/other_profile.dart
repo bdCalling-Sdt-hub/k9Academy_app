@@ -22,16 +22,24 @@ class OtherProfile extends StatefulWidget {
 }
 
 class _OtherProfileState extends State<OtherProfile> {
+  final OtherProfileController otherProfileController =
+      Get.put(OtherProfileController());
+
+  final double profileHeight = 120;
+
   ///=================================CoverImage Widget===================================
   Widget buildCoverImage() => Container(
         color: Colors.grey,
         child: Stack(
           children: [
             CustomNetworkImage(
-              imageUrl: (otherProfileController.otherProfile.value.userInfo?.coverImage
-                  ?.startsWith('https') ??
-                  false)
-                  ? otherProfileController.otherProfile.value.userInfo?.coverImage ?? ""
+              imageUrl: (otherProfileController
+                          .otherProfile.value.userInfo?.coverImage
+                          ?.startsWith('https') ??
+                      false)
+                  ? otherProfileController
+                          .otherProfile.value.userInfo?.coverImage ??
+                      ""
                   : "${ApiUrl.baseUrl}${otherProfileController.otherProfile.value.userInfo?.coverImage}",
               width: double.infinity,
               height: 171,
@@ -48,21 +56,20 @@ class _OtherProfileState extends State<OtherProfile> {
         ),
       );
 
-  final OtherProfileController otherProfileController =
-      Get.put(OtherProfileController());
-
   ///=================================profileImage===================================
-  final double profileHeight = 120;
 
   Widget buildProfileImage() => CircleAvatar(
         radius: profileHeight / 2,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(100),
           child: CustomNetworkImage(
-            imageUrl: (otherProfileController.otherProfile.value.userInfo?.profileImage
-                ?.startsWith('https') ??
-                false)
-                ? otherProfileController.otherProfile.value.userInfo?.profileImage ?? ""
+            imageUrl: (otherProfileController
+                        .otherProfile.value.userInfo?.profileImage
+                        ?.startsWith('https') ??
+                    false)
+                ? otherProfileController
+                        .otherProfile.value.userInfo?.profileImage ??
+                    ""
                 : "${ApiUrl.baseUrl}${otherProfileController.otherProfile.value.userInfo?.profileImage}",
             height: profileHeight,
             width: 140,
@@ -147,8 +154,12 @@ class _OtherProfileState extends State<OtherProfile> {
                       color: Colors.black,
                     ),
                     Column(
-                      children: List.generate(otherProfileController.otherPost.length, (index) {
-                        var data = otherProfileController.otherPost[index];
+                      children: List.generate(
+                          otherProfileController
+                                  .otherProfile.value.posts?.length ??
+                              0, (index) {
+                        var data = otherProfileController
+                            .otherProfile.value.posts?[index];
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 16),
@@ -161,9 +172,19 @@ class _OtherProfileState extends State<OtherProfile> {
                             ///=======================================CustomCommunity PostDesign====================
                             child: CustomCommunityPost(
                               userId: "",
-                              profileImage: AppImages.dog3,
-                              coverImage: AppImages.dogImage,
-                              text: data.userInfo?.name??"",
+                              profileImage: (otherProfileController.otherProfile
+                                          .value.userInfo?.profileImage
+                                          ?.startsWith('https') ??
+                                      false)
+                                  ? otherProfileController.otherProfile.value
+                                          .userInfo?.profileImage ??
+                                      ""
+                                  : "${ApiUrl.baseUrl}${otherProfileController.otherProfile.value.userInfo?.profileImage}",
+                              coverImage:
+                                  "${ApiUrl.baseUrl}${data?.image ?? ""}",
+                              text: otherProfileController
+                                      .otherProfile.value.userInfo?.name ??
+                                  "",
                               dateTime: '3 may, 2024',
                               comment: false,
                             ),
