@@ -78,27 +78,50 @@ class MyProfileScreen extends StatelessWidget {
   final double profileHeight = 120;
 
   Widget buildProfileImage() => Obx(
-        () => CircleAvatar(
-      radius: profileHeight / 2,
-      child: profileController.image.isNotEmpty
-          ? Stack(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(100),
-            child: Image.file(
-              File(profileController.image.value),
-              height: profileHeight,
-              width: profileHeight,
-              fit: BoxFit.cover,
+        () => profileController.image.isNotEmpty
+            ? Stack(
+                      children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.file(
+                File(profileController.image.value),
+                height: profileHeight,
+                width: profileHeight,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: GestureDetector(
-              onTap: () {
-                profileController.selectImage();
-              },
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: GestureDetector(
+                onTap: () {
+                  profileController.selectImage();
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: profileController.isAddItem.value
+                      ? const SizedBox()
+                      : const CustomImage(imageSrc: AppIcons.cemera),
+                ),
+              ),
+            ),
+                      ],
+                    )
+            : Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: CustomNetworkImage(
+                imageUrl: AppConstants.onlineImage,
+                height: profileHeight,
+                width: profileHeight,
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
@@ -108,39 +131,8 @@ class MyProfileScreen extends StatelessWidget {
                     : const CustomImage(imageSrc: AppIcons.cemera),
               ),
             ),
-          ),
-        ],
-      )
-          : Stack(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(100),
-            child: CustomNetworkImage(
-              imageUrl: AppConstants.onlineImage,
-              height: profileHeight,
-              width: profileHeight,
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: GestureDetector(
-              onTap: () {
-                profileController.selectImage();
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: profileController.isAddItem.value
-                    ? const SizedBox()
-                    : const CustomImage(imageSrc: AppIcons.cemera),
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
+          ],
+        ),
   );
 
 
@@ -172,7 +164,11 @@ class MyProfileScreen extends StatelessWidget {
               buildCoverImage(),
 
               ///=================================Calling Profile Image===================================
-              Positioned(left: 10, top: top, child: buildProfileImage()),
+              Positioned(left: 10, top: top, child: GestureDetector(
+                  onTap: (){
+                    profileController.selectImage();
+                  },
+                  child: buildProfileImage())),
             ],
           ),
           SizedBox(
