@@ -15,7 +15,7 @@ import 'package:k9academy/utils/toast_message/toast_message.dart';
 //
 class AuthenticationController extends GetxController {
   TextEditingController emailController =
-      TextEditingController(text: kDebugMode ? "towideg534@fincainc.com" : "");
+      TextEditingController(text: kDebugMode ? "japexos248@fresec.com" : "");
   TextEditingController passwordController =
       TextEditingController(text: kDebugMode ? "Arafat10@!" : "");
 
@@ -51,8 +51,6 @@ class AuthenticationController extends GetxController {
       "phone_number": phoneNumberController.text,
       "password": signupPasswordController.text,
       "confirm passwor": confirmPasswordController.text,
-      "gender": "",
-      "date_of_birth": ""
     };
     var response =
         await ApiClient.postData(ApiUrl.signupAuth, jsonEncode(body));

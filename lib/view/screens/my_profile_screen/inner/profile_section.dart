@@ -371,7 +371,7 @@ class ProfileSection extends StatelessWidget {
                                   .dateController =
                               TextEditingController(
                                   text: DateConverter.formatDetails(
-                                      "${data?.date_of_birth ?? DateTime.now()}")),
+                                      "${data?.date_of_birth}")),
                           hintText: DateConverter.formatDateYearMonth(
                               profileController.newSelectedDate.value),
                           suffixIcon: IconButton(

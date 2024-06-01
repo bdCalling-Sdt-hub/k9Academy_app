@@ -5,15 +5,31 @@ class DateConverter {
     return DateFormat('dd MMM yyyy').format(dateTime);
   }
 
+  // static String formatDetails(String dateString) {
+  //   var inputDate = DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ').parse(dateString);
+  //   var outputFormat = DateFormat('dd MMM yyy').format(inputDate);
+  //   return outputFormat;
+  // }
   static String formatDetails(String dateString) {
-    var inputDate = DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ').parse(dateString);
-    var outputFormat = DateFormat('dd MMM yyy').format(inputDate);
-    return outputFormat;
+    try {
+      // Parse the ISO 8601 date string to a DateTime object
+      DateTime inputDate = DateTime.parse(dateString);
+
+      // Format the date to the desired format
+      String outputFormat = DateFormat('dd MMM yyyy').format(inputDate);
+      return outputFormat;
+    } catch (e) {
+      // Handle parsing error
+      return '';
+    }
   }
+
+
 
   static String formatDateYearMonth(DateTime dateTime) {
     return DateFormat('yyyy-MM-dd').format(dateTime);
   }
+
 
   static String hourMinit(DateTime utcDateTime) {
     DateTime localDateTime = utcDateTime.toLocal();
