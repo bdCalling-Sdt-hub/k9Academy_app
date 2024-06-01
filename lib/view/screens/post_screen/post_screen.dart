@@ -15,10 +15,9 @@ class PostScreen extends StatelessWidget {
 
   final PostController postController = Get.find<PostController>();
 
+  final String id = Get.arguments;
   @override
   Widget build(BuildContext context) {
-
-    var data = PostData();
     return Scaffold(
       bottomNavigationBar: const NavBar(currentIndex: 2),
       appBar: AppBar(
@@ -26,7 +25,7 @@ class PostScreen extends StatelessWidget {
           IconButton(
               onPressed: () {
                 // postController.multipartRequest();
-                  postController.editPost(id:data.id??"" );
+                postController.editPost(id: id);
               },
               icon: Container(
                 decoration: BoxDecoration(

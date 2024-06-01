@@ -14,11 +14,11 @@ import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/error/genarel_error.dart';
 
 class TabBarPostScreen extends StatelessWidget {
-  TabBarPostScreen({super.key,  this.postId});
+  TabBarPostScreen({super.key, this.postId});
 
   final HomeController homeController = Get.find<HomeController>();
   final PostController postController = Get.find<PostController>();
- final String? postId ;
+  final String? postId;
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -68,13 +68,14 @@ class TabBarPostScreen extends StatelessWidget {
                                 <PopupMenuEntry<String>>[
                               PopupMenuItem<String>(
                                 onTap: () {
-                                  Get.toNamed(AppRoute.postScreen,arguments: postId);
+                                  Get.toNamed(AppRoute.postScreen,
+                                      arguments: data.id ?? "");
                                 },
                                 child: const Text('Edit'),
                               ),
                               PopupMenuItem<String>(
                                 onTap: () {
-                                  postController.deletePost(data.id.toString());
+                                  postController.deletePost(data.id ?? "");
                                 },
                                 child: const Text('Delete'),
                               ),
