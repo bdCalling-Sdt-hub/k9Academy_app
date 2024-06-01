@@ -15,7 +15,7 @@ import '../training_programms/training_programs.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
- final HomeController homeController = Get.find();
+  final HomeController homeController = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -63,20 +63,18 @@ class HomeScreen extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         Get.toNamed(AppRoute.communityPostDetails,
-                            arguments: data);
+                            arguments: data.id ?? "");
                       },
 
                       ///=======================================CustomCommunity PostDesign====================
 
                       child: CustomCommunityPost(
-                        userId: data.user?.id??"",
-
+                        userId: data.user?.id ?? "",
                         profileImage: (data.user?.profileImage
                                     ?.startsWith('https') ??
                                 false)
                             ? data.user?.profileImage ?? ""
                             : "${ApiUrl.baseUrl}${data.user?.profileImage ?? ""}",
-
                         coverImage: "${ApiUrl.baseUrl}${data.image ?? ""}",
                         text: data.user?.name ?? "",
                         dateTime: DateConverter.estimatedDate(

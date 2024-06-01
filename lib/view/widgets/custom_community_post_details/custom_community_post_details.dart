@@ -8,7 +8,6 @@ import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_icons/app_icons.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/home_screen/home_controller/home_controller.dart';
-import 'package:k9academy/view/screens/home_screen/model/community_post_model.dart';
 import 'package:k9academy/view/screens/message_screen/inner/message_input_field.dart';
 import 'package:k9academy/view/screens/net_connection_screen/net_connection_screen.dart';
 import 'package:k9academy/view/widgets/custom_image/custom_image.dart';
@@ -21,11 +20,11 @@ class CustomCommunityPostDetails extends StatefulWidget {
   const CustomCommunityPostDetails({
     super.key,
     this.comment = true,
-    this.data,
+    this.id,
   });
 
   final bool comment;
-  final CommunityDatum? data;
+  final String? id;
 
   @override
   State<CustomCommunityPostDetails> createState() =>
@@ -38,7 +37,7 @@ class _CustomCommunityPostDetailsState
 
   @override
   void initState() {
-    homeController.getSingleCommunityPost(id: widget.data?.id ?? "");
+    homeController.getSingleCommunityPost(id: widget.id ?? "");
     super.initState();
   }
 
@@ -55,7 +54,7 @@ class _CustomCommunityPostDetailsState
         case Status.error:
           return GeneralErrorScreen(
             onTap: () {
-              homeController.getSingleCommunityPost(id: widget.data?.id ?? "");
+              homeController.getSingleCommunityPost(id: widget.id ?? "");
             },
           );
 

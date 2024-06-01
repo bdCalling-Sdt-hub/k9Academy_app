@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/helper/network_img/network_img.dart';
-import 'package:k9academy/helper/time_converter/time_converter.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
+import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/net_connection_screen/net_connection_screen.dart';
 import 'package:k9academy/view/screens/other_profile/controller/otherProfile_controller.dart';
@@ -48,7 +48,7 @@ class _OtherProfileState extends State<OtherProfile> {
                 bottom: 10,
                 right: 120,
                 child: CustomText(
-                  text: otherProfileController.otherProfile.value.userInfo?.name??"",
+                  text: "Masum Raj",
                   fontSize: 17.sp,
                   fontWeight: FontWeight.w600,
                 ))
@@ -165,14 +165,13 @@ class _OtherProfileState extends State<OtherProfile> {
                               horizontal: 20, vertical: 16),
                           child: GestureDetector(
                             onTap: () {
-                              // Get.toNamed(
-                              //     AppRoute.communityPostDetails,);
+                              Get.toNamed(AppRoute.communityPostDetails,
+                                  arguments: data?.id ?? "");
                             },
 
                             ///=======================================CustomCommunity PostDesign====================
                             child: CustomCommunityPost(
                               userId: "",
-
                               profileImage: (otherProfileController.otherProfile
                                           .value.userInfo?.profileImage
                                           ?.startsWith('https') ??
@@ -186,9 +185,8 @@ class _OtherProfileState extends State<OtherProfile> {
                               text: otherProfileController
                                       .otherProfile.value.userInfo?.name ??
                                   "",
-                              dateTime: DateConverter.estimatedDate(
-                                 data?.createdAt?? DateTime.now()),
-                              comment: true,
+                              dateTime: '3 may, 2024',
+                              comment: false,
                             ),
                           ),
                         );
