@@ -23,7 +23,7 @@ class ProfileController extends GetxController {
 
   var isAddItem = true.obs;
 
-  TextEditingController nameController = TextEditingController( );
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController contactController = TextEditingController();
   TextEditingController dateController = TextEditingController();
@@ -68,6 +68,7 @@ class ProfileController extends GetxController {
       print("==================================${response.body}");
 
       profileModel.refresh();
+      getDataFromProfile();
       refresh();
     } else {
       if (response.statusText == ApiClient.noInternetMessage) {
@@ -162,6 +163,11 @@ class ProfileController extends GetxController {
     } catch (e) {
       debugPrint("============> $e");
     }
+  }
+
+  getDataFromProfile() {
+    var value = profileModel.value.userInfo;
+    nameController = TextEditingController(text: value?.name ?? "");
   }
 
   @override

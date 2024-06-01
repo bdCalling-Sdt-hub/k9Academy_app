@@ -295,6 +295,7 @@ class ProfileSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("object");
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -329,8 +330,7 @@ class ProfileSection extends StatelessWidget {
                         customWidgets.customTitleAndTextField(
                             text: AppStaticStrings.name,
                             hintText: AppStaticStrings.enterYourName,
-                            controller: profileController.nameController =
-                                TextEditingController(text: data?.name ?? "")),
+                            controller: profileController.nameController),
 
                         ///=====================================Email field ========================
 
@@ -367,11 +367,11 @@ class ProfileSection extends StatelessWidget {
                         ),
                         CustomTextField(
                           readOnly: true,
-                          textEditingController: profileController
-                                  .dateController =
-                              TextEditingController(
-                                  text: DateConverter.formatDetails(
-                                      "${data?.date_of_birth}")),
+                          textEditingController:
+                              profileController.dateController =
+                                  TextEditingController(
+                                      text: DateConverter.formatDetails(
+                                          "${data?.date_of_birth}")),
                           hintText: DateConverter.formatDateYearMonth(
                               profileController.newSelectedDate.value),
                           suffixIcon: IconButton(
@@ -394,14 +394,15 @@ class ProfileSection extends StatelessWidget {
                         customWidgets.customTitleAndTextField(
                             text: AppStaticStrings.age,
                             hintText: AppStaticStrings.enterYourAge,
-                            controller: profileController.ageController=TextEditingController(text: data?.age)),
+                            controller: profileController.ageController =
+                                TextEditingController(text: data?.age)),
 
                         ///==================================Gender field============================
                         customWidgets.customTitleAndTextField(
                             text: AppStaticStrings.gender,
                             hintText: AppStaticStrings.enterYourGender,
-                            controller: profileController.genderController=TextEditingController(text: data?.gender)
-                        ),
+                            controller: profileController.genderController =
+                                TextEditingController(text: data?.gender)),
                         SizedBox(
                           height: 10.h,
                         ),
