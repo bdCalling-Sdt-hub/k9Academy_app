@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ApiUrl {
   ///=================================This is baseUrl==============================================>
   static const baseUrl = "http://192.168.10.116:5000";
@@ -55,17 +57,14 @@ class ApiUrl {
   static const notifications = "/notification/my-notifications";
   static const notificationRead = "/notification/update-notification";
 
-
-
   ///===========================Subscription==========================
   static const subscriptionPlanAll = "/subscription-plan/all";
   static const promoCode = "/promo/unlock";
   static const getPromoPackage = "/promo-package/all";
 
-
   ///==================================Schedule Screen======================
   static const schedule = '/schedule/my-schedule';
 
   ///=============================Other profile============================
- static const otherProfile = "/auth/others-profile/6655958fba36cf6c812abcf5";
+  static otherProfile({required String id}) => "/auth/others-profile/$id";
 }

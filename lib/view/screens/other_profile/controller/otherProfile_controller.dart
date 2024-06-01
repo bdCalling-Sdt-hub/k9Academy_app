@@ -5,23 +5,24 @@ import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/view/screens/other_profile/model/otherProfile_model.dart';
 
-class OtherProfileController extends GetxController{
-
+class OtherProfileController extends GetxController {
   final rxRequestStatus = Status.loading.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
-  // Rx<OtherProfileData> otherProfile = OtherProfileData().obs;
-  RxList<OtherProfileData> otherPost = <OtherProfileData>[].obs;
+  Rx<OtherProfileData> otherProfile = OtherProfileData().obs;
+  //RxList<OtherProfileData> otherPost = <OtherProfileData>[].obs;
 
-  getOtherProfile() async {
+  getOtherProfile({required String id}) async {
     setRxRequestStatus(Status.loading);
     refresh();
-    var response = await ApiClient.getData(ApiUrl.otherProfile);
-    setRxRequestStatus(Status.completed);
+    var response = await ApiClient.getData(ApiUrl.otherProfile(id: id));
+
     if (response.statusCode == 200) {
-      otherPost.value = List<OtherProfileData>.from(
-          response.body["data"].map((x) => OtherProfileData.fromJson(x)));
-      // otherProfile.value = OtherProfileData.fromJson(response.body["data"]);
       print("==================================${response.body}");
+
+      // otherPost.value = List<OtherProfileData>.from(
+      //     response.body["data"].map((x) => OtherProfileData.fromJson(x)));
+      otherProfile.value = OtherProfileData.fromJson(response.body["data"]);
+      setRxRequestStatus(Status.completed);
       refresh();
     } else {
       if (response.statusText == ApiClient.noInternetMessage) {
@@ -31,13 +32,5 @@ class OtherProfileController extends GetxController{
       }
       ApiChecker.checkApi(response);
     }
-  }
-
-
-
-  @override
-  void onInit() {
-    getOtherProfile();
-    super.onInit();
   }
 }

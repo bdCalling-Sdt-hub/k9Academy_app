@@ -20,11 +20,14 @@ class CustomCommunityPost extends StatelessWidget {
     this.popUpIcon,
     this.onTap,
     required this.profileImage,
+    required this.userId,
   });
 
   final String coverImage;
   final String profileImage;
   final String text;
+  final String userId;
+
   final String dateTime;
   final bool comment;
   final Widget? popUpIcon;
@@ -74,7 +77,8 @@ class CustomCommunityPost extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30),
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(AppRoute.otherProfile, arguments: []);
+                                Get.toNamed(AppRoute.otherProfile,
+                                    arguments: userId);
                               },
                               child: CustomNetworkImage(
                                 imageUrl: profileImage,

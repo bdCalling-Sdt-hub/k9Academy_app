@@ -13,16 +13,23 @@ import 'package:k9academy/view/widgets/custom_loader/custom_loader.dart';
 import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 import 'package:k9academy/view/widgets/error/genarel_error.dart';
 
-class OtherProfile extends StatelessWidget {
-  OtherProfile({super.key});
+class OtherProfile extends StatefulWidget {
+  const OtherProfile({super.key});
 
+  @override
+  State<OtherProfile> createState() => _OtherProfileState();
+}
+
+class _OtherProfileState extends State<OtherProfile> {
   ///=================================CoverImage Widget===================================
   Widget buildCoverImage() => Container(
         color: Colors.grey,
         child: Stack(
           children: [
             CustomNetworkImage(
-              imageUrl: AppConstants.onlineImage,
+              imageUrl: otherProfileController
+                      .otherProfile.value.userInfo?.coverImage ??
+                  "",
               width: double.infinity,
               height: 171,
             ),
@@ -37,8 +44,9 @@ class OtherProfile extends StatelessWidget {
           ],
         ),
       );
+
   final OtherProfileController otherProfileController =
-  Get.put(OtherProfileController());
+      Get.put(OtherProfileController());
 
   ///=================================profileImage===================================
   final double profileHeight = 120;
@@ -55,9 +63,22 @@ class OtherProfile extends StatelessWidget {
         ),
       );
 
+  OtherProfileController otherProfile = Get.find<OtherProfileController>();
+
+  String id = Get.arguments;
+
+  double top = 0.0;
+
+  @override
+  void initState() {
+    otherProfile.getOtherProfile(id: id);
+
+    top = 171 - profileHeight / 1.5;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final top = 171 - profileHeight / 1.5;
     return Scaffold(
         backgroundColor: AppColors.blackyDarkHover,
 
@@ -78,14 +99,14 @@ class OtherProfile extends StatelessWidget {
             case Status.internetError:
               return NoInternetScreen(
                 onTap: () {
-                  otherProfileController.getOtherProfile();
+                  otherProfileController.getOtherProfile(id: id);
                   // otherProfileController.getOtherProfile(id);
                 },
               );
             case Status.error:
               return GeneralErrorScreen(
                 onTap: () {
-                  otherProfileController.getOtherProfile();
+                  otherProfileController.getOtherProfile(id: id);
                   // otherProfileController.getOtherProfile(id);
                 },
               );
@@ -119,9 +140,8 @@ class OtherProfile extends StatelessWidget {
                       color: Colors.black,
                     ),
                     Column(
-                      children: List.generate(
-                          4, (index) {
-                            // var data = otherProfileController.otherPost[index];
+                      children: List.generate(4, (index) {
+                        // var data = otherProfileController.otherPost[index];
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 16),
@@ -133,11 +153,13 @@ class OtherProfile extends StatelessWidget {
 
                             ///=======================================CustomCommunity PostDesign====================
                             child: CustomCommunityPost(
-                                profileImage: AppImages.dog3,
-                                coverImage: AppImages.dogImage,
-                                text: "masum",
-                                dateTime: '3 may, 2024',
-                                comment: false,),
+                              userId: "",
+                              profileImage: AppImages.dog3,
+                              coverImage: AppImages.dogImage,
+                              text: "masum",
+                              dateTime: '3 may, 2024',
+                              comment: false,
+                            ),
                           ),
                         );
                       }),

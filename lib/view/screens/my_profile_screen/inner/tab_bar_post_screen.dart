@@ -57,6 +57,7 @@ class TabBarPostScreen extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 15),
                         child: CustomCommunityPost(
+                          userId: "",
                           popUpIcon: PopupMenuButton<String>(
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
