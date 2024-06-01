@@ -24,15 +24,24 @@ class _VideoShowScreenState extends State<VideoShowScreen> {
 
   Future<void> videoInit() async {
     try {
-      videoPlayerController = VideoPlayerController.networkUrl(
-        Uri.parse("${ApiUrl.baseUrl}/${data.video}"),
-      );
+      final videoUrl = "${ApiUrl.baseUrl}/${data.video}";
+
+      videoPlayerController =
+          VideoPlayerController.networkUrl(Uri.parse(videoUrl));
       await videoPlayerController.initialize();
 
       chewieController = ChewieController(
         videoPlayerController: videoPlayerController,
         autoPlay: true,
         looping: true,
+        errorBuilder: (context, errorMessage) {
+          return Center(
+            child: Text(
+              errorMessage,
+              style: const TextStyle(color: Colors.white),
+            ),
+          );
+        },
       );
 
       setState(() {
@@ -45,8 +54,6 @@ class _VideoShowScreenState extends State<VideoShowScreen> {
 
   @override
   void initState() {
-    print("Error initializing video: ");
-
     super.initState();
     videoInit();
   }
