@@ -102,15 +102,15 @@ class PostController extends GetxController {
   ///=========================================Edit Post======================
   RxBool isEditPost = false.obs;
 
-  Future<void> editPost({Map<String, String>? header}) async {
+  Future<void> editPost({required String id,Map<String, String>? header}) async {
     isEditPost.value = true;
-    update();
+    refresh();
     try {
       var body = {
-        "title": "",
+        "description": descriptionController.text,
       };
       var response = await ApiClient.patchMultipartData(
-          ApiUrl.editPost, body,
+          ApiUrl.editPost(id: id), body,
           multipartBody: [
             MultipartBody("image", File(image.value)),
           ]);
@@ -119,7 +119,7 @@ class PostController extends GetxController {
         Get.toNamed(AppRoute.myProfileScreen);
         toastMessage(message: response.body["message"]);
         isEditPost.value = false;
-        update();
+        refresh();
       } else {
         ApiChecker.checkApi(response);
       }

@@ -1,6 +1,6 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/helper/network_img/network_img.dart';
@@ -24,6 +24,7 @@ class MyProfileScreen extends StatelessWidget {
 
   final ProfileController profileController = Get.find<ProfileController>();
 
+  ///=================================CoverImage Widget===================================
   Widget buildCoverImage() => Obx(
         () => Container(
           color: Colors.grey,
@@ -33,17 +34,17 @@ class MyProfileScreen extends StatelessWidget {
                   ? Image.file(
                       File(profileController.coverImage.value),
                       width: double.infinity,
-                      height: 171,
+                      height: 171.h,
                       fit: BoxFit.cover,
                     )
                   : CustomNetworkImage(
                       imageUrl: AppConstants.onlineImage,
                       width: double.infinity,
-                      height: 171,
+                      height: 171.h,
                     ),
               Positioned(
-                right: 5,
-                top: 10,
+                right: 5.w,
+                top: 10.h,
                 child: GestureDetector(
                   onTap: () {
                     profileController.selectCoverImage();
@@ -59,10 +60,11 @@ class MyProfileScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                bottom: 10,
-                right: 120,
+
+                bottom: 10.h,
+                right: 120.w,
                 child: CustomText(
-                  text: AppStaticStrings.mrDogLover,
+                  text: profileController.profileModel.value.userInfo?.name??"",
                   fontSize: 17.sp,
                   fontWeight: FontWeight.w600,
                 ),
@@ -72,51 +74,55 @@ class MyProfileScreen extends StatelessWidget {
         ),
       );
 
-  final double profileHeight = 120;
+  ///=================================profileImage Widget===================================
+  final double profileHeight = 120.h;
 
   Widget buildProfileImage() => Positioned(
-        bottom: 20.h,
-        left: 10,
-        child: GestureDetector(
-          onTap: () {
-            profileController.selectImage();
-          },
-          child: Obx(
-            () {
-              return profileController.image.isNotEmpty
-                  ? Stack(
-                      alignment: Alignment.bottomRight,
-                      clipBehavior: Clip.none,
-                      fit: StackFit.loose,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.file(
-                            File(profileController.image.value),
-                            height: profileHeight,
-                            width: profileHeight,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        if (!profileController.isAddItem.value)
-                          const CustomImage(imageSrc: AppIcons.cemera),
-                      ],
-                    )
-                  : Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        CustomNetworkImage(
-                          boxShape: BoxShape.circle,
-                          imageUrl: AppConstants.onlineImage,
+        bottom: -10.h,
+        left: 10.w,
+        child: Obx(
+          () {
+            return profileController.image.isNotEmpty
+                ? Stack(
+                    alignment: Alignment.bottomRight,
+                    clipBehavior: Clip.none,
+                    fit: StackFit.loose,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.file(
+                          File(profileController.image.value),
                           height: profileHeight,
                           width: profileHeight,
+                          fit: BoxFit.cover,
                         ),
-                        if (!profileController.isAddItem.value)
-                          const CustomImage(imageSrc: AppIcons.cemera),
-                      ],
-                    );
-            },
-          ),
+                      ),
+                      if (!profileController.isAddItem.value)
+                        InkWell(
+                            onTap: (){
+                              profileController.selectImage();
+                            },
+                            child: const CustomImage(imageSrc: AppIcons.cemera)),
+                    ],
+                  )
+                : Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      CustomNetworkImage(
+                        boxShape: BoxShape.circle,
+                        imageUrl: AppConstants.onlineImage,
+                        height: profileHeight,
+                        width: profileHeight,
+                      ),
+                      if (!profileController.isAddItem.value)
+                        InkWell(
+                            onTap: (){
+                              profileController.selectImage();
+                            },
+                            child: const CustomImage(imageSrc: AppIcons.cemera)),
+                    ],
+                  );
+          },
         ),
       );
 
@@ -137,7 +143,7 @@ class MyProfileScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height / 4,
+            height: MediaQuery.of(context).size.height /4,
             child: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -146,11 +152,13 @@ class MyProfileScreen extends StatelessWidget {
               ],
             ),
           ),
+            SizedBox(
+              height: 20.h,
+            ),
+          ///================================= Inner 4 TabBar Widgets ===================================
           TabBarWidgets(profileController: profileController),
           const Divider(),
-          SizedBox(
-            height: 15.h,
-          ),
+
           Obx(() {
             return Expanded(
               child: IndexedStack(

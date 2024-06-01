@@ -37,7 +37,7 @@ class ApiUrl {
   static const postEndpoint = "/post/add-post";
   static const getPostEndPoint = "/post/my-posts";
   static const deletePost = "/post/delete-post";
-  static const editPost = "/post/edit-post/66430232357f107f25dd23dc";
+  static  editPost ({required String id}) => "/post/edit-post/$id";
 
   ///============================= Message Screen ==============================
   static getConversations({required String id}) => "/message/get-message/$id";
