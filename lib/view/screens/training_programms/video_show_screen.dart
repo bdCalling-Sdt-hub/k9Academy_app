@@ -48,7 +48,7 @@ class _VideoShowScreenState extends State<VideoShowScreen> {
         _isVideoInitialized = true;
       });
     } catch (e) {
-      print("Error initializing video: $e");
+      debugPrint("Error initializing video: $e");
     }
   }
 
