@@ -158,7 +158,6 @@ class MyProfileScreen extends StatelessWidget {
           ///================================= Inner 4 TabBar Widgets ===================================
           TabBarWidgets(profileController: profileController),
           const Divider(),
-
           Obx(() {
             return Expanded(
               child: IndexedStack(
