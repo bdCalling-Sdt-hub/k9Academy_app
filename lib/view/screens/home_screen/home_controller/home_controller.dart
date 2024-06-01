@@ -7,7 +7,6 @@ import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
-import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/view/screens/home_screen/model/community_post_model.dart';
 import 'package:k9academy/view/screens/home_screen/model/training_details.dart';
 import 'package:k9academy/view/screens/home_screen/model/training_program_all_model.dart';
@@ -17,47 +16,6 @@ class HomeController extends GetxController {
   final rxRequestStatus = Status.loading.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   GeneralController generalController = Get.find<GeneralController>();
-
-  ///================================BannerImage=========================
-  final List<String> bannerImg = [
-    AppImages.banner1,
-    AppImages.banner2,
-    AppImages.banner3,
-  ];
-
-  ///=========================Training Programs details List======================
-  final List<String> trainingPrograms = [
-    AppImages.dogImage,
-    AppImages.dog2,
-    AppImages.dog3,
-    AppImages.dogImage,
-    AppImages.dog2,
-    AppImages.dog3,
-  ];
-
-  ///=========================communityPostItems======================
-
-  final List<String> communityPostItems = [
-    AppImages.dogImage,
-    AppImages.dog2,
-    AppImages.dog3,
-    AppImages.dogImage,
-    AppImages.dog2,
-    AppImages.dog3,
-  ];
-
-  ///=========================communityProfileItems======================
-  final List<String> communityProfileItems = [
-    AppImages.dogImage,
-    AppImages.dog2,
-    AppImages.dog3,
-    AppImages.dogImage,
-    AppImages.dog2,
-    AppImages.dog3,
-  ];
-
-  RxInt bannerIndex = 0.obs;
-  Rx<PageController> pageController = PageController().obs;
 
   ///========================== Training Programms ===========================
   RxList<TrainingDatum> trainingList = <TrainingDatum>[].obs;
@@ -192,10 +150,10 @@ class HomeController extends GetxController {
     }
   }
 
-
   ///=====================================Training Programs All============================
 
-  RxList<TrainingProgramsData> trainingProgramsList = <TrainingProgramsData>[].obs;
+  RxList<TrainingProgramsData> trainingProgramsList =
+      <TrainingProgramsData>[].obs;
   getTrainingProgramAll() async {
     setRxRequestStatus(Status.loading);
     refresh();
@@ -217,12 +175,12 @@ class HomeController extends GetxController {
     }
   }
 
-
   ///==================================Search Method===============================
   search({required String search}) async {
     setRxRequestStatus(Status.loading);
     trainingProgramsList.refresh();
-    var response = await ApiClient.getData("${ApiUrl.trainingProgramAll}?searchTerm=$search");
+    var response = await ApiClient.getData(
+        "${ApiUrl.trainingProgramAll}?searchTerm=$search");
     trainingProgramsList.refresh();
     if (response.statusCode == 200) {
       trainingProgramsList = RxList<TrainingProgramsData>.from(

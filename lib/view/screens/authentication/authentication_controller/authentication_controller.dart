@@ -15,7 +15,7 @@ import 'package:k9academy/utils/toast_message/toast_message.dart';
 //
 class AuthenticationController extends GetxController {
   TextEditingController emailController =
-      TextEditingController(text: kDebugMode ? "japexos248@fresec.com" : "");
+      TextEditingController(text: kDebugMode ? "pesogi8338@crodity.com" : "");
   TextEditingController passwordController =
       TextEditingController(text: kDebugMode ? "Arafat10@!" : "");
 
