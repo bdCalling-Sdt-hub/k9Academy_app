@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/helper/network_img/network_img.dart';
+import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_img/app_img.dart';
@@ -27,9 +28,11 @@ class _OtherProfileState extends State<OtherProfile> {
         child: Stack(
           children: [
             CustomNetworkImage(
-              imageUrl: otherProfileController
-                      .otherProfile.value.userInfo?.coverImage ??
-                  "",
+              imageUrl: (otherProfileController.otherProfile.value.userInfo?.coverImage
+                  ?.startsWith('https') ??
+                  false)
+                  ? otherProfileController.otherProfile.value.userInfo?.coverImage ?? ""
+                  : "${ApiUrl.baseUrl}${otherProfileController.otherProfile.value.userInfo?.coverImage}",
               width: double.infinity,
               height: 171,
             ),
@@ -56,7 +59,11 @@ class _OtherProfileState extends State<OtherProfile> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(100),
           child: CustomNetworkImage(
-            imageUrl: AppConstants.onlineImage,
+            imageUrl: (otherProfileController.otherProfile.value.userInfo?.profileImage
+                ?.startsWith('https') ??
+                false)
+                ? otherProfileController.otherProfile.value.userInfo?.profileImage ?? ""
+                : "${ApiUrl.baseUrl}${otherProfileController.otherProfile.value.userInfo?.profileImage}",
             height: profileHeight,
             width: 140,
           ),
@@ -140,8 +147,8 @@ class _OtherProfileState extends State<OtherProfile> {
                       color: Colors.black,
                     ),
                     Column(
-                      children: List.generate(4, (index) {
-                        // var data = otherProfileController.otherPost[index];
+                      children: List.generate(otherProfileController.otherPost.length, (index) {
+                        var data = otherProfileController.otherPost[index];
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 16),
@@ -156,7 +163,7 @@ class _OtherProfileState extends State<OtherProfile> {
                               userId: "",
                               profileImage: AppImages.dog3,
                               coverImage: AppImages.dogImage,
-                              text: "masum",
+                              text: data.userInfo?.name??"",
                               dateTime: '3 may, 2024',
                               comment: false,
                             ),
