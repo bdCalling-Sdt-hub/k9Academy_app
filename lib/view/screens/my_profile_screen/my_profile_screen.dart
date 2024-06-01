@@ -93,7 +93,7 @@ class MyProfileScreen extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    if (profileController.isAddItem.value)
+
                       Positioned(
                         bottom: 0,
                         right: 0,
