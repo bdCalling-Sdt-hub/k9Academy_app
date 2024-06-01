@@ -138,8 +138,14 @@ class MessageController extends GetxController {
     }
   }
 
+  ///=======================- Socket Join Chat ============================
+  socketJoinChat() {
+    SocketApi.socket.emit("join-chat", {"id": "665ae579e700270d59e38f63"});
+  }
+
   @override
   void onInit() {
+    socketJoinChat();
     scrollController.addListener(addScrollListener);
     getMessageList();
     getProfileID();

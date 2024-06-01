@@ -38,14 +38,12 @@ class SearchScreen extends StatelessWidget {
           Container(
             width: double.infinity,
             color: AppColors.blackyDark,
-            child:  Padding(
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
               child: CustomTextField(
-
-                onFieldSubmitted: (value){
+                onFieldSubmitted: (value) {
                   homeController.search(search: value);
                 },
-
                 fillColor: AppColors.lightDarkActive,
                 hintText: AppStaticStrings.searchHere,
                 hintStyle: const TextStyle(color: AppColors.lightNormalActive),
