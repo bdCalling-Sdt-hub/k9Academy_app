@@ -93,6 +93,8 @@ class GeneralController extends GetxController {
 
   String token = "";
 
+  ///================================== Get Token ================================
+
   getTokenInfo() async {
     token = await SharePrefsHelper.getString(AppConstants.bearerToken);
 
@@ -101,6 +103,8 @@ class GeneralController extends GetxController {
       getId();
     }
   }
+
+  ///=============================== Get Conversation ID ==============================
 
   @override
   void onInit() {
