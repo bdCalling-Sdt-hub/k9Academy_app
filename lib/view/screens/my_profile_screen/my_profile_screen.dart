@@ -54,7 +54,9 @@ class MyProfileScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
                     ),
-                    child: const CustomImage(imageSrc: AppIcons.cemera),
+                    child: profileController.isAddItem.value
+                        ? const SizedBox()
+                        : const CustomImage(imageSrc: AppIcons.cemera),
                   ),
                 ),
               ),
@@ -74,62 +76,73 @@ class MyProfileScreen extends StatelessWidget {
 
   ///=================================profileImage Widget===================================
   final double profileHeight = 120;
+
   Widget buildProfileImage() => Obx(
         () => CircleAvatar(
-          radius: profileHeight / 2,
-          child: GestureDetector(
-            onTap: () {
-              profileController.selectImage();
-            },
-            child: profileController.image.isNotEmpty
-                ? Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: Image.file(
-                          File(profileController.image.value),
-                          height: profileHeight,
-                          width: profileHeight,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: const CustomImage(imageSrc: AppIcons.cemera),
-                        ),
-                      ),
-                    ],
-                  )
-                : Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: CustomNetworkImage(
-                          imageUrl: AppConstants.onlineImage,
-                          height: profileHeight,
-                          width: profileHeight,
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: const CustomImage(imageSrc: AppIcons.cemera),
-                        ),
-                      ),
-                    ],
-                  ),
+      radius: profileHeight / 2,
+      child: profileController.image.isNotEmpty
+          ? Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Image.file(
+              File(profileController.image.value),
+              height: profileHeight,
+              width: profileHeight,
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-      );
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: GestureDetector(
+              onTap: () {
+                profileController.selectImage();
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: profileController.isAddItem.value
+                    ? const SizedBox()
+                    : const CustomImage(imageSrc: AppIcons.cemera),
+              ),
+            ),
+          ),
+        ],
+      )
+          : Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: CustomNetworkImage(
+              imageUrl: AppConstants.onlineImage,
+              height: profileHeight,
+              width: profileHeight,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: GestureDetector(
+              onTap: () {
+                profileController.selectImage();
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: profileController.isAddItem.value
+                    ? const SizedBox()
+                    : const CustomImage(imageSrc: AppIcons.cemera),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +190,9 @@ class MyProfileScreen extends StatelessWidget {
               child: IndexedStack(
                 index: profileController.selectedIndex.value,
                 children: [
-                  ProfileSection(profileController: profileController,),
+                  ProfileSection(
+                    profileController: profileController,
+                  ),
                   TabBarPostScreen(),
                   const TabBarPackageScreen(),
                   ScheduleScreen()
