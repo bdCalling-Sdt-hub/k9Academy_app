@@ -80,61 +80,56 @@ class MyProfileScreen extends StatelessWidget {
   Widget buildProfileImage() => Obx(
         () => profileController.image.isNotEmpty
             ? Stack(
-                      children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: Image.file(
-                File(profileController.image.value),
-                height: profileHeight,
-                width: profileHeight,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: GestureDetector(
-                onTap: () {
-                  profileController.selectImage();
-                },
-                child: Container(
-                  decoration: BoxDecoration(
+                children: [
+                  ClipRRect(
                     borderRadius: BorderRadius.circular(100),
+                    child: Image.file(
+                      File(profileController.image.value),
+                      height: profileHeight,
+                      width: profileHeight,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  child: profileController.isAddItem.value
-                      ? const SizedBox()
-                      : const CustomImage(imageSrc: AppIcons.cemera),
+                  if (profileController.isAddItem.value)
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: IconButton(
+                            onPressed: () {
+                              print("object");
+                              profileController.selectImage();
+                            },
+                            icon: const CustomImage(imageSrc: AppIcons.cemera)),
+                      ),
+                    ),
+                ],
+              )
+            : Positioned(
+                bottom: -20,
+                child: Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    CustomNetworkImage(
+                      boxShape: BoxShape.circle,
+                      imageUrl: AppConstants.onlineImage,
+                      height: profileHeight,
+                      width: profileHeight,
+                    ),
+                    if (!profileController.isAddItem.value)
+                      IconButton(
+                          onPressed: () {
+                            print("object");
+                            profileController.selectImage();
+                          },
+                          icon: const CustomImage(imageSrc: AppIcons.cemera)),
+                  ],
                 ),
               ),
-            ),
-                      ],
-                    )
-            : Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: CustomNetworkImage(
-                imageUrl: AppConstants.onlineImage,
-                height: profileHeight,
-                width: profileHeight,
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: profileController.isAddItem.value
-                    ? const SizedBox()
-                    : const CustomImage(imageSrc: AppIcons.cemera),
-              ),
-            ),
-          ],
-        ),
-  );
-
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -164,11 +159,7 @@ class MyProfileScreen extends StatelessWidget {
               buildCoverImage(),
 
               ///=================================Calling Profile Image===================================
-              Positioned(left: 10, top: top, child: GestureDetector(
-                  onTap: (){
-                    profileController.selectImage();
-                  },
-                  child: buildProfileImage())),
+              buildProfileImage(),
             ],
           ),
           SizedBox(

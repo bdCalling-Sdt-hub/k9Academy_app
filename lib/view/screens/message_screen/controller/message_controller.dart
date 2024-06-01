@@ -119,7 +119,10 @@ class MessageController extends GetxController {
     }
     generalController.showPopUpLoader();
 
-    var body = {"message": sendController.value.text};
+    var body = {
+      "message": sendController.value.text,
+      "conversationId": "665ae579e700270d59e38f63"
+    };
 
     var response = generalController.imagePath.isEmpty
         ? await ApiClient.postData(ApiUrl.sendMessage, jsonEncode(body))
@@ -138,8 +141,14 @@ class MessageController extends GetxController {
     }
   }
 
+  ///=======================- Socket Join Chat ============================
+  socketJoinChat() {
+    SocketApi.socket.emit("join-chat", {"id": "665ae579e700270d59e38f63"});
+  }
+
   @override
   void onInit() {
+    socketJoinChat();
     scrollController.addListener(addScrollListener);
     getMessageList();
     getProfileID();
