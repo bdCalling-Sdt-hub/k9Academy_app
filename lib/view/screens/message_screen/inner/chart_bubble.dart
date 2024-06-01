@@ -110,23 +110,15 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                                 vertical: 10),
                                             decoration: BoxDecoration(
                                                 border: Border.all(
-                                                    color: AppColors
-                                                        .lightDarkHover),
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(8.r),
-                                                  topRight:
-                                                      Radius.circular(8.r),
-                                                  bottomLeft: data.senderId ==
-                                                          messageController
-                                                              .profileID.value
-                                                      ? Radius.circular(8.r)
-                                                      : Radius.circular(0.r),
-                                                  bottomRight: data.senderId ==
-                                                          messageController
-                                                              .profileID.value
-                                                      ? Radius.circular(8.r)
-                                                      : Radius.circular(0.r),
-                                                ),
+                                                    color: data.senderId ==
+                                                            messageController
+                                                                .profileID.value
+                                                        ? AppColors
+                                                            .lightDarkHover
+                                                        : AppColors.blueNormal,
+                                                    width: 1.5),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.r),
                                                 color: data.messageType ==
                                                         "both"
                                                     ? null
