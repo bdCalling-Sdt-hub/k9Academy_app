@@ -9,7 +9,7 @@ class OtherProfileController extends GetxController {
   final rxRequestStatus = Status.loading.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   Rx<OtherProfileData> otherProfile = OtherProfileData().obs;
-  //RxList<OtherProfileData> otherPost = <OtherProfileData>[].obs;
+  // RxList<OtherProfileData> otherPost = <OtherProfileData>[].obs;
 
   getOtherProfile({required String id}) async {
     setRxRequestStatus(Status.loading);
