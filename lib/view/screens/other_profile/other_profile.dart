@@ -147,8 +147,8 @@ class _OtherProfileState extends State<OtherProfile> {
                       color: Colors.black,
                     ),
                     Column(
-                      children: List.generate(otherProfileController.otherPost.length, (index) {
-                        var data = otherProfileController.otherPost[index];
+                      children: List.generate(4, (index) {
+                        // var data = otherProfileController.otherPost[index];
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 16),
@@ -163,7 +163,7 @@ class _OtherProfileState extends State<OtherProfile> {
                               userId: "",
                               profileImage: AppImages.dog3,
                               coverImage: AppImages.dogImage,
-                              text: data.userInfo?.name??"",
+                              text: "masum",
                               dateTime: '3 may, 2024',
                               comment: false,
                             ),
