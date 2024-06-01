@@ -18,19 +18,14 @@ class VideoShowScreen extends StatefulWidget {
 class _VideoShowScreenState extends State<VideoShowScreen> {
   final TrainingDetailsDatum data = Get.arguments;
 
-  late ChewieController chewieController;
+  late VideoPlayerController videoPlayerController;
+  ChewieController? chewieController;
   bool _isVideoInitialized = false;
 
   Future<void> videoInit() async {
-    print("Video URL: ${data.video}");
-
-    VideoPlayerController videoPlayerController;
-
     try {
-      final videoUrl = "${ApiUrl.baseUrl}/${data.video}";
-      print("Video URL: $videoUrl");
       videoPlayerController = VideoPlayerController.networkUrl(
-        Uri.parse(videoUrl),
+        Uri.parse("${ApiUrl.baseUrl}/${data.video}"),
       );
       await videoPlayerController.initialize();
 
@@ -50,14 +45,16 @@ class _VideoShowScreenState extends State<VideoShowScreen> {
 
   @override
   void initState() {
+    print("Error initializing video: ");
+
     super.initState();
     videoInit();
   }
 
   @override
   void dispose() {
-    // videoPlayerController.dispose();
-    chewieController.dispose();
+    videoPlayerController.dispose();
+    chewieController?.dispose();
     super.dispose();
   }
 
@@ -65,8 +62,6 @@ class _VideoShowScreenState extends State<VideoShowScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.blackyDarkHover,
-
-      ///=========================Appbar=========================
       appBar: AppBar(
         backgroundColor: AppColors.blackyDarker,
         title: CustomText(
@@ -84,7 +79,7 @@ class _VideoShowScreenState extends State<VideoShowScreen> {
                 height: MediaQuery.of(context).size.height / 3,
                 width: double.maxFinite,
                 child: Chewie(
-                  controller: chewieController,
+                  controller: chewieController!,
                 ),
               )
             else
@@ -92,7 +87,6 @@ class _VideoShowScreenState extends State<VideoShowScreen> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(child: CircularProgressIndicator()),
               ),
-
             SizedBox(
               height: 10.w,
             ),
@@ -103,8 +97,9 @@ class _VideoShowScreenState extends State<VideoShowScreen> {
               width: double.infinity,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10)),
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
                 color: AppColors.blackyDarker,
               ),
               child: Column(
