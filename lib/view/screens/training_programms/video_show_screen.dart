@@ -18,25 +18,34 @@ class VideoShowScreen extends StatefulWidget {
 class _VideoShowScreenState extends State<VideoShowScreen> {
   final TrainingDetailsDatum data = Get.arguments;
 
-  late VideoPlayerController videoPlayerController;
   late ChewieController chewieController;
   bool _isVideoInitialized = false;
 
   Future<void> videoInit() async {
-    videoPlayerController = VideoPlayerController.networkUrl(
-      Uri.parse("${ApiUrl.baseUrl}/${data.video}"),
-    );
-    await videoPlayerController.initialize();
+    print("Video URL: ${data.video}");
 
-    chewieController = ChewieController(
-      videoPlayerController: videoPlayerController,
-      autoPlay: true,
-      looping: true,
-    );
+    VideoPlayerController videoPlayerController;
 
-    setState(() {
-      _isVideoInitialized = true;
-    });
+    try {
+      final videoUrl = "${ApiUrl.baseUrl}/${data.video}";
+      print("Video URL: $videoUrl");
+      videoPlayerController = VideoPlayerController.networkUrl(
+        Uri.parse(videoUrl),
+      );
+      await videoPlayerController.initialize();
+
+      chewieController = ChewieController(
+        videoPlayerController: videoPlayerController,
+        autoPlay: true,
+        looping: true,
+      );
+
+      setState(() {
+        _isVideoInitialized = true;
+      });
+    } catch (e) {
+      print("Error initializing video: $e");
+    }
   }
 
   @override
@@ -47,7 +56,7 @@ class _VideoShowScreenState extends State<VideoShowScreen> {
 
   @override
   void dispose() {
-    videoPlayerController.dispose();
+    // videoPlayerController.dispose();
     chewieController.dispose();
     super.dispose();
   }
