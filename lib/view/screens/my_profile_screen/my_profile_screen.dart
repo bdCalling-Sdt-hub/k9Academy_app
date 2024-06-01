@@ -22,7 +22,6 @@ import 'inner/tab_bar_widgets.dart';
 class MyProfileScreen extends StatelessWidget {
   MyProfileScreen({super.key});
 
-  ///=================================ProfileController===================================
   final ProfileController profileController = Get.find<ProfileController>();
 
   ///=================================CoverImage Widget===================================
@@ -80,69 +79,55 @@ class MyProfileScreen extends StatelessWidget {
   Widget buildProfileImage() => Positioned(
         bottom: -15,
         left: 10,
-        child: Obx(
-          () => profileController.image.isNotEmpty
-              ? Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Image.file(
-                        File(profileController.image.value),
-                        height: profileHeight,
-                        width: profileHeight,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+        child: GestureDetector(
+          onTap: () {
+            profileController.selectImage();
+          },
+          child: Obx(
+            () {
+              return profileController.image.isNotEmpty
+                  ? Stack(
+                      alignment: Alignment.bottomRight,
+                      clipBehavior: Clip.none,
+                      fit: StackFit.loose,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: Image.file(
+                            File(profileController.image.value),
+                            height: profileHeight,
+                            width: profileHeight,
+                            fit: BoxFit.cover,
                           ),
-                          child: IconButton(
-                              onPressed: () {
-                                print("object");
-                                profileController.selectImage();
-                              },
-                              icon:
-                                  const CustomImage(imageSrc: AppIcons.cemera)),
                         ),
-                      ),
-                  ],
-                )
-              : Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    CustomNetworkImage(
-                      boxShape: BoxShape.circle,
-                      imageUrl: AppConstants.onlineImage,
-                      height: profileHeight,
-                      width: profileHeight,
-                    ),
-                    if (!profileController.isAddItem.value)
-                      IconButton(
-                          onPressed: () {
-                            print("object");
-                            profileController.selectImage();
-                          },
-                          icon: const CustomImage(imageSrc: AppIcons.cemera)),
-                  ],
-                ),
+                        if (!profileController.isAddItem.value)
+                          const CustomImage(imageSrc: AppIcons.cemera),
+                      ],
+                    )
+                  : Stack(
+                      alignment: Alignment.bottomRight,
+                      children: [
+                        CustomNetworkImage(
+                          boxShape: BoxShape.circle,
+                          imageUrl: AppConstants.onlineImage,
+                          height: profileHeight,
+                          width: profileHeight,
+                        ),
+                        if (!profileController.isAddItem.value)
+                          const CustomImage(imageSrc: AppIcons.cemera),
+                      ],
+                    );
+            },
+          ),
         ),
       );
 
   @override
   Widget build(BuildContext context) {
-    //  final top = 171 - profileHeight / 1.5;
     return Scaffold(
       bottomNavigationBar: const NavBar(currentIndex: 3),
       backgroundColor: AppColors.blackyDarkHover,
-
-      ///=================================ProfileAppbar===================================
       appBar: AppBar(
-        backgroundColor: AppColors.blackyDarker,
         centerTitle: true,
         title: CustomText(
           text: AppStaticStrings.myProfile,
@@ -153,18 +138,15 @@ class MyProfileScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              ///=================================Calling cover image===================================
-              buildCoverImage(),
-
-              ///=================================Calling Profile Image===================================
-              buildProfileImage(),
-            ],
-          ),
           SizedBox(
-            height: 50.h,
+            height: MediaQuery.of(context).size.height / 4,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                buildCoverImage(),
+                buildProfileImage(),
+              ],
+            ),
           ),
 
           ///================================= Inner 4 TabBar Widgets ===================================
@@ -183,7 +165,7 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                   TabBarPostScreen(),
                   const TabBarPackageScreen(),
-                  ScheduleScreen()
+                  ScheduleScreen(),
                 ],
               ),
             );

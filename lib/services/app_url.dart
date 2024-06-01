@@ -40,7 +40,7 @@ class ApiUrl {
   static  editPost ({required String id}) => "/post/edit-post/$id";
 
   ///============================= Message Screen ==============================
-  static const getConversations = "/message/get-message";
+  static getConversations({required String id}) => "/message/get-message/$id";
   static const sendMessage = "/message/send-message";
 
   ///============================= Content Screen ==============================

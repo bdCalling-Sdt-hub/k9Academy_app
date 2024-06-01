@@ -15,7 +15,7 @@ import 'package:k9academy/utils/toast_message/toast_message.dart';
 //
 class AuthenticationController extends GetxController {
   TextEditingController emailController =
-      TextEditingController(text: kDebugMode ? "japexos248@fresec.com" : "");
+      TextEditingController(text: kDebugMode ? "pesogi8338@crodity.com" : "");
   TextEditingController passwordController =
       TextEditingController(text: kDebugMode ? "Arafat10@!" : "");
 
@@ -92,6 +92,19 @@ class AuthenticationController extends GetxController {
       signupPasswordController.clear();
       confirmPasswordController.clear();
       pinController.clear();
+
+      SharePrefsHelper.setString(
+          AppConstants.bearerToken, response.body["data"]["accessToken"]);
+
+      SharePrefsHelper.setString(
+          AppConstants.profileID, response.body["data"]["user"]["id"]);
+
+      SharePrefsHelper.setString(
+          AppConstants.conversationID, response.body["data"]["conversationId"]);
+
+      generalController.getTokenInfo();
+
+      generalController.getConversationID();
       Get.toNamed(AppRoute.subscription);
     } else {
       ApiChecker.checkApi(response);
@@ -149,7 +162,12 @@ class AuthenticationController extends GetxController {
       SharePrefsHelper.setString(
           AppConstants.profileID, response.body["data"]["id"]);
 
+      SharePrefsHelper.setString(
+          AppConstants.conversationID, response.body["data"]["conversationId"]);
+
       generalController.getTokenInfo();
+
+      generalController.getConversationID();
 
       Get.toNamed(AppRoute.homeScreen);
       toastMessage(message: response.body["message"]);
