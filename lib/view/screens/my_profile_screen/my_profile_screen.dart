@@ -77,40 +77,42 @@ class MyProfileScreen extends StatelessWidget {
   ///=================================profileImage Widget===================================
   final double profileHeight = 120;
 
-  Widget buildProfileImage() => Obx(
-        () => profileController.image.isNotEmpty
-            ? Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.file(
-                      File(profileController.image.value),
-                      height: profileHeight,
-                      width: profileHeight,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  if (profileController.isAddItem.value)
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        child: IconButton(
-                            onPressed: () {
-                              print("object");
-                              profileController.selectImage();
-                            },
-                            icon: const CustomImage(imageSrc: AppIcons.cemera)),
+  Widget buildProfileImage() => Positioned(
+        bottom: -15,
+        left: 10,
+        child: Obx(
+          () => profileController.image.isNotEmpty
+              ? Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.file(
+                        File(profileController.image.value),
+                        height: profileHeight,
+                        width: profileHeight,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                ],
-              )
-            : Positioned(
-                bottom: -20,
-                child: Stack(
+                    if (profileController.isAddItem.value)
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: IconButton(
+                              onPressed: () {
+                                print("object");
+                                profileController.selectImage();
+                              },
+                              icon:
+                                  const CustomImage(imageSrc: AppIcons.cemera)),
+                        ),
+                      ),
+                  ],
+                )
+              : Stack(
                   alignment: Alignment.bottomRight,
                   children: [
                     CustomNetworkImage(
@@ -128,12 +130,12 @@ class MyProfileScreen extends StatelessWidget {
                           icon: const CustomImage(imageSrc: AppIcons.cemera)),
                   ],
                 ),
-              ),
+        ),
       );
 
   @override
   Widget build(BuildContext context) {
-    final top = 171 - profileHeight / 1.5;
+    //  final top = 171 - profileHeight / 1.5;
     return Scaffold(
       bottomNavigationBar: const NavBar(currentIndex: 3),
       backgroundColor: AppColors.blackyDarkHover,
@@ -153,8 +155,6 @@ class MyProfileScreen extends StatelessWidget {
         children: [
           Stack(
             clipBehavior: Clip.none,
-            // alignment: Alignment.center,
-            alignment: Alignment.bottomLeft,
             children: [
               ///=================================Calling cover image===================================
               buildCoverImage(),
