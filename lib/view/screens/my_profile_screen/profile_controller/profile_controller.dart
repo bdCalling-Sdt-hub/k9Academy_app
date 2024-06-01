@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:k9academy/helper/shared_prefe/shared_prefe.dart';
+import 'package:k9academy/helper/time_converter/time_converter.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
@@ -26,7 +27,7 @@ class ProfileController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController contactController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
+  Rx<TextEditingController> dateController = TextEditingController().obs;
   TextEditingController ageController = TextEditingController();
   TextEditingController genderController = TextEditingController();
 
@@ -168,6 +169,12 @@ class ProfileController extends GetxController {
   getDataFromProfile() {
     var value = profileModel.value.userInfo;
     nameController = TextEditingController(text: value?.name ?? "");
+    emailController= TextEditingController(text: value?.email??"");
+    contactController= TextEditingController(text: value?.phoneNumber??"");
+    // dateController = TextEditingController(
+    //     text: DateConverter.formatDetails("${value?.date_of_birth}"));
+    ageController=TextEditingController(text: value?.age??"");
+    genderController=TextEditingController(text: value?.gender??"");
   }
 
   @override
