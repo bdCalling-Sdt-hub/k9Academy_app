@@ -88,13 +88,8 @@ class TabBarPostScreen extends StatelessWidget {
                               "${ApiUrl.baseUrl}${data.user?.profileImage ?? ""}",
                           comment: false,
                           onTap: () {
-                            Get.toNamed(AppRoute.myPostDetails, arguments: [
-                              data.user?.name,
-                              data.description,
-                              data.image,
-                              data.user?.profileImage,
-                              data.createdAt
-                            ]);
+                            Get.toNamed(AppRoute.communityPostDetails,
+                                arguments: data.id ?? "");
                           },
                           coverImage: "${ApiUrl.baseUrl}${data.image ?? ""}",
                           text: data.user?.name ?? "",

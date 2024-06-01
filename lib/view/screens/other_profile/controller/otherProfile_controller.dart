@@ -9,8 +9,6 @@ class OtherProfileController extends GetxController {
   final rxRequestStatus = Status.loading.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   Rx<OtherProfileData> otherProfile = OtherProfileData().obs;
-  // RxList<OtherProfileData> otherPost = <OtherProfileData>[].obs;
-
   getOtherProfile({required String id}) async {
     setRxRequestStatus(Status.loading);
     refresh();
@@ -18,9 +16,6 @@ class OtherProfileController extends GetxController {
 
     if (response.statusCode == 200) {
       print("==================================${response.body}");
-
-      // otherPost.value = List<OtherProfileData>.from(
-      //     response.body["data"].map((x) => OtherProfileData.fromJson(x)));
       otherProfile.value = OtherProfileData.fromJson(response.body["data"]);
       setRxRequestStatus(Status.completed);
       refresh();

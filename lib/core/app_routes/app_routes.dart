@@ -12,7 +12,6 @@ import 'package:k9academy/view/screens/community_post/community_post_details.dar
 import 'package:k9academy/view/screens/home_screen/inner/search_screen.dart';
 import 'package:k9academy/view/screens/training_programms/training_programs_details.dart';
 import 'package:k9academy/view/screens/training_programms/video_show_screen.dart';
-import 'package:k9academy/view/screens/my_profile_screen/inner/my_post_details/my_post_details.dart';
 import 'package:k9academy/view/screens/my_profile_screen/inner/tab_bar_post_screen.dart';
 import 'package:k9academy/view/screens/net_connection_screen/net_connection_screen.dart';
 import 'package:k9academy/view/screens/notification_screen/notification_screen.dart';
@@ -82,7 +81,6 @@ class AppRoute {
   ///==================== videoShowScreen ====================
   static const String searchScreen = "/searchScreen";
   static const String otherProfile = "/otherProfile";
-  static const String myPostDetails = "/myPostDetails";
   static const String noInternetScreen = "/noInternetScreen";
   static const String tabBarPostScreen = "/tabBarPostScreen";
   static const String postScreen = "/PostScreen";
@@ -149,8 +147,7 @@ class AppRoute {
 
     ///==================== videoShowScreen ====================
     GetPage(name: searchScreen, page: () => SearchScreen()),
-    GetPage(name: otherProfile, page: () => OtherProfile()),
-    GetPage(name: myPostDetails, page: () =>  MyPostDetails()),
+    GetPage(name: otherProfile, page: () => const OtherProfile()),
     GetPage(name: tabBarPostScreen, page: () => TabBarPostScreen()),
     GetPage(name: postScreen, page: () => PostScreen()),
     GetPage(name: forgetOtpVerify, page: () => const ForgetOtpVerify()),
