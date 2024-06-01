@@ -6,7 +6,6 @@ import 'package:k9academy/helper/time_converter/time_converter.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
-import 'package:k9academy/utils/app_img/app_img.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/net_connection_screen/net_connection_screen.dart';
 import 'package:k9academy/view/screens/other_profile/controller/otherProfile_controller.dart';
@@ -167,12 +166,13 @@ class _OtherProfileState extends State<OtherProfile> {
                           child: GestureDetector(
                             onTap: () {
                               // Get.toNamed(
-                              //     AppRoute.communityPostDetails);
+                              //     AppRoute.communityPostDetails,);
                             },
 
                             ///=======================================CustomCommunity PostDesign====================
                             child: CustomCommunityPost(
                               userId: "",
+
                               profileImage: (otherProfileController.otherProfile
                                           .value.userInfo?.profileImage
                                           ?.startsWith('https') ??
@@ -188,7 +188,7 @@ class _OtherProfileState extends State<OtherProfile> {
                                   "",
                               dateTime: DateConverter.estimatedDate(
                                  data?.createdAt?? DateTime.now()),
-                              comment: false,
+                              comment: true,
                             ),
                           ),
                         );
