@@ -66,16 +66,16 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                bottom: 10.h,
-                right: 120.w,
-                child: CustomText(
-                  text:
-                      profileController.profileModel.value.userInfo?.name ?? "",
-                  fontSize: 17.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              // Positioned(
+              //   bottom: 10.h,
+              //   right: 90.w,
+              //   child: CustomText(
+              //     text:
+              //         profileController.profileModel.value.userInfo?.name ?? "",
+              //     fontSize: 14.sp,
+              //     fontWeight: FontWeight.w600,
+              //   ),
+              // ),
             ],
           ),
         ),

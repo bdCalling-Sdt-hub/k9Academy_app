@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/authentication/authentication_controller/authentication_controller.dart';
@@ -92,7 +93,8 @@ class SignUpScreen extends StatelessWidget {
                         if (value!.isEmpty) {
                           return AppStaticStrings.enterValidEmail;
                         } else if (!AppStaticStrings.emailRegexp.hasMatch(
-                            authenticationController.signupEmailController.text)) {
+                            authenticationController
+                                .signupEmailController.text)) {
                           return AppStaticStrings.enterValidEmail;
                         } else {
                           return null;
@@ -174,7 +176,8 @@ class SignUpScreen extends StatelessWidget {
                         if (value.isEmpty) {
                           return AppStaticStrings.fieldCantBeEmpty;
                         } else if (value !=
-                            authenticationController.signupPasswordController.text) {
+                            authenticationController
+                                .signupPasswordController.text) {
                           return "Password should match";
                         }
                         return null;
@@ -231,7 +234,7 @@ class SignUpScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          // Get.toNamed(AppRoute.termsOfServicesSCreen);
+                          Get.toNamed(AppRoute.privacyPolicy);
                         },
                     ),
                     TextSpan(
@@ -249,7 +252,7 @@ class SignUpScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          //Get.toNamed(AppRoute.privacyPolicyScreen);
+                          Get.toNamed(AppRoute.termsCondition);
                         },
                     ),
                   ],

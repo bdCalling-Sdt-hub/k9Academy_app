@@ -47,9 +47,9 @@ class AppStaticStrings {
   // static const String passwordLengthAndContain =
   //     "Password must be 8 characters long & must include one capital letter";
   static const String passwordLengthAndContain =
-      "Password must be at least 8 characters long";
+      "Password must be at least 8 characters long and at least one uppercase letter, one lowercase letter, one number";
   static const String passWordMustBeAtLeast =
-      "PasPassword must contain at least one uppercase letter, one lowercase letter, one number, and one special character";
+      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character";
   static const all = "All";
 
   static const category = "Category";
