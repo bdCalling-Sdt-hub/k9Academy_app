@@ -13,21 +13,21 @@ import 'package:k9academy/view/screens/post_screen/model/post_model.dart';
 class PostController extends GetxController {
   RxString image = "".obs;
 
-  Rx<File> imageFile = File("").obs;
+  //Rx<File> imageFile = File("").obs;
 
   selectImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? getImages =
         await picker.pickImage(source: ImageSource.gallery, imageQuality: 15);
     if (getImages != null) {
-      imageFile.value = File(getImages.path);
+      // imageFile.value = File(getImages.path);
       image.value = getImages.path;
     }
   }
 
   ///=============================PostMethod======================
 
-  TextEditingController descriptionController = TextEditingController();
+  Rx<TextEditingController> descriptionController = TextEditingController().obs;
   RxBool isPostLoading = false.obs;
 
   Future<void> multipartRequest({Map<String, String>? header}) async {
@@ -35,7 +35,7 @@ class PostController extends GetxController {
     update();
     try {
       var body = {
-        "description": descriptionController.text,
+        "description": descriptionController.value.text,
       };
       var response = await ApiClient.postMultipartData(
           ApiUrl.postEndpoint, body,
@@ -48,7 +48,8 @@ class PostController extends GetxController {
         Get.toNamed(AppRoute.myProfileScreen);
         toastMessage(message: response.body["message"]);
         isPostLoading.value = false;
-        update();
+        descriptionController.value.clear();
+        clearImage();
       } else {
         ApiChecker.checkApi(response);
       }
@@ -56,7 +57,6 @@ class PostController extends GetxController {
       debugPrint("============> $e");
     }
   }
-
 
   ///==================================GetPost===========================
   final rxRequestStatus = Status.loading.obs;
@@ -84,7 +84,7 @@ class PostController extends GetxController {
     }
   }
 
-///==========================================DeletePost===================================
+  ///==========================================DeletePost===================================
   deletePost(String id) async {
     setRxRequestStatus(Status.loading);
     refresh();
@@ -99,15 +99,17 @@ class PostController extends GetxController {
       ApiChecker.checkApi(response);
     }
   }
+
   ///=========================================Edit Post======================
   RxBool isEditPost = false.obs;
 
-  Future<void> editPost({required String id,Map<String, String>? header}) async {
+  Future<void> editPost(
+      {required String id, Map<String, String>? header}) async {
     isEditPost.value = true;
     refresh();
     try {
       var body = {
-        "description": descriptionController.text,
+        "description": descriptionController.value.text,
       };
       var response = await ApiClient.patchMultipartData(
           ApiUrl.editPost(id: id), body,
@@ -116,9 +118,13 @@ class PostController extends GetxController {
           ]);
 
       if (response.statusCode == 200) {
+        getMyPost();
         Get.toNamed(AppRoute.myProfileScreen);
         toastMessage(message: response.body["message"]);
         isEditPost.value = false;
+        descriptionController.value.clear();
+        //  clearImage();
+
         refresh();
       } else {
         ApiChecker.checkApi(response);
@@ -128,11 +134,14 @@ class PostController extends GetxController {
     }
   }
 
+  clearImage() {
+    image.value = "";
+    image.refresh();
+  }
 
   @override
   void onInit() {
     getMyPost();
     super.onInit();
   }
-
 }

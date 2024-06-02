@@ -197,27 +197,15 @@ class ApiClient extends GetxService {
       bearerToken = await SharePrefsHelper.getString(AppConstants.bearerToken);
 
       var mainHeaders = {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json',
         'Authorization': 'Bearer $bearerToken'
       };
 
       debugPrint('====> API Call: $uri\nHeader: ${headers ?? mainHeaders}');
       debugPrint('====> API Body: $body with ${multipartBody?.length} picture');
 
-      //http.MultipartRequest _request = http.MultipartRequest('POST', Uri.parse("https://b936-114-130-157-130.ngrok-free.app/api/v1/user/profile/store/degree"));
-      //_request.headers.addAll(headers ?? mainHeaders);
-      // for(MultipartBody multipart in multipartBody!) {
-      //   if(multipart.file != null) {
-      //     Uint8List _list = await multipart.file.readAsBytes();
-      //     _request.files.add(http.MultipartFile(
-      //       multipart.key, multipart.file.readAsBytes().asStream(), _list.length,
-      //       filename: '${DateTime.now().toString()}.png',
-      //     ));
-      //   }
-      // }
-
       var request =
-          http.MultipartRequest('PATCH', Uri.parse(ApiUrl.baseUrl + uri));
+          http.MultipartRequest("PATCH", Uri.parse(ApiUrl.baseUrl + uri));
       request.fields.addAll(body);
 
       if (multipartBody!.isNotEmpty) {
@@ -225,26 +213,16 @@ class ApiClient extends GetxService {
         multipartBody.forEach((element) async {
           debugPrint("path : ${element.file.path}");
 
-          if (element.file.path.contains(".mp4")) {
-            debugPrint("media type mp4 ==== ${element.file.path}");
-            request.files.add(http.MultipartFile(
-              element.key,
-              element.file.readAsBytes().asStream(),
-              element.file.lengthSync(),
-              filename: 'video.mp4',
-              contentType: MediaType('video', 'mp4'),
-            ));
-          } else if (element.file.path.contains(".png")) {
-            debugPrint("media type png ==== ${element.file.path}");
-            request.files.add(http.MultipartFile(
-              element.key,
-              element.file.readAsBytes().asStream(),
-              element.file.lengthSync(),
-              filename: 'image.png',
-              contentType: MediaType('image', 'png'),
-            ));
-          }
+          var mimeType = lookupMimeType(element.file.path);
 
+          debugPrint("MimeType================$mimeType");
+
+          var multipartImg = await http.MultipartFile.fromPath(
+            element.key,
+            element.file.path,
+            contentType: MediaType.parse(mimeType!),
+          );
+          request.files.add(multipartImg);
           //request.files.add(await http.MultipartFile.fromPath(element.key, element.file.path,contentType: MediaType('video', 'mp4')));
         });
       }
@@ -260,6 +238,8 @@ class ApiClient extends GetxService {
           statusText: noInternetMessage,
           body: content);
     } catch (e) {
+      debugPrint('------------${e.toString()}');
+
       return const Response(statusCode: 1, statusText: noInternetMessage);
     }
   }

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_icons/app_icons.dart';
 import 'package:k9academy/view/screens/home_screen/home_screen.dart';
 import 'package:k9academy/view/screens/message_screen/message_screen.dart';
 import 'package:k9academy/view/screens/my_profile_screen/my_profile_screen.dart';
-import 'package:k9academy/view/screens/post_screen/post_screen.dart';
 
 class NavBar extends StatefulWidget {
   final int currentIndex;
@@ -85,7 +85,7 @@ class _NavBarState extends State<NavBar> {
   void onTap(int index) {
     if (index == 0) {
       if (!(widget.currentIndex == 0)) {
-        Get.offAll(() => HomeScreen());
+        Get.to(() => HomeScreen());
       }
     } else if (index == 1) {
       if (!(widget.currentIndex == 1)) {
@@ -93,7 +93,8 @@ class _NavBarState extends State<NavBar> {
       }
     } else if (index == 2) {
       if (!(widget.currentIndex == 2)) {
-        Get.to(() => PostScreen());
+        Map<String, String> data = {};
+        Get.toNamed(AppRoute.postScreen, arguments: ["", false, data]);
       }
     }
     //

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/helper/time_converter/time_converter.dart';
@@ -41,9 +42,10 @@ class TabBarPostScreen extends StatelessWidget {
         case Status.completed:
           return SingleChildScrollView(
             child: postController.postData.isEmpty
-                ? const Center(
+                ? Center(
                     child: CustomText(
-                    text: AppStaticStrings.noDataFound,
+                    top: 80.h,
+                    text: AppStaticStrings.noPostYet,
                     fontSize: 20,
                   ))
                 : Padding(
@@ -68,8 +70,15 @@ class TabBarPostScreen extends StatelessWidget {
                                 <PopupMenuEntry<String>>[
                               PopupMenuItem<String>(
                                 onTap: () {
-                                  Get.toNamed(AppRoute.postScreen,
-                                      arguments: data.id ?? "");
+                                  Get.toNamed(AppRoute.postScreen, arguments: [
+                                    data.id ?? "",
+                                    true,
+                                    {
+                                      "image":
+                                          "${ApiUrl.baseUrl}${data.image ?? ""}",
+                                      "des": data.description ?? ""
+                                    }
+                                  ]);
                                 },
                                 child: const Text('Edit'),
                               ),

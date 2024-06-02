@@ -143,6 +143,7 @@ class AppStaticStrings {
   static const enterYourAge = "Enter your age";
   static const enterYourGender = "Enter your gender";
   static const post = "Post";
+  static const update = "Update";
   static const enterYourPromocodeHere = "Enter Your Promocode here";
 
   static const date = "Date";
@@ -189,4 +190,6 @@ class AppStaticStrings {
   static const yourName = "Your Name :";
 
   static const noDataFound = "No Data Found";
+
+  static const noPostYet = "No Post Yet";
 }

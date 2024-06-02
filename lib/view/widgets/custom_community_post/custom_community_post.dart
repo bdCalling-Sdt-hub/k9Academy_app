@@ -70,48 +70,55 @@ class CustomCommunityPost extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: Row(
-                        children: [
-                          // User Image
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(30),
-                            child: GestureDetector(
-                              onTap: () {
-                                Get.toNamed(AppRoute.otherProfile,
-                                    arguments: userId);
-                              },
-                              child: CustomNetworkImage(
-                                imageUrl: profileImage,
-                                height: 30,
-                                width: 30,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppRoute.otherProfile, arguments: userId);
+                        },
+                        child: Row(
+                          children: [
+                            //========================== User Image ========================
+
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(30),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(AppRoute.otherProfile,
+                                      arguments: userId);
+                                },
+                                child: CustomNetworkImage(
+                                  imageUrl: profileImage,
+                                  height: 30,
+                                  width: 30,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 12.w,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // User Name
-                                CustomText(
-                                  maxLines: 2,
-                                  textAlign: TextAlign.left,
-                                  text: text,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                // Date
-                                CustomText(
-                                  text: dateTime,
-                                  fontSize: 12.sp,
-                                  color: Colors.grey,
-                                ),
-                              ],
+                            SizedBox(
+                              width: 12.w,
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  //============================ User Name ===========================
+                                  CustomText(
+                                    maxLines: 2,
+                                    textAlign: TextAlign.left,
+                                    text: text,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+
+                                  //================================= Date ===================================
+                                  CustomText(
+                                    text: dateTime,
+                                    fontSize: 12.sp,
+                                    color: Colors.grey,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     if (comment)

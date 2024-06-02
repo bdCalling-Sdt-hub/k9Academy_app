@@ -149,7 +149,7 @@ class AppRoute {
     GetPage(name: searchScreen, page: () => SearchScreen()),
     GetPage(name: otherProfile, page: () => const OtherProfile()),
     GetPage(name: tabBarPostScreen, page: () => TabBarPostScreen()),
-    GetPage(name: postScreen, page: () => PostScreen()),
+    GetPage(name: postScreen, page: () => const PostScreen()),
     GetPage(name: forgetOtpVerify, page: () => const ForgetOtpVerify()),
     GetPage(
         name: noInternetScreen,

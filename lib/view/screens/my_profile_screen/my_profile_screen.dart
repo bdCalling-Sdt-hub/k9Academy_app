@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/helper/network_img/network_img.dart';
+import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
-import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/app_icons/app_icons.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/my_profile_screen/inner/tab_bar_package_screen.dart';
@@ -38,7 +38,14 @@ class MyProfileScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                     )
                   : CustomNetworkImage(
-                      imageUrl: AppConstants.onlineImage,
+                      imageUrl: (profileController
+                                  .profileModel.value.userInfo?.coverImage
+                                  ?.startsWith('https') ??
+                              false)
+                          ? profileController
+                                  .profileModel.value.userInfo?.coverImage ??
+                              ""
+                          : "${ApiUrl.baseUrl}${profileController.profileModel.value.userInfo?.coverImage ?? ""}",
                       width: double.infinity,
                       height: 171.h,
                     ),
@@ -111,7 +118,14 @@ class MyProfileScreen extends StatelessWidget {
                     children: [
                       CustomNetworkImage(
                         boxShape: BoxShape.circle,
-                        imageUrl: AppConstants.onlineImage,
+                        imageUrl: (profileController
+                                    .profileModel.value.userInfo?.profileImage
+                                    ?.startsWith('https') ??
+                                false)
+                            ? profileController.profileModel.value.userInfo
+                                    ?.profileImage ??
+                                ""
+                            : "${ApiUrl.baseUrl}${profileController.profileModel.value.userInfo?.profileImage ?? ""}",
                         height: profileHeight,
                         width: profileHeight,
                       ),

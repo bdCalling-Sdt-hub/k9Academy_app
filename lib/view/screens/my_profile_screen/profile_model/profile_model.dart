@@ -65,6 +65,8 @@ class UserInfo {
   String? phoneNumber;
   String? role;
   String? profileImage;
+  String? coverImage;
+
   String? activationCode;
   bool? isBlock;
   bool? isActive;
@@ -85,6 +87,7 @@ class UserInfo {
     this.phoneNumber,
     this.role,
     this.profileImage,
+    this.coverImage,
     this.activationCode,
     this.isBlock,
     this.isActive,
@@ -106,6 +109,8 @@ class UserInfo {
     phoneNumber = json['phone_number'];
     role = json['role'];
     profileImage = json['profile_image'];
+    coverImage = json['cover_image'];
+
     activationCode = json['activationCode'];
     isBlock = json['is_block'];
     isActive = json['isActive'];
@@ -128,6 +133,8 @@ class UserInfo {
     data['phone_number'] = phoneNumber;
     data['role'] = role;
     data['profile_image'] = profileImage;
+    data['cover_image'] = coverImage;
+
     data['activationCode'] = activationCode;
     data['is_block'] = isBlock;
     data['isActive'] = isActive;
