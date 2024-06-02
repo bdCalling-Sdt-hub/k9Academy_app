@@ -21,7 +21,8 @@ import 'package:k9academy/view/widgets/error/genarel_error.dart';
 class ScheduleScreen extends StatelessWidget {
   ScheduleScreen({super.key});
 
-  void showDialogBox(BuildContext context, String meetingLink, String password,String date) {
+  void showDialogBox(
+      BuildContext context, String meetingLink, String password, String date) {
     Get.dialog(
       AlertDialog(
         backgroundColor: AppColors.blackyDarkHover,
@@ -138,7 +139,6 @@ class ScheduleScreen extends StatelessWidget {
             },
           );
         case Status.completed:
-
           List<DateTime?> scheduleDates = scheduleController.scheduleList
               .map((schedule) => schedule.date)
               .toList();
@@ -146,36 +146,43 @@ class ScheduleScreen extends StatelessWidget {
           return SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    decoration: BoxDecoration(
-                      color: AppColors.blackyNormalActive,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: CalendarDatePicker2(
-                      config: CalendarDatePicker2Config(
-                        calendarType: CalendarDatePicker2Type.multi,
-                        daySplashColor: AppColors.lightNormalActive,
-                        controlsTextStyle:
-                        const TextStyle(color: AppColors.light),
-                        dayTextStyle:
-                        const TextStyle(color: AppColors.lightDark),
-                        monthTextStyle: const TextStyle(color: AppColors.light),
-                        yearTextStyle: const TextStyle(color: AppColors.light),
-                        weekdayLabelTextStyle:
-                        const TextStyle(color: AppColors.light),
-                        selectedDayHighlightColor: AppColors.blueNormal,
-                      ),
-                      value: scheduleDates,
-
-                    )),
+                scheduleController.scheduleList.isNotEmpty
+                    ? Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        decoration: BoxDecoration(
+                          color: AppColors.blackyNormalActive,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: CalendarDatePicker2(
+                          config: CalendarDatePicker2Config(
+                            calendarType: CalendarDatePicker2Type.multi,
+                            daySplashColor: AppColors.lightNormalActive,
+                            controlsTextStyle:
+                                const TextStyle(color: AppColors.light),
+                            dayTextStyle:
+                                const TextStyle(color: AppColors.lightDark),
+                            monthTextStyle:
+                                const TextStyle(color: AppColors.light),
+                            yearTextStyle:
+                                const TextStyle(color: AppColors.light),
+                            weekdayLabelTextStyle:
+                                const TextStyle(color: AppColors.light),
+                            selectedDayHighlightColor: AppColors.blueNormal,
+                          ),
+                          value: scheduleDates,
+                        ))
+                    : Center(
+                        child: CustomText(
+                            top: 80.h,
+                            fontSize: 20,
+                            text: AppStaticStrings.noScheduleFound)),
                 SizedBox(
                   height: 20.h,
                 ),
                 Column(
                   children: List.generate(
                     scheduleController.scheduleList.length,
-                        (index) {
+                    (index) {
                       var data = scheduleController.scheduleList[index];
                       return Container(
                         padding: const EdgeInsets.all(15),
@@ -240,13 +247,14 @@ class ScheduleScreen extends StatelessWidget {
                                       showDialogBox(
                                           context,
                                           data.meetLink ?? '',
-                                          data.password ?? "",DateConverter.estimatedDate(
-                                          data.date ?? DateTime.now()));
+                                          data.password ?? "",
+                                          DateConverter.estimatedDate(
+                                              data.date ?? DateTime.now()));
                                     },
                                     title: AppStaticStrings.meetingLink,
                                     fillColor: AppColors.redNormal,
                                     width:
-                                    MediaQuery.of(context).size.width / 2.5,
+                                        MediaQuery.of(context).size.width / 2.5,
                                   ),
                                 ],
                               ),

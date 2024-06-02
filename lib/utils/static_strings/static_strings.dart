@@ -154,6 +154,8 @@ class AppStaticStrings {
   static const meetingTime = "Meeting time";
   static const othersProfile = "Others profile";
 
+  static const noScheduleFound = "No Schedule Found";
+
   ///=========================== Side Drawer ========================
 
   static const settings = "Settings";
