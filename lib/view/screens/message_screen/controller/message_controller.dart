@@ -122,7 +122,7 @@ class MessageController extends GetxController {
 
     var body = {
       "message": sendController.value.text,
-      "conversationId": "665ae579e700270d59e38f63"
+      "conversationId": generalController.conversationID.value
     };
 
     var response = generalController.imagePath.isEmpty
@@ -144,7 +144,8 @@ class MessageController extends GetxController {
 
   ///=======================- Socket Join Chat ============================
   socketJoinChat() {
-    SocketApi.socket.emit("join-chat", {"id": "665ae579e700270d59e38f63"});
+    SocketApi.socket
+        .emit("join-chat", {"id": generalController.conversationID.value});
   }
 
   @override
