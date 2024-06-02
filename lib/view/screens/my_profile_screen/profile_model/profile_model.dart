@@ -1,4 +1,3 @@
-
 class ProfileModel {
   int? statusCode;
   bool? success;
@@ -61,7 +60,7 @@ class UserInfo {
   String? name;
   String? email;
   String? age;
-  String? date_of_birth;
+  String? dateOfBirth;
   String? gender;
   String? phoneNumber;
   String? role;
@@ -81,7 +80,7 @@ class UserInfo {
     this.name,
     this.email,
     this.age,
-    this.date_of_birth,
+    this.dateOfBirth,
     this.gender,
     this.phoneNumber,
     this.role,
@@ -102,7 +101,7 @@ class UserInfo {
     name = json['name'];
     email = json['email'];
     age = json['age'];
-    date_of_birth = json['date_of_birth'];
+    dateOfBirth = json['date_of_birth'];
     gender = json['gender'];
     phoneNumber = json['phone_number'];
     role = json['role'];
@@ -124,7 +123,7 @@ class UserInfo {
     data['name'] = name;
     data['email'] = email;
     data['age'] = age;
-    data['date_of_birth'] = date_of_birth;
+    data['date_of_birth'] = dateOfBirth;
     data['gender'] = gender;
     data['phone_number'] = phoneNumber;
     data['role'] = role;

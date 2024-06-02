@@ -3,7 +3,7 @@ import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
-import 'package:k9academy/view/screens/other_profile/model/otherProfile_model.dart';
+import 'package:k9academy/view/screens/other_profile/model/other_profile_model.dart';
 
 class OtherProfileController extends GetxController {
   final rxRequestStatus = Status.loading.obs;
@@ -15,7 +15,7 @@ class OtherProfileController extends GetxController {
     var response = await ApiClient.getData(ApiUrl.otherProfile(id: id));
 
     if (response.statusCode == 200) {
-      print("==================================${response.body}");
+     
       otherProfile.value = OtherProfileData.fromJson(response.body["data"]);
       setRxRequestStatus(Status.completed);
       refresh();

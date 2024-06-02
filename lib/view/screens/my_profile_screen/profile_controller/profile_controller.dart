@@ -1,11 +1,9 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:k9academy/helper/shared_prefe/shared_prefe.dart';
-import 'package:k9academy/helper/time_converter/time_converter.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
@@ -66,7 +64,7 @@ class ProfileController extends GetxController {
     setRxRequestStatus(Status.completed);
     if (response.statusCode == 200) {
       profileModel.value = DataModel.fromJson(response.body["data"]);
-      print("==================================${response.body}");
+     
 
       profileModel.refresh();
       getDataFromProfile();
