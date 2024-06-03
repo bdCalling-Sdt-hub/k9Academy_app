@@ -233,15 +233,9 @@ class Subscription extends StatelessWidget {
                                     width:
                                         MediaQuery.of(context).size.width / 2,
                                     onTap: () {
-                                      // subscriptionController.makePayment(
-                                      //     amount: amount,
-                                      //     totalItem: totalItem,
-                                      //     points: points,
-                                      //     deliveryFee: deliveryFee,
-                                      //     orderId: orderId,
-                                      //     cartId: cartId,
-                                      //     deliveryDate: deliveryDate,
-                                      //     isPickedUp: isPickedUp)
+                                      subscriptionController.makePayment(
+                                          amount: 100,
+                                         );
                                     },
                                     title: AppStaticStrings.makePayment,
                                   ),

@@ -68,5 +68,6 @@ class ApiUrl {
 
   ///======================================Payment====================
   static const payment = '/payment/payment-intent';
+  static const upgradePlan = '/subscriptions/upgrade-plan';
 
 }
