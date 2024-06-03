@@ -6,6 +6,7 @@ import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/view/screens/other_profile/model/other_profile_model.dart';
 
 class OtherProfileController extends GetxController {
+
   final rxRequestStatus = Status.loading.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   Rx<OtherProfileData> otherProfile = OtherProfileData().obs;
@@ -28,4 +29,5 @@ class OtherProfileController extends GetxController {
       ApiChecker.checkApi(response);
     }
   }
+
 }
