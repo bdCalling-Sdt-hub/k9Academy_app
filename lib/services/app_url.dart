@@ -65,4 +65,8 @@ class ApiUrl {
 
   ///=============================Other profile============================
   static otherProfile({required String id}) => "/auth/others-profile/$id";
+
+  ///======================================Payment====================
+  static const payment = '/payment/payment-intent';
+
 }
