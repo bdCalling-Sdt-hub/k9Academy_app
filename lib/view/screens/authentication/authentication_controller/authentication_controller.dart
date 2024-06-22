@@ -72,7 +72,7 @@ class AuthenticationController extends GetxController {
   RxBool isOtpLoading = false.obs;
   TextEditingController pinController = TextEditingController();
 
-  signupVerifyOTP() async {
+  signUpVerifyOTP() async {
     isOtpLoading.value = true;
     refresh();
     Map<dynamic, String> body = {
@@ -99,12 +99,11 @@ class AuthenticationController extends GetxController {
       SharePrefsHelper.setString(
           AppConstants.profileID, response.body["data"]["user"]["id"]);
 
-      SharePrefsHelper.setString(
-          AppConstants.conversationID, response.body["data"]["conversationId"]);
-
       generalController.getTokenInfo();
 
       generalController.getConversationID();
+      generalController.saveConversationID();
+
       Get.toNamed(AppRoute.subscription);
     } else {
       ApiChecker.checkApi(response);
@@ -162,12 +161,10 @@ class AuthenticationController extends GetxController {
       SharePrefsHelper.setString(
           AppConstants.profileID, response.body["data"]["id"]);
 
-      SharePrefsHelper.setString(
-          AppConstants.conversationID, response.body["data"]["conversationId"]);
-
       generalController.getTokenInfo();
 
       generalController.getConversationID();
+      generalController.saveConversationID();
 
       Get.toNamed(AppRoute.homeScreen);
       toastMessage(message: response.body["message"]);

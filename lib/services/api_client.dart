@@ -80,13 +80,18 @@ class ApiClient extends GetxService {
 
   ///================================================================PostMethod============================///
   static Future<Response> postData(String uri, dynamic body,
-      {Map<String, String>? headers}) async {
+      {Map<String, String>? headers, bool contentType = true}) async {
     bearerToken = await SharePrefsHelper.getString(AppConstants.bearerToken);
 
-    var mainHeaders = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $bearerToken'
-    };
+    var mainHeaders = contentType
+        ? {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $bearerToken'
+          }
+        : {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $bearerToken'
+          };
     try {
       debugPrint(
           '====> API Call: ${ApiUrl.baseUrl}$uri\nHeader: ${headers ?? mainHeaders}');

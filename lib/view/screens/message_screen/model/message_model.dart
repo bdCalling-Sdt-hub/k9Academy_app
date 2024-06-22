@@ -2,66 +2,6 @@
 //
 //     final messageModel = messageModelFromJson(jsonString);
 
-import 'dart:convert';
-
-MessageModel messageModelFromJson(String str) =>
-    MessageModel.fromJson(json.decode(str));
-
-String messageModelToJson(MessageModel data) => json.encode(data.toJson());
-
-class MessageModel {
-  int? statusCode;
-  bool? success;
-  String? message;
-  Data? data;
-
-  MessageModel({
-    this.statusCode,
-    this.success,
-    this.message,
-    this.data,
-  });
-
-  factory MessageModel.fromJson(Map<String, dynamic> json) => MessageModel(
-        statusCode: json["statusCode"],
-        success: json["success"],
-        message: json["message"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "statusCode": statusCode,
-        "success": success,
-        "message": message,
-        "data": data?.toJson(),
-      };
-}
-
-class Data {
-  List<MessageDatum>? messages;
-  Meta? meta;
-
-  Data({
-    this.messages,
-    this.meta,
-  });
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        messages: json["messages"] == null
-            ? []
-            : List<MessageDatum>.from(
-                json["messages"]!.map((x) => MessageDatum.fromJson(x))),
-        meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "messages": messages == null
-            ? []
-            : List<dynamic>.from(messages!.map((x) => x.toJson())),
-        "meta": meta?.toJson(),
-      };
-}
-
 class MessageDatum {
   String? id;
   String? senderId;

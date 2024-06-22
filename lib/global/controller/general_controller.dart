@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -101,6 +100,7 @@ class GeneralController extends GetxController {
     if (token.isNotEmpty) {
       getContent();
       getId();
+      getConversationID();
     }
   }
 
@@ -116,10 +116,23 @@ class GeneralController extends GetxController {
         "Conversation Id: ============<><><><><><>>>>${conversationID.value}");
   }
 
+  ///=============================== Save Conversation ID ==============================
+  saveConversationID() async {
+    var response = await ApiClient.postData(ApiUrl.createConversation, {},
+        contentType: false);
+    if (response.statusCode == 200) {
+      SharePrefsHelper.setString(
+          AppConstants.conversationID, response.body["data"]["_id"]);
+
+      getConversationID();
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }
+
   @override
   void onInit() {
     getTokenInfo();
-    getConversationID();
     super.onInit();
   }
 }

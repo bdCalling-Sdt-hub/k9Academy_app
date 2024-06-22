@@ -37,7 +37,7 @@ class SocketApi {
       // socket.connect();
       socket.onConnect((_) {
         debugPrint(
-            '==============>>>>>>> Socket Connected ${socket.connected}===============<<<<<<<');
+            '==============>>>>>>> Socket Connected ${socket.connected} ===============<<<<<<<');
       });
 
       //<----------------------Listen for new message--------------->

@@ -38,141 +38,134 @@ class _OtpVerifyState extends State<OtpVerify> {
     });
   }
 
-
   @override
   void initState() {
     startTimer();
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Obx(
-       () {
-          return SingleChildScrollView(
+      body: Obx(() {
+        return SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 44.h),
-            child:
-               Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    ///<=================================Title Text=====================================>
-                    const Center(
-                        child: CustomText(
-                      color: AppColors.blueNormal,
-                      text: AppStaticStrings.checkYourEmail,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    )),
-                    const CustomText(
-                      text: AppStaticStrings.wehaveSendAnOTP,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
-                      maxLines: 3,
-                      top: 8,
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  ///<=================================Title Text=====================================>
+                  const Center(
+                      child: CustomText(
+                    color: AppColors.blueNormal,
+                    text: AppStaticStrings.checkYourEmail,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  )),
+                  const CustomText(
+                    text: AppStaticStrings.wehaveSendAnOTP,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                    maxLines: 3,
+                    top: 8,
+                  ),
+
+                  SizedBox(
+                    height: 68.h,
+                  ),
+
+                  ///<======================================Pin Code Field============================>
+
+                  PinCodeTextField(
+                    textStyle: const TextStyle(color: AppColors.lightActive),
+                    keyboardType: TextInputType.phone,
+                    autoDisposeControllers: false,
+                    cursorColor: AppColors.blackyDarkActive,
+                    appContext: (context),
+                    controller: authenticationController.pinController,
+                    onCompleted: (value) {
+                      authenticationController.activationCode = value;
+                    },
+                    validator: (value) {
+                      if (value!.length == 6) {
+                        return null; // Input is valid
+                      } else {
+                        return "Please enter a 6-digit OTP code"; // Input is invalid
+                      }
+                    },
+                    autoFocus: true,
+                    pinTheme: PinTheme(
+                      disabledColor: Colors.transparent,
+                      shape: PinCodeFieldShape.box,
+                      borderRadius: BorderRadius.circular(12),
+                      fieldHeight: 49.h,
+                      fieldWidth: 47,
+                      activeFillColor: AppColors.lightDarkActive,
+                      selectedFillColor: AppColors.lightDarkActive,
+                      inactiveFillColor: AppColors.lightDarkActive,
+                      borderWidth: 0.5,
+                      errorBorderColor: Colors.red,
+                      activeBorderWidth: 0.8,
+                      selectedColor: AppColors.lightDarkActive,
+                      inactiveColor: AppColors.lightDarkActive,
+                      activeColor: AppColors.lightDarkActive,
                     ),
+                    length: 6,
+                    enableActiveFill: true,
+                  ),
 
-                    SizedBox(
-                      height: 68.h,
-                    ),
+                  SizedBox(
+                    height: 28.h,
+                  ),
 
-                    ///<======================================Pin Code Field============================>
+                  ///<==============================Resend Button=============================>
 
-                    PinCodeTextField(
-                      textStyle: const TextStyle(color: AppColors.lightActive),
-                      keyboardType: TextInputType.phone,
-                      autoDisposeControllers: false,
-                      cursorColor: AppColors.blackyDarkActive,
-                      appContext: (context),
-                      controller: authenticationController.pinController,
-                      onCompleted: (value) {
-                        authenticationController.activationCode = value;
-                      },
-                      validator: (value) {
-                        if (value!.length == 6) {
-                          return null; // Input is valid
-                        } else {
-                          return "Please enter a 6-digit OTP code"; // Input is invalid
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (_secondsRemaining == 0) {
+                          _secondsRemaining = 180;
+                          startTimer();
+                          authenticationController.resentUser().then((value) {
+                            if (value == false) {
+                              setState(() {
+                                _timer.cancel();
+                                _secondsRemaining = 0;
+                              });
+                            }
+                          });
                         }
                       },
-                      autoFocus: true,
-                      pinTheme: PinTheme(
-                        disabledColor: Colors.transparent,
-                        shape: PinCodeFieldShape.box,
-                        borderRadius: BorderRadius.circular(12),
-                        fieldHeight: 49.h,
-                        fieldWidth: 47,
-                        activeFillColor: AppColors.lightDarkActive,
-                        selectedFillColor: AppColors.lightDarkActive,
-                        inactiveFillColor: AppColors.lightDarkActive,
-                        borderWidth: 0.5,
-                        errorBorderColor: Colors.red,
-                        activeBorderWidth: 0.8,
-                        selectedColor: AppColors.lightDarkActive,
-                        inactiveColor: AppColors.lightDarkActive,
-                        activeColor: AppColors.lightDarkActive,
-                      ),
-                      length: 6,
-                      enableActiveFill: true,
+                      child: CustomText(
+                          text: _secondsRemaining == 0
+                              ? "Resend OTP".tr
+                              : "Resend OTP $_secondsRemaining",
+                          color: AppColors.lightDark,
+                          fontWeight: FontWeight.w600),
                     ),
+                  ),
+                  SizedBox(
+                    height: 30.h,
+                  ),
 
-                    SizedBox(
-                      height: 28.h,
-                    ),
-
-                    ///<==============================Resend Button=============================>
-
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        onTap: () {
-                          if (_secondsRemaining == 0) {
-                            _secondsRemaining = 180;
-                            startTimer();
-                            authenticationController.resentUser().then((value) {
-                              if (value == false) {
-                                setState(() {
-                                  _timer.cancel();
-                                  _secondsRemaining = 0;
-                                });
-                              }
-                            });
-                          }
-                        },
-                        child: CustomText(
-                            text: _secondsRemaining == 0
-                                ? "Resend OTP".tr
-                                : "Resend OTP $_secondsRemaining",
-                            color: AppColors.lightDark,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
-
-                    ///<================================== Verify Button ===========================>
-                    authenticationController.isOtpLoading.value
-                        ? const CustomLoader()
-                        : CustomButton(
-                            fillColor: AppColors.redNormal,
-                            onTap: () {
-                              if (formKey.currentState!.validate()) {
-                                authenticationController.signupVerifyOTP();
-                              }
-                            },
-                            title: AppStaticStrings.verifyCode,
-                          ),
-                  ],
-                ),
-              )
-
-          );
-        }
-      ),
+                  ///<================================== Verify Button ===========================>
+                  authenticationController.isOtpLoading.value
+                      ? const CustomLoader()
+                      : CustomButton(
+                          fillColor: AppColors.redNormal,
+                          onTap: () {
+                            if (formKey.currentState!.validate()) {
+                              authenticationController.signUpVerifyOTP();
+                            }
+                          },
+                          title: AppStaticStrings.verifyCode,
+                        ),
+                ],
+              ),
+            ));
+      }),
     );
   }
 }

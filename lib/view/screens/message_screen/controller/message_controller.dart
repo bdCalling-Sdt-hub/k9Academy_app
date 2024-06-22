@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/global/controller/general_controller.dart';
+import 'package:k9academy/helper/shared_prefe/shared_prefe.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
@@ -36,14 +37,13 @@ class MessageController extends GetxController {
         ApiUrl.getConversations(id: generalController.conversationID.value));
 
     if (response.statusCode == 200) {
-      messageList.value = List<MessageDatum>.from(response.body["data"]
-              ["messages"]
-          .map((x) => MessageDatum.fromJson(x)));
+      messageList.value = List<MessageDatum>.from(
+          response.body["data"].map((x) => MessageDatum.fromJson(x)));
 
-      if (messageList.isNotEmpty) {
-        currentPage.value = response.body['data']['meta']['page'];
-        totalPage.value = response.body['data']['meta']['totalPage'];
-      }
+      // if (messageList.isNotEmpty) {
+      //   currentPage.value = response.body['data']['meta']['page'];
+      //   totalPage.value = response.body['data']['meta']['totalPage'];
+      // }
 
       setRxRequestStatus(Status.completed);
       refresh();
@@ -101,7 +101,9 @@ class MessageController extends GetxController {
 
   ///========================= Listen to Socket =======================
   socketConnect() async {
-    SocketApi.socket.on("getMessage", (data) {
+    String conversationID =
+        await SharePrefsHelper.getString(AppConstants.conversationID);
+    SocketApi.socket.on("message::$conversationID", (data) {
       debugPrint("Socket Res=================>>>>>>>>>>>>>$data");
 
       MessageDatum newMsg = MessageDatum.fromJson(data);
@@ -126,7 +128,8 @@ class MessageController extends GetxController {
     };
 
     var response = generalController.imagePath.isEmpty
-        ? await ApiClient.postData(ApiUrl.sendMessage, jsonEncode(body))
+        ? await ApiClient.postData(ApiUrl.sendMessage, jsonEncode(body),
+            contentType: true)
         : await ApiClient.postMultipartData(ApiUrl.sendMessage, body,
             multipartBody: [
                 MultipartBody("image", File(generalController.imagePath.value))
@@ -142,15 +145,8 @@ class MessageController extends GetxController {
     }
   }
 
-  ///=======================- Socket Join Chat ============================
-  socketJoinChat() {
-    SocketApi.socket
-        .emit("join-chat", {"id": generalController.conversationID.value});
-  }
-
   @override
   void onInit() {
-    socketJoinChat();
     scrollController.addListener(addScrollListener);
     getMessageList();
     getProfileID();
