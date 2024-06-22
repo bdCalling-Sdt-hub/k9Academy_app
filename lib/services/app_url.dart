@@ -60,6 +60,8 @@ class ApiUrl {
   static const subscriptionPlanAll = "/subscription-plan";
   static const promoCode = "/promo/unlock";
   static const getPromoPackage = "/promo-package/all";
+  static const createPaymentIntent = "/payment/payment-intent";
+  static const makeOrder = "/subscriptions/upgrade-plan";
 
   ///==================================Schedule Screen======================
   static const schedule = '/schedule/my-schedule';

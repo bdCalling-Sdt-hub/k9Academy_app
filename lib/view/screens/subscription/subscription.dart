@@ -32,13 +32,13 @@ class Subscription extends StatelessWidget {
           case Status.internetError:
             return NoInternetScreen(
               onTap: () {
-                subscriptionController.getPromoPackage();
+                subscriptionController.getSubscription();
               },
             );
           case Status.error:
             return GeneralErrorScreen(
               onTap: () {
-                subscriptionController.getPromoPackage();
+                subscriptionController.getSubscription();
               },
             );
           case Status.completed:
@@ -197,50 +197,115 @@ class Subscription extends StatelessWidget {
                                   fontWeight: FontWeight.w500,
                                   bottom: 16,
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: List.generate(
-                                      data.packageDetails?.length ?? 0,
-                                      (featureIndex) {
-                                    var feature =
-                                        data.packageDetails?[featureIndex];
+                                // Column(
+                                //   crossAxisAlignment: CrossAxisAlignment.start,
+                                //   children: List.generate(
+                                //       data.packageDetails?.length ?? 0,
+                                //       (featureIndex) {
+                                //     var feature =
+                                //         data.packageDetails?[featureIndex];
 
-                                    return Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      child: Row(
-                                        children: [
-                                          CustomImage(
-                                            imageSrc: AppIcons.checkDone,
-                                            size: 30.sp,
-                                          ),
-                                          Expanded(
-                                            child: CustomText(
-                                              textAlign: TextAlign.left,
-                                              maxLines: 3,
-                                              text: feature ?? "",
-                                              left: 10,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 14.sp,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }),
-                                ),
+                                //     return Padding(
+                                //       padding:
+                                //           const EdgeInsets.only(bottom: 10),
+                                //       child: Row(
+                                //         children: [
+                                //           CustomImage(
+                                //             imageSrc: AppIcons.checkDone,
+                                //             size: 30.sp,
+                                //           ),
+                                //           Expanded(
+                                //             child: CustomText(
+                                //               textAlign: TextAlign.left,
+                                //               maxLines: 3,
+                                //               text: feature ?? "",
+                                //               left: 10,
+                                //               fontWeight: FontWeight.w400,
+                                //               fontSize: 14.sp,
+                                //             ),
+                                //           ),
+                                //         ],
+                                //       ),
+                                //     );
+                                //   }),
+                                // ),
+
+                                //==================== Feature1 [Traning Video] ======================
+
+                                if (data.trainingVideo?.status == true)
+                                  CustomText(
+                                    textAlign: TextAlign.left,
+                                    maxLines: 3,
+                                    text: data.trainingVideo?.title ?? "",
+                                    left: 10,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14.sp,
+                                  ),
+
+                                //==================== Feature2 [Community Group] ======================
+
+                                if (data.communityGroup?.status == true)
+                                  CustomText(
+                                    textAlign: TextAlign.left,
+                                    maxLines: 3,
+                                    text: data.communityGroup?.title ?? "",
+                                    left: 10,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14.sp,
+                                  ),
+
+                                //==================== Feature3 [Community Group] ======================
+
+                                if (data.videoLesson?.status == true)
+                                  CustomText(
+                                    textAlign: TextAlign.left,
+                                    maxLines: 3,
+                                    text: data.videoLesson?.title ?? "",
+                                    left: 10,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14.sp,
+                                  ),
+
+                                //==================== Feature4 [Chat] ======================
+
+                                if (data.chat?.status == true)
+                                  CustomText(
+                                    textAlign: TextAlign.left,
+                                    maxLines: 3,
+                                    text: data.chat?.title ?? "",
+                                    left: 10,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14.sp,
+                                  ),
+
+                                //==================== Feature5 [Chat] ======================
+
+                                if (data.program?.status == true)
+                                  CustomText(
+                                    textAlign: TextAlign.left,
+                                    maxLines: 3,
+                                    text: data.program?.title ?? "",
+                                    left: 10,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14.sp,
+                                  ),
+
                                 SizedBox(
                                   height: 15.h,
                                 ),
 
-                                ///================================Make Payment Button============
+                                ///================================ Make Payment Button ======================
                                 Align(
                                   alignment: Alignment.center,
                                   child: CustomButton(
                                     fillColor: AppColors.redNormal,
                                     width:
                                         MediaQuery.of(context).size.width / 2,
-                                    onTap: () {},
+                                    onTap: () {
+                                      subscriptionController.makePayment(
+                                          amount: data.packagePrice.toString(),
+                                          packageID: data.id ?? "");
+                                    },
                                     title: AppStaticStrings.makePayment,
                                   ),
                                 ),

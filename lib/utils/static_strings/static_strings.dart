@@ -180,7 +180,7 @@ class AppStaticStrings {
   static const allComments = "All comments";
   static const subscriptionNow = "Subscription now";
   static const usePromoCode = "Use promo code";
-  static const haveYourPromoCode = "Have You promo code ?";
+  static const haveYourPromoCode = "Have a promo code ?";
   static const confirm = "Confirm";
   static const noInternet =
       "No internet connections found. Check your connections, Please try again";

@@ -20,6 +20,42 @@ PODS:
   - sqflite (0.0.3):
     - Flutter
     - FlutterMacOS
+  - Stripe (23.27.0):
+    - StripeApplePay (= 23.27.0)
+    - StripeCore (= 23.27.0)
+    - StripePayments (= 23.27.0)
+    - StripePaymentsUI (= 23.27.0)
+    - StripeUICore (= 23.27.0)
+  - stripe_ios (0.0.1):
+    - Flutter
+    - Stripe (~> 23.27.0)
+    - StripeApplePay (~> 23.27.0)
+    - StripeFinancialConnections (~> 23.27.0)
+    - StripePayments (~> 23.27.0)
+    - StripePaymentSheet (~> 23.27.0)
+    - StripePaymentsUI (~> 23.27.0)
+  - StripeApplePay (23.27.0):
+    - StripeCore (= 23.27.0)
+  - StripeCore (23.27.0)
+  - StripeFinancialConnections (23.27.0):
+    - StripeCore (= 23.27.0)
+    - StripeUICore (= 23.27.0)
+  - StripePayments (23.27.0):
+    - StripeCore (= 23.27.0)
+    - StripePayments/Stripe3DS2 (= 23.27.0)
+  - StripePayments/Stripe3DS2 (23.27.0):
+    - StripeCore (= 23.27.0)
+  - StripePaymentSheet (23.27.0):
+    - StripeApplePay (= 23.27.0)
+    - StripeCore (= 23.27.0)
+    - StripePayments (= 23.27.0)
+    - StripePaymentsUI (= 23.27.0)
+  - StripePaymentsUI (23.27.0):
+    - StripeCore (= 23.27.0)
+    - StripePayments (= 23.27.0)
+    - StripeUICore (= 23.27.0)
+  - StripeUICore (23.27.0):
+    - StripeCore (= 23.27.0)
   - Toast (4.1.0)
   - video_player_avfoundation (0.0.1):
     - Flutter
@@ -36,12 +72,21 @@ DEPENDENCIES:
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite (from `.symlinks/plugins/sqflite/darwin`)
+  - stripe_ios (from `.symlinks/plugins/stripe_ios/ios`)
   - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/darwin`)
   - wakelock_plus (from `.symlinks/plugins/wakelock_plus/ios`)
 
 SPEC REPOS:
   trunk:
     - ReachabilitySwift
+    - Stripe
+    - StripeApplePay
+    - StripeCore
+    - StripeFinancialConnections
+    - StripePayments
+    - StripePaymentSheet
+    - StripePaymentsUI
+    - StripeUICore
     - Toast
 
 EXTERNAL SOURCES:
@@ -61,6 +106,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   sqflite:
     :path: ".symlinks/plugins/sqflite/darwin"
+  stripe_ios:
+    :path: ".symlinks/plugins/stripe_ios/ios"
   video_player_avfoundation:
     :path: ".symlinks/plugins/video_player_avfoundation/darwin"
   wakelock_plus:
@@ -76,10 +123,19 @@ SPEC CHECKSUMS:
   ReachabilitySwift: 5ae15e16814b5f9ef568963fb2c87aeb49158c66
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
+  Stripe: ee6dfffc5e8a9fcdc6e023e041b52cfea362df6e
+  stripe_ios: 03c617acee72e48a2d055d096a4b0ed2afebb256
+  StripeApplePay: c76959cf0149f908a803f91ce750332b39c0decc
+  StripeCore: bbaa237ed7d273315d9c8c48d3103e4fe1bcd380
+  StripeFinancialConnections: 22e4118f77f7cc593e27f2fa06af2ab7ae085049
+  StripePayments: feb5245e89c901edd849436f9f35d285619a1ccc
+  StripePaymentSheet: 1faf0148cd85d7c67b9c290b9a1af25f8e0a4107
+  StripePaymentsUI: 000e30dc6bc5b04f36f8a9fac80b6a4a5298cd99
+  StripeUICore: 31c66d62940078bd132c23a1fe9ec8746edc02a2
   Toast: ec33c32b8688982cecc6348adeae667c1b9938da
   video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
   wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
 
-PODFILE CHECKSUM: 7be2f5f74864d463a8ad433546ed1de7e0f29aef
+PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
 
 COCOAPODS: 1.15.2

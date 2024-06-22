@@ -99,6 +99,8 @@ class AuthenticationController extends GetxController {
       SharePrefsHelper.setString(
           AppConstants.profileID, response.body["data"]["user"]["id"]);
 
+      SharePrefsHelper.setBool(AppConstants.hasSubsCription, false);
+
       generalController.getTokenInfo();
 
       generalController.getConversationID();
@@ -152,14 +154,14 @@ class AuthenticationController extends GetxController {
     var response = await ApiClient.postData(ApiUrl.logIn, jsonEncode(body),
         headers: headers);
     if (response.statusCode == 200) {
-      // emailController.clear();
-      // passwordController.clear();
-
       SharePrefsHelper.setString(
           AppConstants.bearerToken, response.body["data"]["accessToken"]);
 
       SharePrefsHelper.setString(
           AppConstants.profileID, response.body["data"]["id"]);
+
+      SharePrefsHelper.setBool(
+          AppConstants.hasSubsCription, response.body["data"]["isPaid"]);
 
       generalController.getTokenInfo();
 

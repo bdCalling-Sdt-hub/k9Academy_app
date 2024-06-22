@@ -2,13 +2,13 @@ class AppConstants {
   static String bearerToken = "BearerToken";
   static String isRememberMe = "isRememberMe";
   static String onBoard = "Onboard";
+  static String hasSubsCription = "hasSubsCription";
 
-  /// <====================== All Response Message Static==============================>
 
-  static String successfull = "Request Successfull";
-  static String error = "Oops, something went wrong";
   static String profileID = "profileID";
   static String conversationID = "conversationID";
+  static String stripePublishableKey =
+      "pk_test_51JwnGrLiLwVG3jO00U7B3YmokwdPnB6FKd1uresJgkbsL4f5xUfCmbFdBaGO42KvLmLfVzsgo1oIQToXABSTyypS00xQsEgKZ6";
 
   static String userStatus = "userStatus";
   static String rememberMe = "rememberMe";
