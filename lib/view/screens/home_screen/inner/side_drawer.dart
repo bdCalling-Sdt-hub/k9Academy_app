@@ -117,7 +117,8 @@ class SideDrawer extends StatelessWidget {
                               AppConstants.isRememberMe, false);
 
                           SharePrefsHelper.remove(AppConstants.bearerToken);
-
+                          SharePrefsHelper.remove(AppConstants.profileID);
+                          SharePrefsHelper.remove(AppConstants.conversationID);
                           Get.offAllNamed(AppRoute.signIn);
                         },
                         title: AppStaticStrings.logOut),

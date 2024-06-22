@@ -62,8 +62,11 @@ class Subscription extends StatelessWidget {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List.generate(subscriptionController.promoData.length, (featureIndex) {
-                      var promoItems = subscriptionController.promoData[featureIndex].items;
+                    children:
+                        List.generate(subscriptionController.promoData.length,
+                            (featureIndex) {
+                      var promoItems =
+                          subscriptionController.promoData[featureIndex].items;
                       return Column(
                         children: promoItems!.map((item) {
                           return Padding(
@@ -91,7 +94,8 @@ class Subscription extends StatelessWidget {
                     inputTextStyle: const TextStyle(color: Colors.black),
                     fillColor: Colors.white,
                     hintText: AppStaticStrings.enterYourPromocodeHere,
-                    textEditingController: subscriptionController.promoController,
+                    textEditingController:
+                        subscriptionController.promoController,
                   ),
                   SizedBox(
                     height: 15.h,
@@ -110,7 +114,6 @@ class Subscription extends StatelessWidget {
       }),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +183,7 @@ class Subscription extends StatelessWidget {
                               children: [
                                 ///===========================Title================
                                 CustomText(
-                                  text: data.title ?? "",
+                                  text: data.packageName ?? "",
                                   fontSize: 24.sp,
                                   fontWeight: FontWeight.w500,
                                   bottom: 16,
@@ -189,7 +192,7 @@ class Subscription extends StatelessWidget {
 
                                 ///==========================Amount=================
                                 CustomText(
-                                  text: "\$${data.price.toString()}",
+                                  text: "\$${data.packagePrice.toString()}",
                                   fontSize: 24.sp,
                                   fontWeight: FontWeight.w500,
                                   bottom: 16,
@@ -197,8 +200,10 @@ class Subscription extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: List.generate(
-                                      data.items?.length ?? 0, (featureIndex) {
-                                    var feature = data.items?[featureIndex];
+                                      data.packageDetails?.length ?? 0,
+                                      (featureIndex) {
+                                    var feature =
+                                        data.packageDetails?[featureIndex];
 
                                     return Padding(
                                       padding:
@@ -209,12 +214,15 @@ class Subscription extends StatelessWidget {
                                             imageSrc: AppIcons.checkDone,
                                             size: 30.sp,
                                           ),
-                                          CustomText(
-                                            // text: "",
-                                            text: feature?.title ?? "",
-                                            left: 10,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14.sp,
+                                          Expanded(
+                                            child: CustomText(
+                                              textAlign: TextAlign.left,
+                                              maxLines: 3,
+                                              text: feature ?? "",
+                                              left: 10,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14.sp,
+                                            ),
                                           ),
                                         ],
                                       ),

@@ -1,7 +1,7 @@
 class ApiUrl {
   ///=================================This is baseUrl==============================================>
-  static const baseUrl = "http://192.168.10.116:7000";
-  static const socketUrl = "http://192.168.10.116:7000";
+  static const baseUrl = "http://192.168.10.16:7000";
+  static const socketUrl = "http://192.168.10.16:7000";
 
   ///=================================Authentication url==========================
   static const signupAuth = "/auth/register";
@@ -57,7 +57,7 @@ class ApiUrl {
   static const notificationRead = "/notification/update-notification";
 
   ///===========================Subscription==========================
-  static const subscriptionPlanAll = "/subscription-plan/all";
+  static const subscriptionPlanAll = "/subscription-plan";
   static const promoCode = "/promo/unlock";
   static const getPromoPackage = "/promo-package/all";
 

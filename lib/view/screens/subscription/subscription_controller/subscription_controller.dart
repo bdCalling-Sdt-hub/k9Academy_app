@@ -39,7 +39,7 @@ class SubscriptionController extends GetxController {
     }
   }
 
-   ///=====================================PromoPackageGet==============================
+  ///=====================================PromoPackageGet==============================
   RxList<PromoData> promoData = <PromoData>[].obs;
   getPromoPackage() async {
     setRxRequestStatus(Status.loading);
@@ -62,22 +62,19 @@ class SubscriptionController extends GetxController {
       refresh();
     }
   }
+
   ///==================================== Promo Code  Post=========================
   RxBool isPromoLoading = false.obs;
   TextEditingController promoController = TextEditingController();
   promoCode() async {
     isPromoLoading.value = true;
     refresh();
-    Map<String, String> body = {
-      "promo_code": promoController.text
-    };
+    Map<String, String> body = {"promo_code": promoController.text};
 
-    var response =
-    await ApiClient.postData(ApiUrl.promoCode, jsonEncode(body));
+    var response = await ApiClient.postData(ApiUrl.promoCode, jsonEncode(body));
     if (response.statusCode == 200) {
       toastMessage(message: response.body["message"]);
-      isPromoCode.value =
-      !isPromoCode.value;
+      isPromoCode.value = !isPromoCode.value;
       isPromoCode.refresh();
       navigator!.pop();
       promoController.clear();
@@ -86,7 +83,6 @@ class SubscriptionController extends GetxController {
     }
     isPromoLoading.value = false;
   }
-
 
   @override
   void onInit() {
