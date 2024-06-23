@@ -7,6 +7,7 @@ import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
+import 'package:k9academy/view/screens/my_package/controller/my_package.dart';
 import 'package:k9academy/view/widgets/custom_loader/custom_loader.dart';
 
 class GeneralController extends GetxController {
@@ -130,6 +131,40 @@ class GeneralController extends GetxController {
     }
   }
 
+  ///============================== Get Subscriptions Logic ==============================
+  RxBool trainingVideo = false.obs;
+  RxBool communityGroup = false.obs;
+  RxBool chat = false.obs;
+  RxBool virtualLesson = false.obs;
+  RxBool program = false.obs;
+
+  getSubscriptionLogic() async {
+    MyPackageController myPackageController = Get.find<MyPackageController>();
+
+    bool done = await myPackageController.getMyPackage();
+
+    if (done) {
+      trainingVideo.value =
+          await SharePrefsHelper.getBool(AppConstants.videoTraining) ?? false;
+
+      communityGroup.value =
+          await SharePrefsHelper.getBool(AppConstants.communityGroup) ?? false;
+
+      chat.value = await SharePrefsHelper.getBool(AppConstants.chat) ?? false;
+
+      virtualLesson.value =
+          await SharePrefsHelper.getBool(AppConstants.virtualLesson) ?? false;
+
+      program.value =
+          await SharePrefsHelper.getBool(AppConstants.program) ?? false;
+
+      debugPrint(
+          "Subscription Logic ===============>>>>>>>>> trainingVideo:$trainingVideo communityGroup:$communityGroup chat:$chat virtualLesson:$virtualLesson program:$program");
+    }
+
+    refresh();
+  }
+
   ///========================== Hit all methods based on token ==============================
 
   hitAllAPI() async {
@@ -140,6 +175,7 @@ class GeneralController extends GetxController {
       getId();
       getConversationID();
       getSubsInfo();
+      getSubscriptionLogic();
     }
   }
 
