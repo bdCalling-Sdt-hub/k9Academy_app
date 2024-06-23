@@ -15,7 +15,7 @@ import 'package:k9academy/utils/toast_message/toast_message.dart';
 //
 class AuthenticationController extends GetxController {
   TextEditingController emailController =
-      TextEditingController(text: kDebugMode ? "pesogi8338@crodity.com" : "");
+      TextEditingController(text: kDebugMode ? "jegene7261@elahan.com" : "");
   TextEditingController passwordController =
       TextEditingController(text: kDebugMode ? "Arafat10@!" : "");
 
@@ -101,7 +101,7 @@ class AuthenticationController extends GetxController {
 
       SharePrefsHelper.setBool(AppConstants.hasSubsCription, false);
 
-      generalController.getTokenInfo();
+      generalController.hitAllAPI();
 
       generalController.getConversationID();
       generalController.saveConversationID();
@@ -163,7 +163,7 @@ class AuthenticationController extends GetxController {
       SharePrefsHelper.setBool(
           AppConstants.hasSubsCription, response.body["data"]["isPaid"]);
 
-      generalController.getTokenInfo();
+      generalController.hitAllAPI();
 
       generalController.getConversationID();
       generalController.saveConversationID();

@@ -92,18 +92,6 @@ class GeneralController extends GetxController {
 
   String token = "";
 
-  ///================================== Get Token ================================
-
-  getTokenInfo() async {
-    token = await SharePrefsHelper.getString(AppConstants.bearerToken);
-
-    if (token.isNotEmpty) {
-      getContent();
-      getId();
-      getConversationID();
-    }
-  }
-
   ///=============================== Get Conversation ID ==============================
   RxString conversationID = "".obs;
   getConversationID() async {
@@ -114,6 +102,18 @@ class GeneralController extends GetxController {
 
     debugPrint(
         "Conversation Id: ============<><><><><><>>>>${conversationID.value}");
+  }
+
+  ///=============================== Get If Has Subscription ==============================
+  RxBool hasSubsCription = false.obs;
+  getSubsInfo() async {
+    hasSubsCription.value =
+        await SharePrefsHelper.getBool(AppConstants.hasSubsCription) ?? false;
+
+    refresh();
+
+    debugPrint(
+        "hasSubsCription: ============<><><><><><>>>>${hasSubsCription.value}");
   }
 
   ///=============================== Save Conversation ID ==============================
@@ -130,9 +130,22 @@ class GeneralController extends GetxController {
     }
   }
 
+  ///========================== Hit all methods based on token ==============================
+
+  hitAllAPI() async {
+    token = await SharePrefsHelper.getString(AppConstants.bearerToken);
+
+    if (token.isNotEmpty) {
+      getContent();
+      getId();
+      getConversationID();
+      getSubsInfo();
+    }
+  }
+
   @override
   void onInit() {
-    getTokenInfo();
+    hitAllAPI();
     super.onInit();
   }
 }

@@ -64,7 +64,6 @@ class ProfileController extends GetxController {
     setRxRequestStatus(Status.completed);
     if (response.statusCode == 200) {
       profileModel.value = DataModel.fromJson(response.body["data"]);
-     
 
       profileModel.refresh();
       getDataFromProfile();
@@ -167,12 +166,12 @@ class ProfileController extends GetxController {
   getDataFromProfile() {
     var value = profileModel.value.userInfo;
     nameController = TextEditingController(text: value?.name ?? "");
-    emailController= TextEditingController(text: value?.email??"");
-    contactController= TextEditingController(text: value?.phoneNumber??"");
+    emailController = TextEditingController(text: value?.email ?? "");
+    contactController = TextEditingController(text: value?.phoneNumber ?? "");
     // dateController = TextEditingController(
     //     text: DateConverter.formatDetails("${value?.date_of_birth}"));
-    ageController=TextEditingController(text: value?.age??"");
-    genderController=TextEditingController(text: value?.gender??"");
+    ageController = TextEditingController(text: value?.age ?? "");
+    genderController = TextEditingController(text: value?.gender ?? "");
   }
 
   @override

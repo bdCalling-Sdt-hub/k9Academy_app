@@ -165,6 +165,13 @@ class AppStaticStrings {
   static const termsConditions = "Terms & Conditions";
   static const logOut = "Log Out";
 
+  ///==================================All HintText=======================
+  static const yourName = "Your Name :";
+
+  static const noDataFound = "No Data Found";
+
+  static const noPostYet = "No Post Yet";
+
   ///=========================== Others ========================
   static const changePassword = "Change Password";
   static const deleteAccount = "Delete Account";
@@ -187,11 +194,10 @@ class AppStaticStrings {
   static const yourSubscriptionPackageIsExpired =
       "Your Subscription package is Expired. ";
   static const readAll = "Read all";
+  static const youDontHaveAny = "You don't have any Subscription";
 
-  ///==================================All HintText=======================
-  static const yourName = "Your Name :";
+  static const endDate = "End date";
 
-  static const noDataFound = "No Data Found";
+ 
 
-  static const noPostYet = "No Post Yet";
 }

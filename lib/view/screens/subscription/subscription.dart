@@ -190,45 +190,14 @@ class Subscription extends StatelessWidget {
                                   top: 20,
                                 ),
 
-                                ///==========================Amount=================
+                                ///========================== Amount ==========================
+
                                 CustomText(
                                   text: "\$${data.packagePrice.toString()}",
                                   fontSize: 24.sp,
                                   fontWeight: FontWeight.w500,
                                   bottom: 16,
                                 ),
-                                // Column(
-                                //   crossAxisAlignment: CrossAxisAlignment.start,
-                                //   children: List.generate(
-                                //       data.packageDetails?.length ?? 0,
-                                //       (featureIndex) {
-                                //     var feature =
-                                //         data.packageDetails?[featureIndex];
-
-                                //     return Padding(
-                                //       padding:
-                                //           const EdgeInsets.only(bottom: 10),
-                                //       child: Row(
-                                //         children: [
-                                //           CustomImage(
-                                //             imageSrc: AppIcons.checkDone,
-                                //             size: 30.sp,
-                                //           ),
-                                //           Expanded(
-                                //             child: CustomText(
-                                //               textAlign: TextAlign.left,
-                                //               maxLines: 3,
-                                //               text: feature ?? "",
-                                //               left: 10,
-                                //               fontWeight: FontWeight.w400,
-                                //               fontSize: 14.sp,
-                                //             ),
-                                //           ),
-                                //         ],
-                                //       ),
-                                //     );
-                                //   }),
-                                // ),
 
                                 //==================== Feature1 [Traning Video] ======================
 
@@ -254,7 +223,7 @@ class Subscription extends StatelessWidget {
                                     fontSize: 14.sp,
                                   ),
 
-                                //==================== Feature3 [Community Group] ======================
+                                //==================== Feature3 [VideoLesson] ======================
 
                                 if (data.videoLesson?.status == true)
                                   CustomText(
@@ -278,7 +247,7 @@ class Subscription extends StatelessWidget {
                                     fontSize: 14.sp,
                                   ),
 
-                                //==================== Feature5 [Chat] ======================
+                                //==================== Feature5 [Program] ======================
 
                                 if (data.program?.status == true)
                                   CustomText(

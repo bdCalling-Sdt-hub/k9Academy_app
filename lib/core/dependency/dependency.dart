@@ -4,6 +4,7 @@ import 'package:k9academy/view/screens/authentication/authentication_controller/
 import 'package:k9academy/view/screens/faq_screen/controller/faq_controller.dart';
 import 'package:k9academy/view/screens/home_screen/home_controller/home_controller.dart';
 import 'package:k9academy/view/screens/message_screen/controller/message_controller.dart';
+import 'package:k9academy/view/screens/my_package/controller/my_package.dart';
 import 'package:k9academy/view/screens/my_profile_screen/profile_controller/profile_controller.dart';
 import 'package:k9academy/view/screens/notification_screen/controller/notification_controller.dart';
 import 'package:k9academy/view/screens/other_profile/controller/other_profile_controller.dart';
@@ -29,5 +30,7 @@ class DependancyInjection extends Bindings {
     Get.lazyPut(() => NotificationController(), fenix: true);
     Get.lazyPut(() => FaqController(), fenix: true);
     Get.lazyPut(() => OtherProfileController(), fenix: true);
+    Get.lazyPut(() => MyPackageController(), fenix: true);
+
   }
 }

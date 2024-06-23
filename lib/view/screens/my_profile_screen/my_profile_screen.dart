@@ -8,7 +8,7 @@ import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_icons/app_icons.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
-import 'package:k9academy/view/screens/my_profile_screen/inner/tab_bar_package_screen.dart';
+import 'package:k9academy/view/screens/my_package/my_package.dart';
 import 'package:k9academy/view/screens/my_profile_screen/inner/tab_bar_post_screen.dart';
 import 'package:k9academy/view/screens/my_profile_screen/profile_controller/profile_controller.dart';
 import 'package:k9academy/view/screens/schedule_screen/schedule_screen.dart';
@@ -184,7 +184,7 @@ class MyProfileScreen extends StatelessWidget {
                     profileController: profileController,
                   ),
                   TabBarPostScreen(),
-                  const TabBarPackageScreen(),
+                  MyPackageScreen(),
                   ScheduleScreen(),
                 ],
               ),
