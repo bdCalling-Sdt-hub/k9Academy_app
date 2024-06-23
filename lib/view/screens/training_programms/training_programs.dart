@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
+import 'package:k9academy/global/controller/general_controller.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
@@ -18,6 +19,7 @@ class TrainingPrograms extends StatelessWidget {
   final CustomWidgets customWidget = CustomWidgets();
 
   final HomeController homeController = Get.find<HomeController>();
+  final GeneralController generalController = Get.find<GeneralController>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,11 @@ class TrainingPrograms extends StatelessWidget {
               height: 260.w,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: homeController.trainingList.length,
+                  itemCount: generalController.hasSubsCription.value
+                      ? homeController.trainingList.length
+                      : homeController.trainingList.length >= 3
+                          ? 3
+                          : homeController.trainingList.length,
                   itemBuilder: (context, index) {
                     var data = homeController.trainingList[index];
                     return GestureDetector(

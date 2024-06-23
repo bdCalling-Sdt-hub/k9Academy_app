@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/global/controller/general_controller.dart';
@@ -10,11 +9,13 @@ import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/toast_message/toast_message.dart';
+import 'package:k9academy/view/screens/my_package/controller/my_package.dart';
 import 'package:k9academy/view/screens/subscription/model/subscription_model.dart';
 
 class SubscriptionController extends GetxController {
   RxBool isPromoCode = false.obs;
   GeneralController generalController = Get.find<GeneralController>();
+  MyPackageController myPackageController = Get.find<MyPackageController>();
 
   ///==================================GetSubscription===========================
   final rxRequestStatus = Status.loading.obs;
@@ -75,7 +76,11 @@ class SubscriptionController extends GetxController {
 
     var response = await ApiClient.postData(ApiUrl.promoCode, jsonEncode(body));
     if (response.statusCode == 200) {
-      toastMessage(message: response.body["message"]);
+      SharePrefsHelper.setBool(AppConstants.hasSubsCription, true);
+      generalController.getSubsInfo().then((value) {
+        generalController.getSubscriptionLogic();
+      });
+      toastMessage(message: response.body["message"], color: Colors.green);
       isPromoCode.value = !isPromoCode.value;
       isPromoCode.refresh();
       navigator!.pop();
@@ -87,6 +92,7 @@ class SubscriptionController extends GetxController {
   }
 
   ///========================= Create Payment Intent =========================
+
   Future<Map<String, dynamic>?> createPaymentIntent({
     required String amount,
   }) async {
@@ -159,7 +165,10 @@ class SubscriptionController extends GetxController {
     if (response.statusCode == 200) {
       toastMessage(message: response.body["message"]);
       SharePrefsHelper.setBool(AppConstants.hasSubsCription, true);
-      generalController.getSubsInfo();
+      generalController.getSubsInfo().then((value) {
+        generalController.getSubscriptionLogic();
+      });
+
       navigator!.pop();
       return true;
     } else {

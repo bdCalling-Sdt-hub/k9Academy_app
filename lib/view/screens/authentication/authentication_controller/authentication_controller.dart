@@ -1,7 +1,6 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/global/controller/general_controller.dart';
@@ -16,6 +15,8 @@ import 'package:k9academy/utils/toast_message/toast_message.dart';
 class AuthenticationController extends GetxController {
   TextEditingController emailController =
       TextEditingController(text: kDebugMode ? "jegene7261@elahan.com" : "");
+  // fijerak723@egela.com
+
   TextEditingController passwordController =
       TextEditingController(text: kDebugMode ? "Arafat10@!" : "");
 
@@ -58,7 +59,7 @@ class AuthenticationController extends GetxController {
       isSignUpLoading.value = false;
       refresh();
       Get.toNamed(AppRoute.otpVerify);
-      toastMessage(message: response.body["message"]);
+      toastMessage(message: response.body["message"], color: Colors.green);
     } else {
       ApiChecker.checkApi(response);
     }
@@ -106,7 +107,7 @@ class AuthenticationController extends GetxController {
       generalController.getConversationID();
       generalController.saveConversationID();
 
-      Get.toNamed(AppRoute.subscription);
+      Get.offAllNamed(AppRoute.subscription);
     } else {
       ApiChecker.checkApi(response);
     }
@@ -164,9 +165,6 @@ class AuthenticationController extends GetxController {
           AppConstants.hasSubsCription, response.body["data"]["isPaid"]);
 
       generalController.hitAllAPI();
-
-      generalController.getConversationID();
-      generalController.saveConversationID();
 
       Get.toNamed(AppRoute.homeScreen);
       toastMessage(message: response.body["message"]);

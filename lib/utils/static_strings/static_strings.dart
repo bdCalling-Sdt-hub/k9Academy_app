@@ -195,9 +195,8 @@ class AppStaticStrings {
       "Your Subscription package is Expired. ";
   static const readAll = "Read all";
   static const youDontHaveAny = "You don't have any Subscription";
+  static const youDontHaveNecessary =
+      "You don't have necessary permission to access this feature";
 
   static const endDate = "End date";
-
- 
-
 }

@@ -1,14 +1,20 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/helper/shared_prefe/shared_prefe.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
+import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
+import 'package:k9academy/utils/static_strings/static_strings.dart';
 import 'package:k9academy/view/screens/my_package/controller/my_package.dart';
+import 'package:k9academy/view/widgets/custom_button/custom_button.dart';
 import 'package:k9academy/view/widgets/custom_loader/custom_loader.dart';
+import 'package:k9academy/view/widgets/custom_text/custom_text.dart';
 
 class GeneralController extends GetxController {
   final rxRequestStatus = Status.loading.obs;
@@ -107,7 +113,7 @@ class GeneralController extends GetxController {
 
   ///=============================== Get If Has Subscription ==============================
   RxBool hasSubsCription = false.obs;
-  getSubsInfo() async {
+ Future<void> getSubsInfo() async {
     hasSubsCription.value =
         await SharePrefsHelper.getBool(AppConstants.hasSubsCription) ?? false;
 
@@ -115,6 +121,7 @@ class GeneralController extends GetxController {
 
     debugPrint(
         "hasSubsCription: ============<><><><><><>>>>${hasSubsCription.value}");
+    getSubscriptionLogic();
   }
 
   ///=============================== Save Conversation ID ==============================
@@ -142,7 +149,6 @@ class GeneralController extends GetxController {
     MyPackageController myPackageController = Get.find<MyPackageController>();
 
     bool done = await myPackageController.getMyPackage();
-
     if (done) {
       trainingVideo.value =
           await SharePrefsHelper.getBool(AppConstants.videoTraining) ?? false;
@@ -160,9 +166,46 @@ class GeneralController extends GetxController {
 
       debugPrint(
           "Subscription Logic ===============>>>>>>>>> trainingVideo:$trainingVideo communityGroup:$communityGroup chat:$chat virtualLesson:$virtualLesson program:$program");
-    }
 
-    refresh();
+      refresh();
+    }
+  }
+
+  ///======================= Dont have necessary Subscription Permission ==========================
+
+  subscriptionPopUp() {
+    Get.dialog(AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+        side: BorderSide(
+          color: Colors.white.withOpacity(0.2),
+          width: 2,
+        ),
+      ),
+      backgroundColor: AppColors.blackyDarker,
+      content: SizedBox(
+        height: 110,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            CustomText(
+              maxLines: 2,
+              text: AppStaticStrings.youDontHaveNecessary,
+              fontSize: 14.w,
+              bottom: 10.h,
+            ),
+            CustomButton(
+              onTap: () {
+                navigator?.pop();
+                Get.toNamed(AppRoute.subscription);
+              },
+              title: AppStaticStrings.subscriptionNow,
+            ),
+          ],
+        ),
+      ),
+    ));
   }
 
   ///========================== Hit all methods based on token ==============================
@@ -173,9 +216,9 @@ class GeneralController extends GetxController {
     if (token.isNotEmpty) {
       getContent();
       getId();
+      saveConversationID();
       getConversationID();
       getSubsInfo();
-      getSubscriptionLogic();
     }
   }
 

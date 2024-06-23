@@ -31,7 +31,7 @@ class MyPackageController extends GetxController {
       ///===================== Save Subscription logic ========================
 
       SharePrefsHelper.setBool(AppConstants.videoTraining,
-          myPackage.value.planId?.videoLesson?.status ?? false);
+          myPackage.value.planId?.trainingVideo?.status ?? false);
 
       SharePrefsHelper.setBool(AppConstants.communityGroup,
           myPackage.value.planId?.communityGroup?.status ?? false);
@@ -44,7 +44,7 @@ class MyPackageController extends GetxController {
 
       SharePrefsHelper.setBool(AppConstants.program,
           myPackage.value.planId?.program?.status ?? false);
-      generalController.getSubscriptionLogic();
+
       setRxRequestStatus(Status.completed);
       refresh();
       return true;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
+import 'package:k9academy/global/controller/general_controller.dart';
 import 'package:k9academy/helper/time_converter/time_converter.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/static_strings/static_strings.dart';
@@ -15,7 +16,9 @@ import '../training_programms/training_programs.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-  final HomeController homeController = Get.find();
+  final HomeController homeController = Get.find<HomeController>();
+  final GeneralController generalController = Get.find<GeneralController>();
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -62,11 +65,16 @@ class HomeScreen extends StatelessWidget {
                         horizontal: 20, vertical: 16),
                     child: GestureDetector(
                       onTap: () {
-                        Get.toNamed(AppRoute.communityPostDetails,
-                            arguments: data.id ?? "");
+                        if (generalController.hasSubsCription.value &&
+                            generalController.communityGroup.value) {
+                          Get.toNamed(AppRoute.communityPostDetails,
+                              arguments: data.id ?? "");
+                        } else {
+                          generalController.subscriptionPopUp();
+                        }
                       },
 
-                      ///=======================================CustomCommunity PostDesign====================
+                      ///============================= CustomCommunity PostDesign ===========================
 
                       child: CustomCommunityPost(
                         userId: data.user?.id ?? "",

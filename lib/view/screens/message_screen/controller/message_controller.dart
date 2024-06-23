@@ -120,6 +120,12 @@ class MessageController extends GetxController {
         generalController.imagePath.value.isEmpty) {
       return;
     }
+    if (!generalController.hasSubsCription.value ||
+        !generalController.chat.value) {
+      generalController.subscriptionPopUp();
+      return;
+    }
+
     generalController.showPopUpLoader();
 
     var body = {
