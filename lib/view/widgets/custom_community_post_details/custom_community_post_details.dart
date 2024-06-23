@@ -87,7 +87,10 @@ class _CustomCommunityPostDetailsState
                     CustomNetworkImage(
                       boxShape: BoxShape.circle,
                       imageUrl:
-                          "${ApiUrl.baseUrl}${value.user?.profileImage ?? ""}",
+                          (value.user?.profileImage?.startsWith('https') ??
+                                  false)
+                              ? value.user?.profileImage ?? ""
+                              : "${ApiUrl.baseUrl}${value.user?.profileImage}",
                       height: 50,
                       width: 50,
                     ),

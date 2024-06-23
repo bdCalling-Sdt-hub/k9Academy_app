@@ -74,8 +74,11 @@ class TabBarPostScreen extends StatelessWidget {
                                     data.id ?? "",
                                     true,
                                     {
-                                      "image":
-                                          "${ApiUrl.baseUrl}${data.image ?? ""}",
+                                      "image": (data.user?.profileImage
+                                                  ?.startsWith('https') ??
+                                              false)
+                                          ? data.user?.profileImage ?? ""
+                                          : "${ApiUrl.baseUrl}${data.user?.profileImage}",
                                       "des": data.description ?? ""
                                     }
                                   ]);
@@ -92,8 +95,11 @@ class TabBarPostScreen extends StatelessWidget {
                             icon: const Icon(Icons.more_vert,
                                 color: Colors.white),
                           ),
-                          profileImage:
-                              "${ApiUrl.baseUrl}${data.user?.profileImage ?? ""}",
+                          profileImage: (data.user?.profileImage
+                                      ?.startsWith('https') ??
+                                  false)
+                              ? data.user?.profileImage ?? ""
+                              : "${ApiUrl.baseUrl}${data.user?.profileImage}",
                           comment: false,
                           onTap: () {
                             Get.toNamed(AppRoute.communityPostDetails,

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/core/app_routes/app_routes.dart';
 import 'package:k9academy/helper/network_img/network_img.dart';
+import 'package:k9academy/helper/time_converter/time_converter.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_colors/app_colors.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
@@ -48,7 +49,9 @@ class _OtherProfileState extends State<OtherProfile> {
                 bottom: 10,
                 right: 120,
                 child: CustomText(
-                  text: "Masum Raj",
+                  text: otherProfileController
+                          .otherProfile.value.userInfo?.name ??
+                      "",
                   fontSize: 17.sp,
                   fontWeight: FontWeight.w600,
                 ))
@@ -114,14 +117,12 @@ class _OtherProfileState extends State<OtherProfile> {
               return NoInternetScreen(
                 onTap: () {
                   otherProfileController.getOtherProfile(id: id);
-                  // otherProfileController.getOtherProfile(id);
                 },
               );
             case Status.error:
               return GeneralErrorScreen(
                 onTap: () {
                   otherProfileController.getOtherProfile(id: id);
-                  // otherProfileController.getOtherProfile(id);
                 },
               );
 
@@ -185,7 +186,10 @@ class _OtherProfileState extends State<OtherProfile> {
                               text: otherProfileController
                                       .otherProfile.value.userInfo?.name ??
                                   "",
-                              dateTime: '3 may, 2024',
+                              dateTime: DateConverter.estimatedDate(
+                                  otherProfileController.otherProfile.value
+                                          .userInfo?.createdAt ??
+                                      DateTime.now()),
                               comment: false,
                             ),
                           ),

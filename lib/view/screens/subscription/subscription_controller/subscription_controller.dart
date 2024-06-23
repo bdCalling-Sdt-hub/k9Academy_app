@@ -4,12 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:k9academy/global/controller/general_controller.dart';
+import 'package:k9academy/helper/shared_prefe/shared_prefe.dart';
 import 'package:k9academy/services/api_check.dart';
 import 'package:k9academy/services/api_client.dart';
 import 'package:k9academy/services/app_url.dart';
 import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/utils/toast_message/toast_message.dart';
-import 'package:k9academy/view/screens/subscription/model/promo_model.dart';
 import 'package:k9academy/view/screens/subscription/model/subscription_model.dart';
 
 class SubscriptionController extends GetxController {
@@ -43,33 +43,32 @@ class SubscriptionController extends GetxController {
   }
 
   ///=====================================PromoPackageGet==============================
-  RxList<PromoData> promoData = <PromoData>[].obs;
-  // getPromoPackage() async {
-  //   setRxRequestStatus(Status.loading);
-  //   refresh();
-  //   var response = await ApiClient.getData(ApiUrl.getPromoPackage);
+  Rx<SubscriptionData> promoData = SubscriptionData().obs;
+  getPromoPackage() async {
+    setRxRequestStatus(Status.loading);
+    refresh();
+    var response = await ApiClient.getData(ApiUrl.getPromoPackage);
 
-  //   if (response.statusCode == 200) {
-  //     promoData.value = List<PromoData>.from(
-  //         response.body["data"].map((x) => PromoData.fromJson(x)));
-  //     setRxRequestStatus(Status.completed);
-  //     refresh();
-  //   } else {
-  //     if (response.statusText == ApiClient.noInternetMessage) {
-  //       setRxRequestStatus(Status.internetError);
-  //     } else {
-  //       setRxRequestStatus(Status.error);
-  //     }
-  //     ApiChecker.checkApi(response);
+    if (response.statusCode == 200) {
+      promoData.value = SubscriptionData.fromJson(response.body["data"]);
+      setRxRequestStatus(Status.completed);
+      refresh();
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(response);
 
-  //     refresh();
-  //   }
-  // }
+      refresh();
+    }
+  }
 
-  ///==================================== Promo Code  Post=========================
+  ///==================================== Promo Code  Post =========================
   RxBool isPromoLoading = false.obs;
   TextEditingController promoController = TextEditingController();
-  promoCode() async {
+  promoCodeApply() async {
     isPromoLoading.value = true;
     refresh();
     Map<String, String> body = {"promo_code": promoController.text};
@@ -159,7 +158,8 @@ class SubscriptionController extends GetxController {
 
     if (response.statusCode == 200) {
       toastMessage(message: response.body["message"]);
-      //transactionController.getDealData();
+      SharePrefsHelper.setBool(AppConstants.hasSubsCription, true);
+      generalController.getSubsInfo();
       navigator!.pop();
       return true;
     } else {
@@ -172,6 +172,7 @@ class SubscriptionController extends GetxController {
   @override
   void onInit() {
     getSubscription();
+    getPromoPackage();
     super.onInit();
   }
 }
