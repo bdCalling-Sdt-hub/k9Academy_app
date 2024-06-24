@@ -19,7 +19,6 @@ class AuthenticationController extends GetxController {
 
   TextEditingController passwordController =
       TextEditingController(text: kDebugMode ? "Arafat10@!" : "");
-
   TextEditingController fullNameController = TextEditingController();
   TextEditingController signupEmailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
@@ -141,7 +140,7 @@ class AuthenticationController extends GetxController {
     }
   }
 
-  ///==================================================LogIn ================================
+  ///============================== LogIn ================================
   RxBool isSignInLoading = false.obs;
 
   signInUser() async {
@@ -167,7 +166,7 @@ class AuthenticationController extends GetxController {
       generalController.hitAllAPI();
 
       Get.toNamed(AppRoute.homeScreen);
-      toastMessage(message: response.body["message"]);
+      toastMessage(message: response.body["message"], color: Colors.green);
     } else {
       ApiChecker.checkApi(response);
     }
@@ -175,7 +174,7 @@ class AuthenticationController extends GetxController {
     refresh();
   }
 
-  ///==================================================Forget Password==========================
+  ///============================ Forget Password ==========================
 
   RxBool isForgetLoading = false.obs;
 
@@ -196,7 +195,7 @@ class AuthenticationController extends GetxController {
     refresh();
   }
 
-  ///====================================Forget verify Otp=======================
+  ///========================== Forget verify Otp =======================
   var code = "";
   RxBool isForgetOtpLoading = false.obs;
   TextEditingController forgetOtpPinController = TextEditingController();
@@ -220,7 +219,7 @@ class AuthenticationController extends GetxController {
     refresh();
   }
 
-  ///========================================================reset Password========================
+  ///============================= reset Password =============================
   RxBool isResetLoading = false.obs;
 
   resetPassword() async {
