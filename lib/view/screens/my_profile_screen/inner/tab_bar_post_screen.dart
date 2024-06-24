@@ -74,11 +74,8 @@ class TabBarPostScreen extends StatelessWidget {
                                     data.id ?? "",
                                     true,
                                     {
-                                      "image": (data.user?.profileImage
-                                                  ?.startsWith('https') ??
-                                              false)
-                                          ? data.user?.profileImage ?? ""
-                                          : "${ApiUrl.baseUrl}${data.user?.profileImage}",
+                                      "image":
+                                          "${ApiUrl.baseUrl}${data.image ?? ""}",
                                       "des": data.description ?? ""
                                     }
                                   ]);

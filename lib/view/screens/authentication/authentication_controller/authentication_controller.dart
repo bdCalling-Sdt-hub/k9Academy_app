@@ -85,7 +85,7 @@ class AuthenticationController extends GetxController {
     isOtpLoading.value = false;
     refresh();
     if (response.statusCode == 201) {
-      toastMessage(message: response.body["message"]);
+      toastMessage(message: response.body["message"], color: Colors.green);
       signupEmailController.clear();
       fullNameController.clear();
       phoneNumberController.clear();

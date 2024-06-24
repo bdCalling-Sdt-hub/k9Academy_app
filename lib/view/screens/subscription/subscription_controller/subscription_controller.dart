@@ -163,7 +163,7 @@ class SubscriptionController extends GetxController {
         await ApiClient.postData(ApiUrl.makeOrder, body, contentType: false);
 
     if (response.statusCode == 200) {
-      toastMessage(message: response.body["message"]);
+      toastMessage(message: response.body["message"], color: Colors.green);
       SharePrefsHelper.setBool(AppConstants.hasSubsCription, true);
       generalController.getSubsInfo().then((value) {
         generalController.getSubscriptionLogic();
