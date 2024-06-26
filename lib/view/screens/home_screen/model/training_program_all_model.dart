@@ -1,10 +1,10 @@
-
-
 import 'dart:convert';
 
-TrainingProgramAllModel trainingProgramAllModelFromJson(String str) => TrainingProgramAllModel.fromJson(json.decode(str));
+TrainingProgramAllModel trainingProgramAllModelFromJson(String str) =>
+    TrainingProgramAllModel.fromJson(json.decode(str));
 
-String trainingProgramAllModelToJson(TrainingProgramAllModel data) => json.encode(data.toJson());
+String trainingProgramAllModelToJson(TrainingProgramAllModel data) =>
+    json.encode(data.toJson());
 
 class TrainingProgramAllModel {
   int? statusCode;
@@ -21,21 +21,27 @@ class TrainingProgramAllModel {
     this.data,
   });
 
-  factory TrainingProgramAllModel.fromJson(Map<String, dynamic> json) => TrainingProgramAllModel(
-    statusCode: json["statusCode"],
-    success: json["success"],
-    message: json["message"],
-    meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
-    data: json["data"] == null ? [] : List<TrainingProgramsData>.from(json["data"]!.map((x) => TrainingProgramsData.fromJson(x))),
-  );
+  factory TrainingProgramAllModel.fromJson(Map<String, dynamic> json) =>
+      TrainingProgramAllModel(
+        statusCode: json["statusCode"],
+        success: json["success"],
+        message: json["message"],
+        meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
+        data: json["data"] == null
+            ? []
+            : List<TrainingProgramsData>.from(
+                json["data"]!.map((x) => TrainingProgramsData.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "statusCode": statusCode,
-    "success": success,
-    "message": message,
-    "meta": meta?.toJson(),
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
-  };
+        "statusCode": statusCode,
+        "success": success,
+        "message": message,
+        "meta": meta?.toJson(),
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
+      };
 }
 
 class TrainingProgramsData {
@@ -46,7 +52,7 @@ class TrainingProgramsData {
   String? thumbnail;
   String? video;
   String? videoThumbnail;
-  String? trainingProgram;
+  // String? trainingProgram;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? datumId;
@@ -59,39 +65,44 @@ class TrainingProgramsData {
     this.thumbnail,
     this.video,
     this.videoThumbnail,
-    this.trainingProgram,
+    // this.trainingProgram,
     this.createdAt,
     this.updatedAt,
     this.datumId,
   });
 
-  factory TrainingProgramsData.fromJson(Map<String, dynamic> json) => TrainingProgramsData(
-    id: json["_id"],
-    articleTitle: json["article_title"],
-    articleName: json["article_name"],
-    articleDescription: json["article_description"],
-    thumbnail: json["thumbnail"],
-    video: json["video"],
-    videoThumbnail: json["video_thumbnail"],
-    trainingProgram: json["training_program"],
-    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
-    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
-    datumId: json["id"],
-  );
+  factory TrainingProgramsData.fromJson(Map<String, dynamic> json) =>
+      TrainingProgramsData(
+        id: json["_id"],
+        articleTitle: json["article_title"],
+        articleName: json["article_name"],
+        articleDescription: json["article_description"],
+        thumbnail: json["thumbnail"],
+        video: json["video"],
+        videoThumbnail: json["video_thumbnail"],
+        // trainingProgram: json["training_program"],
+        createdAt: json["createdAt"] == null
+            ? null
+            : DateTime.parse(json["createdAt"]),
+        updatedAt: json["updatedAt"] == null
+            ? null
+            : DateTime.parse(json["updatedAt"]),
+        datumId: json["id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "_id": id,
-    "article_title": articleTitle,
-    "article_name": articleName,
-    "article_description": articleDescription,
-    "thumbnail": thumbnail,
-    "video": video,
-    "video_thumbnail": videoThumbnail,
-    "training_program": trainingProgram,
-    "createdAt": createdAt?.toIso8601String(),
-    "updatedAt": updatedAt?.toIso8601String(),
-    "id": datumId,
-  };
+        "_id": id,
+        "article_title": articleTitle,
+        "article_name": articleName,
+        "article_description": articleDescription,
+        "thumbnail": thumbnail,
+        "video": video,
+        "video_thumbnail": videoThumbnail,
+        //"training_program": trainingProgram,
+        "createdAt": createdAt?.toIso8601String(),
+        "updatedAt": updatedAt?.toIso8601String(),
+        "id": datumId,
+      };
 }
 
 class Meta {
@@ -108,16 +119,16 @@ class Meta {
   });
 
   factory Meta.fromJson(Map<String, dynamic> json) => Meta(
-    page: json["page"],
-    limit: json["limit"],
-    total: json["total"],
-    totalPage: json["totalPage"],
-  );
+        page: json["page"],
+        limit: json["limit"],
+        total: json["total"],
+        totalPage: json["totalPage"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "page": page,
-    "limit": limit,
-    "total": total,
-    "totalPage": totalPage,
-  };
+        "page": page,
+        "limit": limit,
+        "total": total,
+        "totalPage": totalPage,
+      };
 }

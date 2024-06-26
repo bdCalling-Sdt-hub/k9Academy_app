@@ -30,7 +30,8 @@ class TraningDetailsModel {
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<TrainingDetailsDatum>.from(json["data"]!.map((x) => TrainingDetailsDatum.fromJson(x))),
+            : List<TrainingDetailsDatum>.from(
+                json["data"]!.map((x) => TrainingDetailsDatum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -50,7 +51,7 @@ class TrainingDetailsDatum {
   String? articleDescription;
   String? thumbnail;
   String? video;
-  String? videoThumbnail;
+
   String? trainingProgram;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -64,7 +65,6 @@ class TrainingDetailsDatum {
     this.articleDescription,
     this.thumbnail,
     this.video,
-    this.videoThumbnail,
     this.trainingProgram,
     this.createdAt,
     this.updatedAt,
@@ -72,14 +72,14 @@ class TrainingDetailsDatum {
     this.datumId,
   });
 
-  factory TrainingDetailsDatum.fromJson(Map<String, dynamic> json) => TrainingDetailsDatum(
+  factory TrainingDetailsDatum.fromJson(Map<String, dynamic> json) =>
+      TrainingDetailsDatum(
         id: json["_id"],
         articleTitle: json["article_title"],
         articleName: json["article_name"],
         articleDescription: json["article_description"],
         thumbnail: json["thumbnail"],
         video: json["video"],
-        videoThumbnail: json["video_thumbnail"],
         trainingProgram: json["training_program"],
         createdAt: json["createdAt"] == null
             ? null
@@ -98,7 +98,7 @@ class TrainingDetailsDatum {
         "article_description": articleDescription,
         "thumbnail": thumbnail,
         "video": video,
-        "video_thumbnail": videoThumbnail,
+        // "video_thumbnail": videoThumbnail,
         "training_program": trainingProgram,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),

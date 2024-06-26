@@ -6,7 +6,6 @@ class NotificationDatum {
   bool? status;
   DateTime? createdAt;
   DateTime? updatedAt;
-  int? v;
   String? datumId;
 
   NotificationDatum({
@@ -17,7 +16,7 @@ class NotificationDatum {
     this.status,
     this.createdAt,
     this.updatedAt,
-    this.v,
+ 
     this.datumId,
   });
 
@@ -34,7 +33,7 @@ class NotificationDatum {
         updatedAt: json["updatedAt"] == null
             ? null
             : DateTime.parse(json["updatedAt"]),
-        v: json["__v"],
+    
         datumId: json["id"],
       );
 
@@ -46,7 +45,7 @@ class NotificationDatum {
         "status": status,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
-        "__v": v,
+   
         "id": datumId,
       };
 }
