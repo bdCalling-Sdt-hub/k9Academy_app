@@ -12,7 +12,7 @@ import 'package:k9academy/utils/app_const/app_const.dart';
 import 'package:k9academy/view/screens/message_screen/model/message_model.dart';
 
 class MessageController extends GetxController {
-  ScrollController scrollController = ScrollController();
+  Rx<ScrollController> scrollController = ScrollController().obs;
   GeneralController generalController = Get.find<GeneralController>();
   RxInt totalPage = 0.obs;
   RxInt currentPage = 0.obs;
@@ -40,10 +40,9 @@ class MessageController extends GetxController {
       messageList.value = List<MessageDatum>.from(
           response.body["data"].map((x) => MessageDatum.fromJson(x)));
 
-      // if (messageList.isNotEmpty) {
-      //   currentPage.value = response.body['data']['meta']['page'];
-      //   totalPage.value = response.body['data']['meta']['totalPage'];
-      // }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        scrollToBottom();
+      });
 
       setRxRequestStatus(Status.completed);
       refresh();
@@ -93,10 +92,12 @@ class MessageController extends GetxController {
   //===================Pagination Scroll Controller===============
 
   Future<void> addScrollListener() async {
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
-      loadMore();
-    }
+    scrollController.value.addListener(() {
+      if (scrollController.value.position.pixels ==
+          scrollController.value.position.minScrollExtent) {
+        loadMore();
+      }
+    });
   }
 
   ///========================= Listen to Socket =======================
@@ -108,8 +109,13 @@ class MessageController extends GetxController {
 
       MessageDatum newMsg = MessageDatum.fromJson(data);
 
-      messageList.insert(0, newMsg);
+      messageList.insert(messageList.length, newMsg);
       messageList.refresh();
+
+      Future.delayed(const Duration(milliseconds: 200), () {
+        scrollToBottom();
+        scrollController.refresh();
+      });
     });
   }
 
@@ -142,6 +148,7 @@ class MessageController extends GetxController {
               ]);
 
     if (response.statusCode == 200) {
+      refresh();
       sendController.value.clear();
       generalController.imagePath.value = "";
       navigator!.pop();
@@ -151,9 +158,23 @@ class MessageController extends GetxController {
     }
   }
 
+  ///========================= Scroll To Bottom =======================
+
+  void scrollToBottom() {
+    if (scrollController.value.hasClients) {
+      scrollController.value.animateTo(
+        scrollController.value.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.ease,
+      );
+      scrollController.refresh();
+    }
+  }
+
   @override
   void onInit() {
-    scrollController.addListener(addScrollListener);
+    scrollController.value.addListener(addScrollListener);
+
     getMessageList();
     getProfileID();
     socketConnect();

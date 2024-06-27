@@ -113,7 +113,7 @@ class GeneralController extends GetxController {
 
   ///=============================== Get If Has Subscription ==============================
   RxBool hasSubsCription = false.obs;
- Future<void> getSubsInfo() async {
+  Future<void> getSubsInfo() async {
     hasSubsCription.value =
         await SharePrefsHelper.getBool(AppConstants.hasSubsCription) ?? false;
 

@@ -52,8 +52,8 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
 
             case Status.completed:
               return ListView.builder(
-                  reverse: true,
-                  controller: messageController.scrollController,
+                  // reverse: true,
+                  controller: messageController.scrollController.value,
                   itemCount: messageController.messageList.length,
                   itemBuilder: (context, index) {
                     var data = messageController.messageList[index];
@@ -61,7 +61,7 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                       return Column(
                         ///=======================Align the text based on user=================
                         crossAxisAlignment:
-                            data.senderId == messageController.profileID.value
+                            data.senderId != messageController.profileID.value
                                 ? CrossAxisAlignment.end
                                 : CrossAxisAlignment.start,
                         children: [
