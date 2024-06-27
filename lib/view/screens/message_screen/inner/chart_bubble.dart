@@ -60,16 +60,14 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                     if (messageController.isLoadMoreRunning.value == false) {
                       return Column(
                         ///=======================Align the text based on user=================
-                        crossAxisAlignment:
-                            data.senderId != messageController.profileID.value
-                                ? CrossAxisAlignment.end
-                                : CrossAxisAlignment.start,
+                        crossAxisAlignment: data.sender == "user"
+                            ? CrossAxisAlignment.end
+                            : CrossAxisAlignment.start,
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(bottom: 15),
                             child: Row(
-                              mainAxisAlignment: data.senderId ==
-                                      messageController.profileID.value
+                              mainAxisAlignment: data.sender == "user"
                                   ? MainAxisAlignment.end
                                   : MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,15 +79,13 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                     data.messageType == "both")
                                   Flexible(
                                     child: Row(
-                                      mainAxisAlignment: data.senderId ==
-                                              messageController.profileID.value
+                                      mainAxisAlignment: data.sender == "user"
                                           ? MainAxisAlignment.end
                                           : MainAxisAlignment.start,
                                       children: [
                                         ///=======================Show time if Getting Message=================
 
-                                        if (data.senderId ==
-                                            messageController.profileID.value)
+                                        if (data.sender == "user")
                                           CustomText(
                                             right: 10.w,
                                             text: DateConverter.hourMinit(
@@ -110,9 +106,7 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                                 vertical: 10),
                                             decoration: BoxDecoration(
                                                 border: Border.all(
-                                                    color: data.senderId ==
-                                                            messageController
-                                                                .profileID.value
+                                                    color: data.sender == "user"
                                                         ? AppColors
                                                             .lightDarkHover
                                                         : AppColors.blueNormal,
@@ -122,9 +116,7 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                                 color: data.messageType ==
                                                         "both"
                                                     ? null
-                                                    : data.senderId ==
-                                                            messageController
-                                                                .profileID.value
+                                                    : data.sender == "user"
                                                         ? AppColors.messageText
                                                         : AppColors
                                                             .blueNormalHover),
@@ -153,9 +145,7 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
                                                           : 0,
                                                   fontWeight: FontWeight.w400,
                                                   text: data.message ?? "",
-                                                  color: data.senderId ==
-                                                          messageController
-                                                              .profileID.value
+                                                  color: data.sender == "user"
                                                       ? AppColors.light
                                                       : AppColors.light,
                                                 ),
@@ -166,8 +156,7 @@ class _ChatBubbleMessageState extends State<ChatBubbleMessage> {
 
                                         ///=======================Show time if Sending Message=================
 
-                                        if (data.senderId !=
-                                            messageController.profileID.value)
+                                        if (data.sender != "user")
                                           CustomText(
                                             left: 10.w,
                                             text: DateConverter.hourMinit(

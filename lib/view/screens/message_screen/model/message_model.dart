@@ -4,7 +4,7 @@
 
 class MessageDatum {
   String? id;
-  String? senderId;
+  String? sender;
   String? conversationId;
   String? image;
   String? message;
@@ -16,7 +16,7 @@ class MessageDatum {
 
   MessageDatum({
     this.id,
-    this.senderId,
+    this.sender,
     this.conversationId,
     this.image,
     this.message,
@@ -29,7 +29,7 @@ class MessageDatum {
 
   factory MessageDatum.fromJson(Map<String, dynamic> json) => MessageDatum(
         id: json["_id"],
-        senderId: json["senderId"],
+        sender: json["sender"],
         conversationId: json["conversationId"],
         image: json["image"],
         message: json["message"],
@@ -46,7 +46,7 @@ class MessageDatum {
 
   Map<String, dynamic> toJson() => {
         "_id": id,
-        "senderId": senderId,
+        "sender": sender,
         "conversationId": conversationId,
         "image": image,
         "message": message,
