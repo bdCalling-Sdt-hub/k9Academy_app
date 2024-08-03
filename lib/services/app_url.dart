@@ -1,7 +1,10 @@
 class ApiUrl {
   ///=================================This is baseUrl==============================================>
-  static const baseUrl = "http://192.168.10.116:7000";
-  static const socketUrl = "http://192.168.10.116:7000";
+  // static const baseUrl = "http://192.168.10.116:7000"; //Local
+  // static const socketUrl = "http://192.168.10.116:7000";// Local
+
+  static const baseUrl = "http://143.198.3.51:8000"; //Live
+  static const socketUrl = "http://143.198.3.51:8000"; //Live
 
   ///=================================Authentication url==========================
   static const signupAuth = "/auth/register";

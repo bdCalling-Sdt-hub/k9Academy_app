@@ -13,19 +13,19 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - ReachabilitySwift (5.2.1)
+  - ReachabilitySwift (5.2.3)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
   - sqflite (0.0.3):
     - Flutter
     - FlutterMacOS
-  - Stripe (23.27.0):
-    - StripeApplePay (= 23.27.0)
-    - StripeCore (= 23.27.0)
-    - StripePayments (= 23.27.0)
-    - StripePaymentsUI (= 23.27.0)
-    - StripeUICore (= 23.27.0)
+  - Stripe (23.27.6):
+    - StripeApplePay (= 23.27.6)
+    - StripeCore (= 23.27.6)
+    - StripePayments (= 23.27.6)
+    - StripePaymentsUI (= 23.27.6)
+    - StripeUICore (= 23.27.6)
   - stripe_ios (0.0.1):
     - Flutter
     - Stripe (~> 23.27.0)
@@ -34,29 +34,29 @@ PODS:
     - StripePayments (~> 23.27.0)
     - StripePaymentSheet (~> 23.27.0)
     - StripePaymentsUI (~> 23.27.0)
-  - StripeApplePay (23.27.0):
-    - StripeCore (= 23.27.0)
-  - StripeCore (23.27.0)
-  - StripeFinancialConnections (23.27.0):
-    - StripeCore (= 23.27.0)
-    - StripeUICore (= 23.27.0)
-  - StripePayments (23.27.0):
-    - StripeCore (= 23.27.0)
-    - StripePayments/Stripe3DS2 (= 23.27.0)
-  - StripePayments/Stripe3DS2 (23.27.0):
-    - StripeCore (= 23.27.0)
-  - StripePaymentSheet (23.27.0):
-    - StripeApplePay (= 23.27.0)
-    - StripeCore (= 23.27.0)
-    - StripePayments (= 23.27.0)
-    - StripePaymentsUI (= 23.27.0)
-  - StripePaymentsUI (23.27.0):
-    - StripeCore (= 23.27.0)
-    - StripePayments (= 23.27.0)
-    - StripeUICore (= 23.27.0)
-  - StripeUICore (23.27.0):
-    - StripeCore (= 23.27.0)
-  - Toast (4.1.0)
+  - StripeApplePay (23.27.6):
+    - StripeCore (= 23.27.6)
+  - StripeCore (23.27.6)
+  - StripeFinancialConnections (23.27.6):
+    - StripeCore (= 23.27.6)
+    - StripeUICore (= 23.27.6)
+  - StripePayments (23.27.6):
+    - StripeCore (= 23.27.6)
+    - StripePayments/Stripe3DS2 (= 23.27.6)
+  - StripePayments/Stripe3DS2 (23.27.6):
+    - StripeCore (= 23.27.6)
+  - StripePaymentSheet (23.27.6):
+    - StripeApplePay (= 23.27.6)
+    - StripeCore (= 23.27.6)
+    - StripePayments (= 23.27.6)
+    - StripePaymentsUI (= 23.27.6)
+  - StripePaymentsUI (23.27.6):
+    - StripeCore (= 23.27.6)
+    - StripePayments (= 23.27.6)
+    - StripeUICore (= 23.27.6)
+  - StripeUICore (23.27.6):
+    - StripeCore (= 23.27.6)
+  - Toast (4.1.1)
   - video_player_avfoundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -120,19 +120,19 @@ SPEC CHECKSUMS:
   image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
   package_info_plus: 58f0028419748fad15bf008b270aaa8e54380b1c
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
-  ReachabilitySwift: 5ae15e16814b5f9ef568963fb2c87aeb49158c66
+  ReachabilitySwift: 7f151ff156cea1481a8411701195ac6a984f4979
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
-  Stripe: ee6dfffc5e8a9fcdc6e023e041b52cfea362df6e
+  Stripe: 9fec845645e39f371e6898926d096fd9c2feb5a5
   stripe_ios: 03c617acee72e48a2d055d096a4b0ed2afebb256
-  StripeApplePay: c76959cf0149f908a803f91ce750332b39c0decc
-  StripeCore: bbaa237ed7d273315d9c8c48d3103e4fe1bcd380
-  StripeFinancialConnections: 22e4118f77f7cc593e27f2fa06af2ab7ae085049
-  StripePayments: feb5245e89c901edd849436f9f35d285619a1ccc
-  StripePaymentSheet: 1faf0148cd85d7c67b9c290b9a1af25f8e0a4107
-  StripePaymentsUI: 000e30dc6bc5b04f36f8a9fac80b6a4a5298cd99
-  StripeUICore: 31c66d62940078bd132c23a1fe9ec8746edc02a2
-  Toast: ec33c32b8688982cecc6348adeae667c1b9938da
+  StripeApplePay: 5f017e8dfe259fafbab70137776189deef754bb2
+  StripeCore: 01ec57f0dddfe742054dc6a322f811426c25313d
+  StripeFinancialConnections: 56698cb6274bf89fb8c76b934f6156f368e97765
+  StripePayments: 6adf11faf1b7038e77aa97019410305c6adca79d
+  StripePaymentSheet: 3eaf870c4388e44b0cc37e4c69d00b6957fd8bd7
+  StripePaymentsUI: 59ccddeacad592b09fa67e8d641340820ddb4751
+  StripeUICore: 879bbf5889265db13f52fac8aad7a176ba62481f
+  Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
   video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
   wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
 
