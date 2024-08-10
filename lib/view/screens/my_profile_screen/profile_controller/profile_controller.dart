@@ -90,6 +90,7 @@ class ProfileController extends GetxController {
     if (getImages != null) {
       imageFile.value = File(getImages.path);
       image.value = getImages.path;
+      multipartRequest();
     }
   }
 
@@ -106,6 +107,7 @@ class ProfileController extends GetxController {
     if (getImages != null) {
       coverImageFile.value = File(getImages.path);
       coverImage.value = getImages.path;
+      multipartRequest();
     }
   }
 
@@ -149,7 +151,8 @@ class ProfileController extends GetxController {
         getProfile();
         var data = await response.stream.bytesToString();
         isAddItem.value = !isAddItem.value;
-        toastMessage(message: "Profile Update successfully");
+        toastMessage(
+            message: "Profile Update successfully", color: Colors.green);
         debugPrint("=================> data $data");
         isUpdateProfileLoading.value = false;
         update();

@@ -5,11 +5,10 @@ class DateConverter {
     return DateFormat('dd MMM yyyy').format(dateTime);
   }
 
-  // static String formatDetails(String dateString) {
-  //   var inputDate = DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ').parse(dateString);
-  //   var outputFormat = DateFormat('dd MMM yyy').format(inputDate);
-  //   return outputFormat;
-  // }
+  static String monthDateYear(DateTime dateTime) {
+    return DateFormat('MMM dd yyyy').format(dateTime);
+  }
+
   static String formatDetails(String dateString) {
     try {
       // Parse the ISO 8601 date string to a DateTime object
@@ -60,7 +59,7 @@ class DateConverter {
     if (currentHour >= morningBoundary && currentHour < noonBoundary) {
       return "Good Morning";
     } else if (currentHour >= noonBoundary && currentHour < eveningBoundary) {
-      return "Good After Noon";
+      return "Good Afternoon";
     } else {
       return "Good Evening";
     }

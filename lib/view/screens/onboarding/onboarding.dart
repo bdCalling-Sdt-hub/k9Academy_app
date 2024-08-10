@@ -20,9 +20,9 @@ class OnBoardingPage extends StatefulWidget {
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
   List<String> titleFirstPart = [
-    " simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
-    " simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
-    " simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard"
+    "Up A Level K9 is dedicated to helping you discover the greatness in your dog. This app is designed to give you the tools you need to communicate effectively with your dog.",
+    "All subscriptions give you access to training videos with Karen Wannemaker. ",
+    "We are excited to journey with you and your dog!"
   ];
   int currentIndex = 0;
 
@@ -88,7 +88,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                                         fontWeight: FontWeight.w600,
                                         fontSize: 32.sp,
                                         color: AppColors.lightNormal,
-                                        text: "Hii")),
+                                        text: "Welcome!")),
                               ],
                             ),
                           ),

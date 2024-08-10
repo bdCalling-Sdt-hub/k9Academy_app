@@ -1,7 +1,7 @@
 class AppStaticStrings {
   //============================= OnBoarding ================================
   static const dental = "Dental";
-  static const getStarted = "Get Start";
+  static const getStarted = "Get Started";
   static const link = "Link";
 
   ///============================= Authentication ================================///

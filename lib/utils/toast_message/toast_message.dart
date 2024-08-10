@@ -41,6 +41,7 @@ void showCustomSnackBar(String? message,
 
 void toastMessage({required String message, Color color = Colors.red}) {
   Fluttertoast.showToast(
+    timeInSecForIosWeb: 2,
     msg: message,
     backgroundColor: color,
     textColor: Colors.white,

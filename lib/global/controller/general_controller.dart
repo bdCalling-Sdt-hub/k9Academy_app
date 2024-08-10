@@ -184,7 +184,7 @@ class GeneralController extends GetxController {
       ),
       backgroundColor: AppColors.blackyDarker,
       content: SizedBox(
-        height: 110,
+        height: 150,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceAround,

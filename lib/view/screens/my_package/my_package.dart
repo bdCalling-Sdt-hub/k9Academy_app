@@ -57,7 +57,7 @@ class MyPackageScreen extends StatelessWidget {
                       children: [
                         CustomText(
                           text:
-                              "${AppStaticStrings.endDate}: ${DateConverter.estimatedDate(data.endDate ?? DateTime.now())}",
+                              "${AppStaticStrings.endDate}: ${DateConverter.monthDateYear(data.endDate ?? DateTime.now())}",
                           color: AppColors.blueLightActive,
                           fontSize: 14.sp,
                           bottom: 8,
@@ -72,7 +72,7 @@ class MyPackageScreen extends StatelessWidget {
                         ),
                         CustomText(
                           text:
-                              "${AppStaticStrings.price}: ${data.planId?.packagePrice ?? 0.0}\$",
+                              "${AppStaticStrings.price}: \$${data.planId?.packagePrice ?? 0.0}",
                           color: AppColors.lightNormalHover,
                           fontSize: 14.sp,
                           bottom: 8,
