@@ -44,11 +44,16 @@ class TrainingPrograms extends StatelessWidget {
               height: 260.w,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: generalController.hasSubsCription.value
-                      ? homeController.trainingList.length
-                      : homeController.trainingList.length >= 3
-                          ? 3
-                          : homeController.trainingList.length,
+
+                  /// TODO FIX IT Again
+                  itemCount: homeController.trainingList.length,
+
+                  // generalController.hasSubsCription.value
+                  //     ? homeController.trainingList.length
+                  //     : homeController.trainingList.length >= 3
+                  //         ? 3
+                  //         : homeController.trainingList.length,
+
                   itemBuilder: (context, index) {
                     var data = homeController.trainingList[index];
                     return GestureDetector(

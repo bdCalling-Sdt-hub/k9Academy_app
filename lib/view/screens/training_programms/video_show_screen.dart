@@ -26,9 +26,18 @@ class _VideoShowScreenState extends State<VideoShowScreen> {
     try {
       final videoUrl = "${ApiUrl.baseUrl}/${data.video}";
 
+      debugPrint("Video Path ==========>>>>>>>>>>> $videoUrl");
+
       videoPlayerController =
           VideoPlayerController.networkUrl(Uri.parse(videoUrl));
-      await videoPlayerController.initialize();
+
+      await videoPlayerController.initialize().then((_) {
+        setState(() {
+          _isVideoInitialized = true;
+        });
+      }).catchError((error) {
+        debugPrint("Error initializing video player: $error");
+      });
 
       chewieController = ChewieController(
         videoPlayerController: videoPlayerController,
